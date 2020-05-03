@@ -1,0 +1,21 @@
+compliant:
+  key: test
+  api_endpoint: /apikey/
+  NonKeyAttributes:
+    - Booking-ID
+  Resource:
+    - CredstashKeyID: !ImportValue CredstashKeyID
+    - CredstashKey: !ImportValue CredstashKey
+
+noncompliant:
+  apikey: YXNkZmZmZmZm_HARDcoded
+  TRAVEL_API_KEY: YXNkZmZmZmZm_HARDcoded
+  PRIVATE_API_TOKEN: YXNkZmZmZmZm_HARDcoded
+  SKYSCANNER_API_SECRET: YXNkZmZmZmZm_HARDcoded
+  slackKey: YXNkZmZmZmZm_HARDcoded
+  GITLAB_KEY: YXNkZmZmZmZm_HARDcoded
+  Google_token: YXNkZmZmZmZm_HARDcoded
+  environment:
+    - GITHUBKEY=YXNkZmZmZmZm_HARDcoded
+    - license_key: YXNkZmZmZmZm_HARDcoded
+  NUMERIC_APIKEY: 1925483168813050783076

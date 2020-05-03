@@ -1,0 +1,16 @@
+---
+defaultCount: {{ desired_count }}
+development:
+  app_id: <%= app['client_id'] %>
+  asdf: 123
+accounts:
+  - name: {{ name }}
+{% if account != "client" %}
+  - account: [{{ account }}]
+{% endif %}
+<%
+  if app.nil?
+    app = Hash.new
+  end
+%>
+iam.amazonaws.com/role: {{ assumed_iam_role }}

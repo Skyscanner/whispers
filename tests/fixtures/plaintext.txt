@@ -1,0 +1,7 @@
+--------------------------------------------- COMPLIANT
+Use JDBC URL jdbc:mysql://localhost/authority?user=admin&userpass=
+Connect to https://localhost:8000/admin for full access
+
+--------------------------------------------- NONCOMPLIANT
+Use JDBC URL jdbc:mysql://localhost/authority?user=admin&userpass=hardcoded
+Connect to https://admin:hardcoded@localhost:8000/admin for full access

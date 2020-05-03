@@ -1,0 +1,31 @@
+include:
+  files:
+    - "**/*"
+
+exclude:
+  files:
+    - ".git/**/*"
+    - ".vscode/**/*"
+    - "build/**/*"
+    - "dev/**/*"
+    - "**/__pycache__/**/*"
+    - "**/.eggs/**/*"
+    - "**/locales/**/*"
+    - "**/spec/**/*"
+    - "**/specs/**/*"
+    - "**/test/**/*"
+    - "**/tests/**/*"
+    - "**/mock/**/*"
+    - "**/mocks/**/*"
+    - "**/integration/**/*"
+    - "**/package-lock.json"
+    - "**/package.json"
+    - "**/npm-shrinkwrap.json"
+    - "**/node_modules/**/*"
+  keys:
+    - .*public.*
+  values:
+    - ^(true|false|yes|no|1|0)$
+    - .*_(user|password|token|key|placeholder|name)$
+    - ^aws_(access_key_id|secret_access_key|session_token)$
+    - ^arn:aws:.*

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tests>
+  <compliant>
+    <key>test</key>
+    <api_endpoint>/apikey/</api_endpoint>
+  </compliant>
+  <noncompliant>
+    <apikey>YXNkZmZmZmZm_HARDcoded</apikey>
+    <TRAVEL_API_KEY>YXNkZmZmZmZm_HARDcoded</TRAVEL_API_KEY>
+    <PRIVATE_API_TOKEN>YXNkZmZmZmZm_HARDcoded</PRIVATE_API_TOKEN>
+    <SKYSCANNER_API_SECRET>YXNkZmZmZmZm_HARDcoded</SKYSCANNER_API_SECRET>
+    <slackKey>YXNkZmZmZmZm_HARDcoded</slackKey>
+    <GITLAB_KEY>YXNkZmZmZmZm_HARDcoded</GITLAB_KEY>
+    <Google_token>YXNkZmZmZmZm_HARDcoded</Google_token>
+    <environment>GITHUBKEY=YXNkZmZmZmZm_HARDcoded</environment>
+    <license_key>YXNkZmZmZmZm_HARDcoded</license_key>
+    <NUMERIC_APIKEY>1925483168813050783076</NUMERIC_APIKEY>
+  </noncompliant>
+</tests>

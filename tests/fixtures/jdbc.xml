@@ -1,0 +1,36 @@
+<realms>
+    <compliant>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;password="
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;password=$password"
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;password={{pwd}}"
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+    </compliant>
+    <noncompliant>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;password=hardcoded1"
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;userpass=hardcoded2"
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+        <Realm className="org.apache.catalina.realm.JDBCRealm"
+            driverName="org.gjt.mm.mysql.Driver"
+        connectionURL="jdbc:mysql://localhost/authority?user=dbuser&amp;pwd=hardcoded3"
+            userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name"/>
+    </noncompliant>
+</realms>

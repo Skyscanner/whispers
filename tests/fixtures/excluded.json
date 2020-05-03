@@ -1,0 +1,16 @@
+{
+  "compliant": {
+    "retrieve_these_secret_keys": {
+      "api_key": "API_KEY",
+      "api_secret": "AUTH_TOKEN"
+    },
+    "integration-tests": {
+      "environment": [
+        "DB_PASSWORD=justForTesting"
+      ]
+    }
+  },
+  "noncompliant": {
+    "hardcoded_password": "password1"
+  }
+}

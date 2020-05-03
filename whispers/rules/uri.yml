@@ -1,0 +1,7 @@
+uri:
+  description: Text containing URIs
+  message: URI
+  severity: INFO
+  value:
+    regex: (http|ftp|smtp|scp|ssh|jdbc[:\w\d]*|s3)s?://?.+
+    ignorecase: True

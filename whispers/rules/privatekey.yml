@@ -1,0 +1,7 @@
+privatekey: 
+  description: Text resembling a private key format
+  message: Private key
+  severity: CRITICAL
+  value:
+    regex: .*[\-]{3,}BEGIN (RSA|DSA|EC|OPENSSH|PRIVATE)? ?(PRIVATE)? KEY[\-]{3,}.*
+    ignorecase: False

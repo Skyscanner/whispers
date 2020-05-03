@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tests>
+  <compliant>
+    <o1_variable_password>$password</o1_variable_password>
+    <o2_variable_password>$$password</o2_variable_password>
+    <o3_variable_password>${password}</o3_variable_password>
+    <o4_variable_password>${{password}}</o4_variable_password>
+    <o5_variable_password>{{ password }}</o5_variable_password>
+    <o6_variable_password>{{ THIS_IS_A_VERY_LONG_A_PLACEHOLDER_FOR_PASSWORD }}</o6_variable_password>
+    <o7_variable_password>{password}</o7_variable_password>
+    <o8_variable_password>{ password }</o8_variable_password>
+  </compliant>
+  <noncompliant>
+    <o1_hardcoded_password>hardcoded0</o1_hardcoded_password>
+    <o2_hardcoded_passwords>
+      <o2_1_hardcoded_passwords>Hardcoded1</o2_1_hardcoded_passwords>
+      <o2_2_hardcoded_passwords>hardCoded2</o2_2_hardcoded_passwords>
+      <o2_3_hardcoded_passwords>haRdcOded3</o2_3_hardcoded_passwords>
+    </o2_hardcoded_passwords>
+    <credentials>
+      <login>admin</login>
+      <password>hardcodEd</password>
+    </credentials>
+  </noncompliant>
+</tests>

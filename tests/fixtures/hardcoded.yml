@@ -1,0 +1,19 @@
+# Compliant
+01_variable_password: $password
+02_variable_password: $$password
+03_variable_password: ${password}
+04_variable_password: ${{password}}
+05_variable_password: "{{ password }}"
+06_variable_password: "{{ THIS_IS_A_VERY_LONG_A_PLACEHOLDER_FOR_PASSWORD }}"
+07_variable_password: "{password}"
+08_variable_password: "{ password }"
+
+# Noncompliant
+01_hardcoded_password: hardcoded0
+02_hardcoded_passwords:
+  - "Hardcoded1"
+  - "hardCoded2"
+  - "haRdcOded3"
+credentials:
+  login: admin
+  password: hardcodEd

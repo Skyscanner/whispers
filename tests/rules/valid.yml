@@ -1,0 +1,7 @@
+valid: 
+  description: Valid rule config
+  message: Valid
+  severity: INFO
+  value:
+    regex: ^test$
+    ignorecase: False

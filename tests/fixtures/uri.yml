@@ -1,0 +1,10 @@
+compliant:
+  - "s3://bucket"
+  - "https://this-is-not-a-password.com"
+  - "gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch\n"
+  - "jdbc:mysql://localhost/authority?user=admin&userpass="
+  - "https://localhost:8000/admin"
+
+noncompliant:
+  - "jdbc:mysql://localhost/authority?user=admin&userpass=hardcoded"
+  - "https://admin:hardcoded@localhost:8000/admin"

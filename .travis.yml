@@ -1,0 +1,18 @@
+language: python
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+install:
+  - make install-dev
+script:
+  - make lint coverage
+deploy:
+  provider: pypi
+  user: adeptex
+  on:
+    tags: true
+  password:
+    secure: "qf2ZhRKFuNrHCQw9ALG3Slkw1byazpqcQXhEmvB0IZgEO0SuG8ys5bcONP95BqVJXEEWJu50GvRcqOjJKjZaK5Rp3YwameV9vZjv8Ja0OEY1KYXMNGka2hU3CtntnK1QCNLSLeRHWSGDP/cGqrkdwJhYpectRSjLnNnaf2j1iUobGW8ys28p9T+AuSljxRNk13mQ9SQe5OSnt5nrdbb80gsABaRy3uE+lf6HkrEiIGx/HjNGmUh39CZddwxOQAWeUzXzBbbaiZ1tBpbQzEXoY3r6StQR7eMmJ4cwcEmIIQ2k4DoBLNef54Wlb8akO83DhnHEAsq+UY1b2D+HPW1TVK/RDEqN4w2MuoespDpMfsCGeg7I0ENchCce/KIlGhxTJk1Ut5jFYmO3yaSRzr5VAUmQe8GemsYB7W9GlAkU/qpE9BaXx8KpIRzRS7aK8k+fCJbArV1Y0MyY6sOcoOr0CgduZv3F86vpbkfVKbrbbjQnYpUNkpoq09r7dBK8bdfnJtctG1P41g29LNW/mT4IxiGFeKnssqehxbxfDAr46aiDvw/V7pNvja3iSpKWyMwfRDndln0lrYJXFIAnErccpIM3bondNSruSo/+YQU8tw4cZqgp+4pH9JTm3E+tt7HCyuUCz2RDhysiS3WLb+PjOQg0MwRPKQjJbzmWFpEQ110="
+env:
+  BOTO_CONFIG: /dev/null

@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFormation Example
+Parameters:
+  CompliantDBUser:
+    Description: Database username
+    Type: String
+    Default: admin
+  CompliantDBPassword:
+    Description: Database password
+    Type: String
+    NoEcho: true
+  NoncompliantDBPassword:
+    Description: Database password
+    Type: String
+    Default: admin

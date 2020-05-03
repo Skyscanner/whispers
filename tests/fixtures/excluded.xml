@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tests>
+  <compliant>
+    <retrieve_these_secret_keys>
+      <api_key>API_KEY</api_key>
+      <api_secret>AUTH_TOKEN</api_secret>
+    </retrieve_these_secret_keys>
+    <integration-tests>
+      <environment>
+        <DB_PASSWORD>justForTesting</DB_PASSWORD>
+      </environment>
+    </integration-tests>
+  </compliant>
+  <noncompliant>
+    <hardcoded_password>password1</hardcoded_password>
+  </noncompliant>
+</tests>

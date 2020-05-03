@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<spring:beans xmlns:abc="your namespace">
+	<ss:authentication-manager alias="authenticationManager">
+    	<ss:authentication-provider>
+        	<ss:user-service id="compliant">
+            	<ss:user name="admin" password="" authorities="ROLE_USER" />
+                <ss:user name="admin" secret="${PASSWORD}" authorities="ROLE_USER" />
+                <ss:user name="admin" accesskey="{{ password }}" authorities="ROLE_USER" />
+            </ss:user-service>
+            <ss:user-service id="noncompliant">
+            	<ss:user name="admin" password="YXNkZmZmZmZm_HARDcoded" authorities="ROLE_USER" />
+                <ss:user name="admin" secret="YXNkZmZmZmZm_HARDcoded" authorities="ROLE_USER" />
+                <ss:user name="admin" accesskey="YXNkZmZmZmZm_HARDcoded" authorities="ROLE_USER" />
+            </ss:user-service>
+        </ss:authentication-provider>
+    </ss:authentication-manager>
+</spring:beans>

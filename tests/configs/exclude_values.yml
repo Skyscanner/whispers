@@ -1,0 +1,6 @@
+exclude:
+  keys:
+    - integration-tests
+  values:
+    - API_KEY
+    - AUTH_TOKEN

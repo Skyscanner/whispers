@@ -1,0 +1,22 @@
+compliant:
+  passenger: "ok1"
+  passwordForPassenger: "ok2"
+  passthrough: "ok3"
+  passwordPassthrough: "ok4"
+  secretary: "ok5"
+  secretSecretary: "ok6"
+  PasswordResetUrl: "ok7"
+  publicKey: "ok8"
+  bucket_key: s3://{{ s3().master_bucket }}/{{ macros.s3().raw_prefix}}/sessions
+  write_key: 's3://{bucket}/deduped_events/schema_type={schema}/dt={date}'
+  webhookApiSecret: ZENDESK_WEBHOOK_API_SECRET
+  S3_ARCHIVE_ACCESS_KEY: "Get this from elsewhere"
+  UserData: 
+    - "gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch\n"
+  PolicyName: SandboxConfigurationS3BucketAccessPolicy
+
+noncompliant:
+  secretarySecret: "hardcoded1"
+  resetUrlPassword: "hardcoded2"
+  FAIL3_PSQL_PASSWORD: hardcoded3
+  secretKey: 'lmaoisdizareel0ne?hardcoded4'

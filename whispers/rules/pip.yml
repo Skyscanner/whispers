@@ -1,0 +1,9 @@
+pip: 
+  description: Hardcoded pip.conf password
+  message: pip.conf Password
+  severity: CRITICAL
+  key:
+    regex: ^pip password$
+    ignorecase: False
+  value:
+    minlen: 1

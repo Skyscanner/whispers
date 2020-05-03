@@ -1,0 +1,19 @@
+{
+  "compliant": {
+    "secrets": [
+      {"key": "pro_email", "value": "email@domain.tld", "info": "metadata"},
+      {"key": "username", "value": "username"},
+      {"key": "account", "value": 1234},
+      {"key": "password", "value": ""}
+    ]
+  },
+  "noncompliant": {
+    "secrets": [
+      {"key": "pro_password", "value": "hardcoded1", "info": "metadata"},
+      {"key": "business.password", "value": "hardcoded2"},
+      {"key": "password", "value": "hardcoded3"},
+      {"key": "Password", "value": "hardcoded4"},
+      {"key": "PASS", "value": "hardcoded5"}
+    ]
+  }
+}

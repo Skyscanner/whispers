@@ -1,0 +1,13 @@
+apikey: 
+  description: Variable names refering to API keys
+  message: API key
+  severity: MAJOR
+  key:
+    regex: .*[A-Za-z0-9\-\_]+(key|token)$
+    ignorecase: True
+  value:
+    regex: ^(?!.*[ ])
+    ignorecase: True
+    minlen: 16
+    isUri: False
+  similar: 0.35

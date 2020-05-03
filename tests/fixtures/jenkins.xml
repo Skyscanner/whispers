@@ -1,0 +1,41 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<user>
+    <fullName>admin</fullName>
+    <properties>
+        <jenkins.security.ApiTokenProperty>
+            <compliantApiToken>{token}</compliantApiToken>
+            <noncompliantApiToken>{fakeMqduWo2FzpsjF8C5eYb5fah6jeo7K2rF8t4d0mH5xw4Usaz63GZiUpNwzGZsqT3ZoT/iU2/WFfL8kmKjg72fqhjYipyTyqTSKHzr8rvdcT0/MkErfKklCw4Wx3f7ypmlAW3ruZVY}</noncompliantApiToken>
+        </jenkins.security.ApiTokenProperty>
+        <hudson.model.MyViewsProperty>
+            <views>
+                <hudson.model.AllView>
+                    <owner class="hudson.model.MyViewsProperty" reference="../../.." />
+                    <name>All</name>
+                    <filterExecutors>false</filterExecutors>
+                    <filterQueue>false</filterQueue>
+                    <properties class="hudson.model.View$PropertyList" />
+                </hudson.model.AllView>
+            </views>
+        </hudson.model.MyViewsProperty>
+        <hudson.model.PaneStatusProperties>
+            <collapsed />
+        </hudson.model.PaneStatusProperties>
+        <hudson.search.UserSearchProperty>
+            <insensitiveSearch>false</insensitiveSearch>
+        </hudson.search.UserSearchProperty>
+        <hudson.security.HudsonPrivateSecurityRealm_-Details>
+            <compliantPasswordHash>{{ passwordHash }}</compliantPasswordHash>
+            <noncompliantPasswordHash>#jbcrypt:$2a$10$fakefn2U3jfdByqbHc.fake9ejqu//fake9p8P222cdfwjdnMFdxS</noncompliantPasswordHash>
+        </hudson.security.HudsonPrivateSecurityRealm_-Details>
+        <io.jenkins.blueocean.autofavorite.user.FavoritingUserProperty plugin="blueocean-autofavorite@1.2.2">
+            <autofavoriteEnabled>true</autofavoriteEnabled>
+        </io.jenkins.blueocean.autofavorite.user.FavoritingUserProperty>
+        <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@2.1.16">
+            <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash" />
+        </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
+        <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.21" />
+        <org.jenkinsci.plugins.displayurlapi.user.PreferredProviderUserProperty plugin="display-url-api@2.2.0">
+            <providerId>default</providerId>
+        </org.jenkinsci.plugins.displayurlapi.user.PreferredProviderUserProperty>
+    </properties>
+</user>

@@ -1,0 +1,5 @@
+exclude:
+  keys:
+    - api_key
+    - api_secret
+    - integration-tests

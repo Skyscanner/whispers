@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tests>
+  <compliant>
+    <password>password</password>
+    <environment>DB_PASSWORD=DB_PASSWORD</environment>
+    <MasterUserPassword><PASSWORD_HERE></MasterUserPassword>
+    <TRAVEL_API_KEY>TRAVEL_API_KEY</TRAVEL_API_KEY>
+  </compliant>
+  <noncompliant>
+  </noncompliant>
+</tests>

@@ -1,0 +1,7 @@
+base64: 
+  description: Text resembling base64 encoding
+  message: Base64-encoded text
+  severity: INFO
+  value:
+    regex: ^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$
+    ignorecase: False

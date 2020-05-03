@@ -1,0 +1,13 @@
+{
+  "compliant": {
+    "aws_id": "{{ AWS ID }}",
+    "aws_key": "${AWS_KEY}",
+    "commit_id": "912ec803b2ce49e4a541068d495ab57000000000",
+    "role": "arn:aws:iam::123456789000:role/role-name"
+  },
+  "noncompliant": {
+    "aws_id": "AKIAHI38FAKE1IWUQEEN",
+    "aws_key": "PA3XsxZ8d8cPQLmnZzFAKEdzC6ND2a8vhbyXU/Dw",
+    "aws_token": "FakeYXdzELv//////////wEldj3948yOJRO84jgpoip239232hEOHhfkjhefkwue97jorhfiuh+XjFC9Je/YG7JCqKjrspab2lB+7/Fb1NJFjgwur47Dbhs/L7nh+/VGnwLoAo8CIqoPBLRmXItaoiuuofZnr+ktihZk1Yi55sYZ12hfRMPVbDmhf9Ke683+e9bJirhUEghw9424JOhgwrgqq99MvzCEFe4eXPOSgAcQcD2xqnnKO738tjhoh23HFqjflhefibWegfqefgqUF12hvgfwegqf"
+  }   
+}

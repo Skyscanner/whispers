@@ -1,0 +1,10 @@
+cors:
+  description: Insecure Cross-Origin Resource Sharing (CORS) configuration
+  message: Insecure CORS
+  severity: MAJOR
+  key:
+    regex: ^function$
+    ignorecase: False
+  value:
+    regex: ^(aiohttp_cors.)?ResourceOptions.*(allow_credentials|expose_headers|allow_headers)=(True|'?"?\*'?"?)
+    ignorecase: False

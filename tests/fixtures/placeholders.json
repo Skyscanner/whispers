@@ -1,0 +1,12 @@
+{
+    "compliant": {
+      "password": "password",
+      "environment": [
+        "DB_PASSWORD=DB_PASSWORD"
+      ],
+      "MasterUserPassword": "<% PASSWORD_HERE %>",
+      "TRAVEL_API_KEY": "TRAVEL_API_KEY"
+    },
+    "noncompliant": {
+    }
+  }

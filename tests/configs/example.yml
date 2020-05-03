@@ -1,0 +1,9 @@
+exclude:
+  files:
+    - "*.npmrc"
+    - "*coded*"
+    - ".git/*/**"
+  keys:
+    - SECRET_VALUE_KEY
+  values:
+    - SECRET_VALUE_PLACEHOLDER

@@ -1,0 +1,9 @@
+npmrc: 
+  description: Hardcoded .npmrc authToken
+  message: .npmrc authToken
+  severity: CRITICAL
+  key:
+    regex: ^npm authToken$
+    ignorecase: False
+  value:
+    minlen: 1

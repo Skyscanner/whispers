@@ -4,6 +4,7 @@ private-ssh-key-file:
   severity: CRITICAL
   key:
     regex: ^file$
+    ignorecase: False
   value:
     regex: .*_(rsa|dsa|ed25519|ecdsa)$
     ignorecase: True
@@ -14,6 +15,7 @@ ssh-config-file:
   severity: MAJOR
   key:
     regex: ^file$
+    ignorecase: False
   value:
     regex: .*ssh/config$
     ignorecase: True
@@ -24,6 +26,7 @@ private-key-file:
   severity: MAJOR
   key:
     regex: ^file$
+    ignorecase: False
   value:
     regex: .*\.pem$
     ignorecase: True

@@ -358,7 +358,7 @@ keepass-password-manager-database-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: \.kdb$
+    regex: \.kdbx?$
     ignorecase: True
 
 1password-password-manager-database:

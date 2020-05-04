@@ -1,0 +1,29 @@
+private-ssh-key-file:
+  description: File with a private SSH key
+  message: Private SSH key file
+  severity: CRITICAL
+  key:
+    regex: ^file$
+  value:
+    regex: .*_(rsa|dsa|ed25519|ecdsa)$
+    ignorecase: True
+
+ssh-config-file:
+  description: File with SSH configuration
+  message: SSH configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+  value:
+    regex: .*ssh/config$
+    ignorecase: True
+
+private-key-file:
+  description: File with a common private key file extension
+  message: Private key file
+  severity: MAJOR
+  key:
+    regex: ^file$
+  value:
+    regex: .*\.pem$
+    ignorecase: True

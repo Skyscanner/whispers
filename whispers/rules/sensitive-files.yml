@@ -402,7 +402,7 @@ log-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: \.log
+    regex: \.log$
     ignorecase: True
 
 network-traffic-capture-file:
@@ -413,7 +413,7 @@ network-traffic-capture-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: \.pcap
+    regex: \.pcap$
     ignorecase: True
 
 sql-dump-file:
@@ -435,7 +435,7 @@ gnucash-database-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: gnucash
+    regex: gnucash$
     ignorecase: True
 
 contains-backup-file:

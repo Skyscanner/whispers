@@ -757,6 +757,28 @@ npm-configuration-file:
     regex: .*\.npmrc$
     ignorecase: True
 
+pypirc-configuration-file:
+  description: File with PyPI configuration
+  message: PyPI configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pypirc$
+    ignorecase: True
+
+pip-configuration-file:
+  description: File with PIP configuration
+  message: PIP configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*pip.conf$
+    ignorecase: True
+
 terraform-variable-config-file:
   description: File with Terraform variable config
   message: Terraform variable config file
@@ -777,4 +799,15 @@ environment-configuration-file:
     ignorecase: False
   value:
     regex: .*\.env$
+    ignorecase: True
+
+generic-configuration-file:
+  description: File with generic configuration
+  message: Generic configration file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(cfg|conf|config|ini)$
     ignorecase: True

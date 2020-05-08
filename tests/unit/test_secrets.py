@@ -89,3 +89,27 @@ def test_detection_by_value(src, count):
         assert "hardcoded" in value
     with pytest.raises(StopIteration):
         next(secrets)
+
+
+def test_detection_by_filename():
+    expected = map(
+        fixture_path,
+        [
+            ".aws/credentials",
+            ".htpasswd",
+            ".npmrc",
+            ".pypirc",
+            "connection.config",
+            "integration.conf",
+            "pip.conf",
+            "settings.cfg",
+            "settings.conf",
+            "settings.env",
+            "settings.ini",
+        ],
+    )
+    config = core.load_config(CONFIG_PATH.joinpath("detection_by_filename.yml"))
+    secrets = core.run(fixture_path(""), config)
+    result = [secret.value for secret in secrets]
+    for exp in expected:
+        assert exp in result

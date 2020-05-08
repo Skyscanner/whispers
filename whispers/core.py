@@ -1,10 +1,9 @@
 import re
 from pathlib import Path
 
-from yaml import safe_load
-
 from whispers.log import debug
 from whispers.secrets import WhisperSecrets
+from whispers.utils import load_yaml_from_file
 
 
 def load_config(configfile, src="."):
@@ -17,7 +16,7 @@ def load_config(configfile, src="."):
         debug(f"{configfile} is not a file")
         raise TypeError
 
-    config = safe_load(configfile.open("r"))
+    config = load_yaml_from_file(configfile)
 
     # Ensure minimal expected config structure
     if "exclude" not in config:
@@ -52,7 +51,7 @@ def load_config(configfile, src="."):
     return config
 
 
-def run(src, config=None):
+def run(src: str, config=None):
     src = Path(src)
     if not src.exists():
         debug(f"{src} does not exist")

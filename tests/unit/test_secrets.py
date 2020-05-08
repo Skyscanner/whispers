@@ -2,7 +2,7 @@ import pytest
 
 from whispers import core
 
-from .conftest import FIXTURE_PATH, config_path, fixture_path
+from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 
 
 @pytest.mark.parametrize("configfile", ["exclude_keys.yml", "exclude_values.yml"])
@@ -80,7 +80,8 @@ def test_detection_by_key(src, keys):
     ],
 )
 def test_detection_by_value(src, count):
-    secrets = core.run(fixture_path(src))
+    config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
+    secrets = core.run(fixture_path(src), config)
     for _ in range(count):
         value = next(secrets).value.lower()
         if value.isnumeric():

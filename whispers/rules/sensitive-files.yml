@@ -1,0 +1,813 @@
+private-ssh-key-file:
+  description: File with a private SSH key
+  message: Private SSH key file
+  severity: CRITICAL
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*_(rsa|dsa|ed25519|ecdsa)$
+    ignorecase: True
+
+ssh-config-file:
+  description: File with SSH configuration
+  message: SSH configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*ssh/config$
+    ignorecase: True
+
+private-key-file:
+  description: File with a common private key file extension
+  message: Private key file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pem$
+    ignorecase: True
+
+cryptographic-private-key-file:
+  description: File with Potential cryptographic private key
+  message: Potential cryptographic private key file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: ^key(pair)?\.
+    ignorecase: True
+
+cryptographic-key-bundle-file:
+  description: File with Potential cryptographic key bundle
+  message: Potential cryptographic key bundle file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(pkcs12|pfx|p12|asc)$
+    ignorecase: True
+
+pidgin-otr-private-key-file:
+  description: File with Pidgin OTR private key
+  message: Pidgin OTR private key file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*otr\.private_key$
+    ignorecase: True
+
+shell-command-history-file:
+  description: File with Shell command history
+  message: Shell command history file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(ba|z|da)?sh_history$
+    ignorecase: True
+
+mysql-client-command-history-file:
+  description: File with MySQL client command history
+  message: MySQL client command history file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.mysql_history$
+    ignorecase: True
+
+postgresql-client-command-history-file:
+  description: File with PostgreSQL client command history
+  message: PostgreSQL client command history file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.psql_history$
+    ignorecase: True
+
+postgresql-password-file:
+  description: File with PostgreSQL password
+  message: PostgreSQL password file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pgpass$
+    ignorecase: True
+
+ruby-irb-console-history-file:
+  description: File with Ruby IRB console history
+  message: Ruby IRB console history file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.irb_history$
+    ignorecase: True
+
+pidgin-chat-client-account-configuration-file:
+  description: File with Pidgin chat client account configuration
+  message: Pidgin chat client account configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?purple\/accounts\.xml$
+    ignorecase: True
+
+hexchat/xchat-irc-client-server-list-configuration-file:
+  description: File with Hexchat/XChat IRC client server list configuration
+  message: Hexchat/XChat IRC client server list configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?xchat2?\/servlist_?\.conf$
+    ignorecase: True
+
+irssi-irc-client-configuration-file:
+  description: File with Irssi IRC client configuration
+  message: Irssi IRC client configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?irssi\/config$
+    ignorecase: True
+
+recon-ng-web-reconnaissance-framework-api-key-database-file:
+  description: File with Recon-ng web reconnaissance framework API key database
+  message: Recon-ng web reconnaissance framework API key database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?recon-ng\/keys\.db$
+    ignorecase: True
+
+dbeaver-sql-database-manager-configuration-file:
+  description: File with DBeaver SQL database manager configuration
+  message: DBeaver SQL database manager configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.dbeaver-data-sources.xml$
+    ignorecase: True
+
+mutt-e-mail-client-configuration-file:
+  description: File with Mutt e-mail client configuration
+  message: Mutt e-mail client configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.muttrc$
+    ignorecase: True
+
+s3cmd-configuration-file:
+  description: File with S3cmd configuration
+  message: S3cmd configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.s3cfg$
+    ignorecase: True
+
+aws-cli-credentials-file:
+  description: File with AWS CLI credentials
+  message: AWS CLI credentials file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?aws/credentials$
+    ignorecase: True
+
+t-command-line-twitter-client-configuration-file:
+  description: File with T command-line Twitter client configuration
+  message: T command-line Twitter client configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.trc$
+    ignorecase: True
+
+openvpn-client-configuration-file:
+  description: File with OpenVPN client configuration
+  message: OpenVPN client configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.ovpn$
+    ignorecase: True
+
+well,-this-is-awkward...-gitrob-configuration-file:
+  description: File with Well, this is awkward... Gitrob configuration
+  message: Well, this is awkward... Gitrob configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.gitrobrc$
+    ignorecase: True
+
+shell-configuration-file:
+  description: File with Shell configuration
+  message: Shell configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(bash|zsh)rc$
+    ignorecase: True
+
+shell-pro-configuration-file:
+  description: File with Shell pro configuration
+  message: Shell pro configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(bash_|zsh_)?profile$
+    ignorecase: True
+
+shell-command-alias-configuration-file:
+  description: File with Shell command alias configuration
+  message: Shell command alias configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(bash_|zsh_)?aliases$
+    ignorecase: True
+
+ruby-on-rails-secret-token-configuration-file:
+  description: File with Ruby On Rails secret token configuration
+  message: Ruby On Rails secret token configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*secret_token.rb$
+    ignorecase: True
+
+omniauth-configuration-file:
+  description: File with OmniAuth configuration
+  message: OmniAuth configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*omniauth.rb$
+    ignorecase: True
+
+carrierwave-configuration-file:
+  description: File with Carrierwave configuration
+  message: Carrierwave configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*carrierwave.rb$
+    ignorecase: True
+
+ruby-on-rails-database-schema-file:
+  description: File with Ruby On Rails database schema
+  message: Ruby On Rails database schema file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*schema.rb$
+    ignorecase: True
+
+ruby-on-rails-database-configuration-file:
+  description: File with Potential Ruby On Rails database configuration
+  message: Potential Ruby On Rails database configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*database.yml$
+    ignorecase: True
+
+django-configuration-file:
+  description: File with Django configuration
+  message: Django configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*settings.py$
+    ignorecase: True
+
+php-configuration-file:
+  description: File with PHP configuration
+  message: PHP configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*config(\.inc)?\.php$
+    ignorecase: True
+
+keepass-password-manager-database-file:
+  description: File with KeePass password manager database
+  message: KeePass password manager database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.kdbx?$
+    ignorecase: True
+
+1password-password-manager-database:
+  description: File with 1Password password manager database
+  message: 1Password password manager database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*agilekeychain$
+    ignorecase: True
+
+apple-keychain-database-file:
+  description: File with Apple Keychain database
+  message: Apple Keychain database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*keychain$
+    ignorecase: True
+
+gnome-keyring-database-file:
+  description: File with GNOME Keyring database
+  message: GNOME Keyring database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*key(store|ring)$
+    ignorecase: True
+
+log-file:
+  description: File with Log
+  message: Log file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.log$
+    ignorecase: True
+
+network-traffic-capture-file:
+  description: File with Network traffic capture
+  message: Network traffic capture file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pcap$
+    ignorecase: True
+
+sql-dump-file:
+  description: File with SQL dump
+  message: SQL dump file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.sql(dump)?$
+    ignorecase: True
+
+gnucash-database-file:
+  description: File with GnuCash database
+  message: GnuCash database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*gnucash$
+    ignorecase: True
+
+contains-backup-file:
+  description: File with backup
+  message: backup file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(backup|back|bck|original|~1)$
+    ignorecase: True
+
+contains-dump-file:
+  description: File with dump
+  message: dump file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.dump$
+    ignorecase: True
+
+contains-password-file:
+  description: File with password
+  message: password file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*password(\.[A-Za-z0-9]+)?$
+    ignorecase: True
+
+contains-credential-file:
+  description: File with credential
+  message: credential file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*credential(\.[A-Za-z0-9]+)?$
+    ignorecase: True
+
+contains-secret-file:
+  description: File with secret
+  message: secret file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*secret(\.[A-Za-z0-9]+)?$
+    ignorecase: True
+
+jenkins-publish-over-ssh-plugin-file:
+  description: File with Jenkins publish over SSH plugin
+  message: Jenkins publish over SSH plugin file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml$
+    ignorecase: True
+
+jenkins-credentials-file:
+  description: File with Potential Jenkins credentials
+  message: Potential Jenkins credentials file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*credentials.xml$
+    ignorecase: True
+
+apache-htpasswd-file:
+  description: File with Apache htpasswd
+  message: Apache htpasswd file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.htpasswd$
+    ignorecase: True
+
+configuration--for-auto-login-process-file:
+  description: File with Configuration  for auto-login process
+  message: Configuration  for auto-login process file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*(\.|_)?netrc$
+    ignorecase: True
+
+kde-wallet-manager-database-file:
+  description: File with KDE Wallet Manager database
+  message: KDE Wallet Manager database file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*kwallet$
+    ignorecase: True
+
+mediawiki-configuration-file:
+  description: File with Potential MediaWiki configuration
+  message: Potential MediaWiki configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*LocalSettings.php$
+    ignorecase: True
+
+tunnelblick-vpn-configuration-file:
+  description: File with Tunnelblick VPN configuration
+  message: Tunnelblick VPN configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.tblk$
+    ignorecase: True
+
+rubygems-credentials-file:
+  description: File with Rubygems credentials
+  message: Rubygems credentials file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?gem/credentials$
+    ignorecase: True
+
+msbuild-publish-pro-file:
+  description: File with Potential MSBuild publish pro
+  message: Potential MSBuild publish pro file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pubxml(\.user)?$
+    ignorecase: True
+
+sequel-pro-mysql-database-manager-bookmark-file:
+  description: File with Sequel Pro MySQL database manager bookmark
+  message: Sequel Pro MySQL database manager bookmark file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*Favorites.plist
+    ignorecase: True
+
+little-snitch-firewall-configuration-file:
+  description: File with Little Snitch firewall configuration
+  message: Little Snitch firewall configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*configuration.user.xpl$
+    ignorecase: True
+
+day-one-journal-file:
+  description: File with Day One journal
+  message: Day One journal file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.dayone$
+    ignorecase: True
+
+tugboat-digitalocean-management-tool-configuration-file:
+  description: File with Tugboat DigitalOcean management tool configuration
+  message: Tugboat DigitalOcean management tool configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.tugboat$
+    ignorecase: True
+
+git-credential-store-helper-credentials-file:
+  description: File with git-credential-store helper credentials
+  message: git-credential-store helper credentials file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.git-credentials$
+    ignorecase: True
+
+git-configuration-file:
+  description: File with Git configuration
+  message: Git configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.gitconfig$
+    ignorecase: True
+
+chef-knife-configuration-file:
+  description: File with Chef Knife configuration
+  message: Chef Knife configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*knife.rb$
+    ignorecase: True
+
+chef-private-key-file:
+  description: File with Chef private key
+  message: Chef private key file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.?chef/(.*)\.pem$
+    ignorecase: True
+
+cpanel-backup-proftpd-credentials-file:
+  description: File with cPanel backup ProFTPd credentials
+  message: cPanel backup ProFTPd credentials file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*proftpdpasswd$
+    ignorecase: True
+
+robomongo-mongodb-manager-configuration-file:
+  description: File with Robomongo MongoDB manager configuration
+  message: Robomongo MongoDB manager configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*robomongo.json$
+    ignorecase: True
+
+filezilla-ftp-configuration-file:
+  description: File with FileZilla FTP configuration
+  message: FileZilla FTP configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*filezilla.xml$
+    ignorecase: True
+
+filezilla-ftp-recent-servers-file:
+  description: File with FileZilla FTP recent servers
+  message: FileZilla FTP recent servers file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*recentservers.xml$
+    ignorecase: True
+
+ventrilo-server-configuration-file:
+  description: File with Ventrilo server configuration
+  message: Ventrilo server configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*ventrilo_srv.ini$
+    ignorecase: True
+
+docker-configuration-file:
+  description: File with Docker configuration
+  message: Docker configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.dockercfg$
+    ignorecase: True
+
+npm-configuration-file:
+  description: File with NPM configuration
+  message: NPM configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.npmrc$
+    ignorecase: True
+
+pypirc-configuration-file:
+  description: File with PyPI configuration
+  message: PyPI configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.pypirc$
+    ignorecase: True
+
+pip-configuration-file:
+  description: File with PIP configuration
+  message: PIP configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*pip.conf$
+    ignorecase: True
+
+terraform-variable-config-file:
+  description: File with Terraform variable config
+  message: Terraform variable config file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*terraform.tfvars$
+    ignorecase: True
+
+environment-configuration-file:
+  description: File with Environment configuration
+  message: Environment configuration file
+  severity: MAJOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.env$
+    ignorecase: True
+
+generic-configuration-file:
+  description: File with generic configuration
+  message: Generic configration file
+  severity: MINOR
+  key:
+    regex: ^file$
+    ignorecase: False
+  value:
+    regex: .*\.(cfg|conf|config|ini)$
+    ignorecase: True

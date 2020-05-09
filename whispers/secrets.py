@@ -81,6 +81,9 @@ class WhisperSecrets:
 
     def scan(self, filename: str) -> Optional[Secret]:
         plugin = WhisperPlugins(filename)
+        if not plugin:
+            return
+        yield self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
         for ret in plugin.pairs():
             if len(ret) == 2:  # key, value
                 yield self.detect_secrets(ret[0], ret[1], plugin.filepath)

@@ -18,6 +18,7 @@ Whispers is a static code analysis tool designed for parsing various common data
 * Hashed credentials
 * Authentication tokens
 * Dangerous functions
+* Sensitive files
 
 ## Supported Formats
 * YAML

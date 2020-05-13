@@ -1,6 +1,4 @@
+// comment 1
 {
-    "key": "value"
+    "key": "value"  //comment2
 }
-
-// comment1
-//comment2

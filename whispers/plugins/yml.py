@@ -20,12 +20,15 @@ class Yml(StructuredDocument):
 
         """
         Convert custom YAML to parsable YAML
+        - Skip ---
         - Quote unquoted values such as {{ placeholder }}
         - Remove text between <% %> and {% %}
         - Remove comments that start with #
         """
         document = ""
         for line in filepath.open("r").readlines():
+            if line.startswith("---"):
+                continue
             if re.match(r".+(\[)?\{\{.*\}\}(\])?", line):
                 line = line.replace('"', "'")
                 line = line.replace("{{", '"{{').replace("}}", '}}"')

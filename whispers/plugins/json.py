@@ -10,10 +10,15 @@ class Json(StructuredDocument):
     def pairs(self, filepath: Path):
         """
         Convert custom JSON to parsable JSON
-        - Remove comments that start with //
+        - Remove lines that start with // comments
+        - Strip // comments from the end the line
         """
-        document = filepath.read_text()
-        document = re.sub(r"^//.*", "", document, flags=re.MULTILINE | re.DOTALL)
+        document = ""
+        for line in filepath.open("r").readlines():
+            if line.startswith("//"):
+                continue
+            line = re.sub(r" // ?.*$", "", line)
+            document += line
 
         # Load converted JSON
         try:

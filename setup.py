@@ -14,7 +14,7 @@ install_requires = ["lxml>=4.5.0", "pyyaml>=5.3", "astroid>=2.3.3", "jproperties
 dev_requires = [
     "black>=19.10b0",
     "coverage~=4.4",
-    "flake8>=2.5.4",
+    "flake8>=3.8.1",
     "isort>=4.3.21",
     "pytest>=2.9.1",
     "pytest-mock>=1.0",

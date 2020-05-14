@@ -21,7 +21,7 @@ class WhisperRules:
         elif rulespath.is_file():
             self.load_rules_from_file(rulespath)
         else:
-            raise TypeError(f"Rules must be loaded from a file or directory")
+            raise TypeError("Rules must be loaded from a file or directory")
 
     def load_rules_from_file(self, rulefile: Path):
         if not rulefile.exists():

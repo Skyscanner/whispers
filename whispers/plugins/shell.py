@@ -9,6 +9,8 @@ class Shell:
         full_command = []
         for line in filepath.open("r").readlines():
             line = line.strip()
+            if line.startswith("#"):  # Comments
+                line = line.lstrip("#")
             if line.endswith("\\"):  # Multi-line commands
                 full_command.append(line[:-1])
                 continue

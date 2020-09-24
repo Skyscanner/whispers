@@ -11,7 +11,8 @@ from .conftest import FIXTURE_PATH, config_path, fixture_path
 
 
 @pytest.mark.parametrize(
-    ("filename", "exception"), [(f"/tmp/File404-{urandom(30).hex()}", FileNotFoundError), ("/dev/null", TypeError)],
+    ("filename", "exception"),
+    [(f"/tmp/File404-{urandom(30).hex()}", FileNotFoundError), ("/dev/null", TypeError)],
 )
 def test_core_exception(filename, exception):
     with pytest.raises(exception):

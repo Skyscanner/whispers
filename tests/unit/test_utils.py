@@ -98,7 +98,8 @@ def test_line_begins_with_value(value, line):
 
 
 @pytest.mark.parametrize(
-    ("src", "linenumbers"), [("hardcoded.yml", [12, 14, 15, 16, 19]), ("privatekeys.yml", [5, 7, 11, 12, 13, 14])],
+    ("src", "linenumbers"),
+    [("hardcoded.yml", [12, 14, 15, 16, 19]), ("privatekeys.yml", [5, 7, 11, 12, 13, 14])],
 )
 def test_find_line_number(src, linenumbers):
     secrets = core.run(fixture_path(src))
@@ -107,7 +108,8 @@ def test_find_line_number(src, linenumbers):
 
 
 @pytest.mark.parametrize(
-    ("rulefile", "expected_count"), [("empty.yml", 0), ("valid.yml", 1), ("multiple.yml", 4), ("invalid.yml", 0)],
+    ("rulefile", "expected_count"),
+    [("empty.yml", 0), ("valid.yml", 1), ("multiple.yml", 4), ("invalid.yml", 0)],
 )
 def test_load_yaml_from_file(rulefile, expected_count):
     rulefile = Path(rule_path(rulefile))

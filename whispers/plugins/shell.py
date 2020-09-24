@@ -1,7 +1,7 @@
 import shlex
 from pathlib import Path
 
-from whispers.utils import strip_string
+from whispers.utils import escaped_chars, strip_string
 
 
 class Shell:
@@ -10,7 +10,8 @@ class Shell:
         for line in filepath.open("r").readlines():
             line = line.strip()
             if line.startswith("#"):  # Comments
-                line = line.lstrip("#")
+                line = line.lstrip("#").strip()
+                line = line.translate(escaped_chars)
             if line.endswith("\\"):  # Multi-line commands
                 full_command.append(line[:-1])
                 continue

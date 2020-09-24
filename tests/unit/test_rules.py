@@ -41,7 +41,8 @@ def test_load_rules_from_file(rulefile, expectation):
 
 
 @pytest.mark.parametrize(
-    ("rulefile", "rules_added"), [("empty.yml", 0), ("valid.yml", 1), ("multiple.yml", 4)],
+    ("rulefile", "rules_added"),
+    [("empty.yml", 0), ("valid.yml", 1), ("multiple.yml", 4)],
 )
 def test_load_rules_from_dict(rulefile, rules_added):
     rules = WhisperRules()
@@ -64,7 +65,8 @@ def test_load_rule(dups, expectation):
 
 
 @pytest.mark.parametrize(
-    ("rulefile", "expectation"), [("invalid_severity.yml", pytest.raises(ValueError))],
+    ("rulefile", "expectation"),
+    [("invalid_severity.yml", pytest.raises(ValueError))],
 )
 def test_parse_rule(rulefile, expectation):
     rules = WhisperRules()

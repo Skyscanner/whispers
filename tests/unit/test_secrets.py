@@ -66,7 +66,7 @@ def test_detection_by_key(src, keys):
         ("settings.cfg", 1),
         ("settings.ini", 1),
         ("settings.env", 1),
-        ("shell.sh", 13),
+        ("shell.sh", 14),
         ("Dockerfile", 3),
         ("beans.xml", 3),
         ("jdbc.xml", 3),

@@ -1,7 +1,7 @@
 dangerous-functions: 
   description: Dangerous function calls that could lead to RCE
   message: Dangerous Function
-  severity: BLOCKER
+  severity: MAJOR
   key:
     regex: ^function$
     ignorecase: False

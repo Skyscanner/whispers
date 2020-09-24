@@ -11,6 +11,9 @@ from yaml import safe_load
 Secret = namedtuple("Secret", ["file", "line", "key", "value", "message", "severity"])
 
 
+escaped_chars = str.maketrans({"'": r"\'", '"': r"\""})
+
+
 def strip_string(value: str) -> str:
     """
     Strips leading and trailing quotes and spaces

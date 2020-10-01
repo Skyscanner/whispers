@@ -1,0 +1,5 @@
+# Compliant
+slack-webhook: https://hooks.slack.com/services/
+
+# Noncompliant
+slack-webhook: https://hooks.slack.com/services/HARDC0D3D/HARDC0D3D/hardcodedWebhook01

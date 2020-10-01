@@ -76,7 +76,7 @@ def test_detection_by_key(src, keys):
         ("source.py", 5),
         ("plaintext.txt", 2),
         ("uri.yml", 2),
-        ("java.properties", 2),
+        ("java.properties", 3),
     ],
 )
 def test_detection_by_value(src, count):

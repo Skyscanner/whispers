@@ -40,6 +40,8 @@ class WhisperSecrets:
             return False  # IaC
         if re.match(r"\![A-Za-z]+ .+", value):
             return False  # IaC !Ref !Sub ...
+        if self.rules.match("path", value):
+            return False  # System path
         if key:
             s_key = simple_string(key)
             s_value = simple_string(value)

@@ -15,6 +15,8 @@ class Go:
         key, value = line.split("=")
         key = key.strip()
         value = value.strip()
+        if string_is_function(value):
+            return
         if key.startswith(("var ", "const ")):
             key = " ".join(key.split(" ")[1:])
         if "," in value:
@@ -26,5 +28,5 @@ class Go:
         for i in range(len(values)):
             key = keys[i].strip().split(" ")[0]
             value = values[i].strip()
-            if string_is_quoted(value) and not string_is_function(value):
+            if string_is_quoted(value):
                 yield key, value

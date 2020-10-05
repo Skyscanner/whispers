@@ -73,6 +73,8 @@ class WhisperPlugins:
             return Go()
         elif self.filetype.startswith("php"):
             return Php()
+        elif self.filepath.name.endswith(".php.dist"):
+            return Php()
         return None
 
     def pairs(self):

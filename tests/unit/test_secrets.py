@@ -77,7 +77,7 @@ def test_detection_by_key(src, keys):
         ("language.js", 4),
         ("language.java", 3),
         ("language.go", 9),
-        ("language.php", 3),
+        ("language.php", 4),
         ("plaintext.txt", 2),
         ("uri.yml", 2),
         ("java.properties", 3),

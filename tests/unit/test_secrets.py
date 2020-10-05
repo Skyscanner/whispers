@@ -77,7 +77,7 @@ def test_detection_by_key(src, keys):
         ("plaintext.txt", 2),
         ("uri.yml", 2),
         ("java.properties", 3),
-        ("webhooks.yml", 1),
+        ("webhooks.yml", 2),
     ],
 )
 def test_detection_by_value(src, count):

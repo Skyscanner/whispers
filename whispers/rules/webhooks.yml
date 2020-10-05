@@ -5,3 +5,11 @@ slack-webhook:
   value:
     regex: https://hooks.slack.com/services/[A-Z0-9]{9}/[A-Z0-9]{9}/[a-zA-Z0-9]+
     ignorecase: True
+
+hubspot-webhook:
+  description: Hubspot Webhook
+  message: Webhook
+  severity: MINOR
+  value:
+    regex: https://api.hubapi.com/webhooks/v1/[a-z0-9]+/
+    ignorecase: True

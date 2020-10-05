@@ -4,6 +4,7 @@ from typing import Optional
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.htpasswd import Htpasswd
+from whispers.plugins.javascript import Javascript
 from whispers.plugins.jproperties import Jproperties
 from whispers.plugins.json import Json
 from whispers.plugins.npmrc import Npmrc
@@ -64,6 +65,8 @@ class WhisperPlugins:
             return Python()
         elif self.filetype.startswith("php"):
             return Php()
+        elif self.filetype == "js":
+            return Javascript()
         return None
 
     def pairs(self):

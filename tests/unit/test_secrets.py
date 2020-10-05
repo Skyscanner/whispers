@@ -75,6 +75,7 @@ def test_detection_by_key(src, keys):
         ("falsepositive.yml", 4),
         ("language.py", 5),
         ("language.php", 3),
+        ("language.js", 4),
         ("plaintext.txt", 2),
         ("uri.yml", 2),
         ("java.properties", 3),

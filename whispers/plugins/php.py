@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from whispers.utils import strip_string
+from whispers.utils import string_is_function, strip_string
 
 
 class Php:
@@ -15,10 +15,12 @@ class Php:
         key, value = line.split("=")
         key = strip_string(key.replace("$", ""))
         value = strip_string(value.replace(";", ""))
-        yield key, value
+        if not string_is_function(value):
+            yield key, value
 
     def parse_define(self, line: str):
         line = line.replace("define(", "").replace(")", ",").split(",")
         key = strip_string(line[0])
         value = line[1].strip()
-        yield key, value
+        if not string_is_function(value):
+            yield key, value

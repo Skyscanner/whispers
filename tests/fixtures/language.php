@@ -7,6 +7,7 @@ $variable_password4 = "{{ password }}";
 $variable_password5 = "{{ THIS_IS_A_VERY_LONG_A_PLACEHOLDER_FOR_PASSWORD }}";
 $variable_password6 = "{password}";
 $variable_password7 = "{ password }";
+$variable_password8 = aFunctionCall();
 define("unset_password", "", true);
 define("variable_password", "{placeholder}");
 

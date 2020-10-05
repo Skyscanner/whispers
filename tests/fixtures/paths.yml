@@ -1,6 +1,7 @@
 compliant:
     notpath1: not_a_path_necessarily
     notpath2: th1s/c0uldb3/ap4assw0rd
+    notpath3: hardcoded01
 
 noncompliant:
     network-path1: '\\smb\network\pathpath:path:'

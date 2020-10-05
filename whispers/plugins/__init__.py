@@ -7,6 +7,7 @@ from whispers.plugins.htpasswd import Htpasswd
 from whispers.plugins.jproperties import Jproperties
 from whispers.plugins.json import Json
 from whispers.plugins.npmrc import Npmrc
+from whispers.plugins.php import Php
 from whispers.plugins.pip import Pip
 from whispers.plugins.plaintext import Plaintext
 from whispers.plugins.pypirc import Pypirc
@@ -61,6 +62,8 @@ class WhisperPlugins:
             return Plaintext()
         elif self.filetype == "py":
             return Python()
+        elif self.filetype.startswith("php"):
+            return Php()
         return None
 
     def pairs(self):

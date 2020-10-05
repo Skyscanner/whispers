@@ -45,6 +45,25 @@ def similar_strings(a: str, b: str) -> float:
     return SequenceMatcher(None, a, b).ratio()
 
 
+def string_is_quoted(value: str) -> bool:
+    """
+    Checks if the value is between single or double quotes
+    """
+    quotes = ('"', "'")
+    return value.startswith(quotes) and value.endswith(quotes)
+
+
+def string_is_function(value: str) -> bool:
+    """
+    Checks if the value resembles a function call
+    """
+    open_brackets = value.count("(")
+    close_brackets = value.count(")")
+    if open_brackets:
+        return open_brackets == close_brackets
+    return False
+
+
 def line_with_key_value(key: str, value: str, line: str) -> bool:
     """
     Both key and value are on the same line

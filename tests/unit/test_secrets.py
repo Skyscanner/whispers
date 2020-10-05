@@ -76,6 +76,7 @@ def test_detection_by_key(src, keys):
         ("language.py", 5),
         ("language.js", 4),
         ("language.java", 3),
+        ("language.go", 9),
         ("language.php", 3),
         ("plaintext.txt", 2),
         ("uri.yml", 2),

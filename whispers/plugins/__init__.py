@@ -3,6 +3,7 @@ from typing import Optional
 
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
+from whispers.plugins.go import Go
 from whispers.plugins.htpasswd import Htpasswd
 from whispers.plugins.java import Java
 from whispers.plugins.javascript import Javascript
@@ -66,10 +67,12 @@ class WhisperPlugins:
             return Python()
         elif self.filetype == "js":
             return Javascript()
-        elif self.filetype.startswith("php"):
-            return Php()
         elif self.filetype == "java":
             return Java()
+        elif self.filetype == "go":
+            return Go()
+        elif self.filetype.startswith("php"):
+            return Php()
         return None
 
     def pairs(self):

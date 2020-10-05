@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from whispers.utils import strip_string
+from whispers.utils import string_is_function, string_is_quoted
 
 
 class Javascript:
@@ -11,14 +11,6 @@ class Javascript:
 
     def parse_assignment(self, line: str):
         key, value = line.split("=")
-        value = strip_string(value.replace(";", ""))
-        if not self.is_function(value):
+        value = value.replace(";", "").strip()
+        if string_is_quoted(value) and not string_is_function(value):
             yield key, value
-
-    def is_function(self, value: str) -> bool:
-        open_brackets = value.count("(")
-        close_brackets = value.count(")")
-        if open_brackets:
-            if open_brackets == close_brackets:
-                return True
-        return False

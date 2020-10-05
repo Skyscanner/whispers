@@ -26,6 +26,8 @@ class WhisperPlugins:
         self.filename = filename
         self.filepath = Path(filename)
         self.filetype = self.filepath.name.split(".")[-1]
+        if self.filetype == "dist":
+            self.filetype = self.filepath.name.split(".")[-2]
         self.plugin = self.load_plugin()
 
     def load_plugin(self) -> Optional[object]:
@@ -72,8 +74,6 @@ class WhisperPlugins:
         elif self.filetype == "go":
             return Go()
         elif self.filetype.startswith("php"):
-            return Php()
-        elif self.filepath.name.endswith(".php.dist"):
             return Php()
         return None
 

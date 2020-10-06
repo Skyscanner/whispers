@@ -9,4 +9,4 @@ class Npmrc:
 
             value = line.split(":_authToken=")[-1].strip()
             if value:
-                yield "npm authToken", value
+                yield "npm_authToken", value

@@ -14,6 +14,7 @@ curl --user admin:      https://localhost
 curl --tlspassword https://localhost
 wget --user=admin --ask-password https://localhost
 wget --user=admin --password= https://localhost
+mysqladmin create $DB_NAME --user="$DB_USER" --password="$DB_PASS"
 
 # Noncompliant
 export DANGER_GITHUB_API_TOKEN=YXNkZmZmZmZm_HARDcoded

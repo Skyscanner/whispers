@@ -3,10 +3,14 @@ from typing import Optional
 
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
+from whispers.plugins.go import Go
 from whispers.plugins.htpasswd import Htpasswd
+from whispers.plugins.java import Java
+from whispers.plugins.javascript import Javascript
 from whispers.plugins.jproperties import Jproperties
 from whispers.plugins.json import Json
 from whispers.plugins.npmrc import Npmrc
+from whispers.plugins.php import Php
 from whispers.plugins.pip import Pip
 from whispers.plugins.plaintext import Plaintext
 from whispers.plugins.pypirc import Pypirc
@@ -22,6 +26,8 @@ class WhisperPlugins:
         self.filename = filename
         self.filepath = Path(filename)
         self.filetype = self.filepath.name.split(".")[-1]
+        if self.filetype == "dist":
+            self.filetype = self.filepath.name.split(".")[-2]
         self.plugin = self.load_plugin()
 
     def load_plugin(self) -> Optional[object]:
@@ -61,6 +67,14 @@ class WhisperPlugins:
             return Plaintext()
         elif self.filetype == "py":
             return Python()
+        elif self.filetype == "js":
+            return Javascript()
+        elif self.filetype == "java":
+            return Java()
+        elif self.filetype == "go":
+            return Go()
+        elif self.filetype.startswith("php"):
+            return Php()
         return None
 
     def pairs(self):

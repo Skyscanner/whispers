@@ -23,7 +23,7 @@ exclude:
     - "**/npm-shrinkwrap.json"
     - "**/node_modules/**/*"
   keys:
-    - .*public.*
+    - .*(public|project).*
   values:
     - ^(true|false|yes|no|1|0)$
     - .*_(user|password|token|key|placeholder|name)$

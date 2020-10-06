@@ -11,4 +11,4 @@ class Htpasswd:
             creds = line.split(":")
             value = strip_string(creds[1])
             if value:
-                yield "htpasswd Hash", value
+                yield "htpasswd_Hash", value

@@ -10,4 +10,4 @@ class Pip:
 
             value = urlparse(line.split("=")[-1].strip()).password
             if value:
-                yield "pip password", value
+                yield "pip_Password", value

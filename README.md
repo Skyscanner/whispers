@@ -34,6 +34,12 @@ Whispers is a static code analysis tool designed for parsing various common data
 * Shell scripts
 * Python
 
+## Declaration & Assignment Formats
+* JavaScript
+* Java
+* Go
+* PHP
+
 ## Special Formats
 * AWS credentials files
 * JDBC connection strings

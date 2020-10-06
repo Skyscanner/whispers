@@ -18,9 +18,11 @@ class Go:
             return
         if key.startswith(("var ", "const ")):
             key = " ".join(key.split(" ")[1:])
-        if "," in value:
+        if "," in key:
             keys = key.split(",")
             values = value.split(",")
+            if len(keys) != len(values):
+                return
         else:
             keys = [key]
             values = [value]

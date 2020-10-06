@@ -39,8 +39,8 @@ class Shell:
                 continue  # End of command
             credentials = strip_string(cmd[idx + 1])
             if indicator in indicators_single:
-                yield "cURL Password", credentials
+                yield "cURL_Password", credentials
             else:
                 if ":" not in credentials:
                     continue  # Password not specified
-                yield "cURL Password", credentials.split(":")[1]
+                yield "cURL_Password", credentials.split(":")[1]

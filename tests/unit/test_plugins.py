@@ -3,10 +3,14 @@ import pytest
 from whispers.plugins import WhisperPlugins
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
+from whispers.plugins.go import Go
 from whispers.plugins.htpasswd import Htpasswd
+from whispers.plugins.java import Java
+from whispers.plugins.javascript import Javascript
 from whispers.plugins.jproperties import Jproperties
 from whispers.plugins.json import Json
 from whispers.plugins.npmrc import Npmrc
+from whispers.plugins.php import Php
 from whispers.plugins.pip import Pip
 from whispers.plugins.plaintext import Plaintext
 from whispers.plugins.pypirc import Pypirc
@@ -40,7 +44,12 @@ from .conftest import fixture_path
         ("settings.cfg", Config),
         ("settings.env", Config),
         ("settings.ini", Config),
-        ("shell.sh", Shell),
+        ("language.sh", Shell),
+        ("language.py", Python),
+        ("language.js", Javascript),
+        ("language.java", Java),
+        ("language.go", Go),
+        ("language.php", Php),
     ],
 )
 def test_init(filename, expected_plugin):

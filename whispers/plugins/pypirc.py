@@ -9,4 +9,4 @@ class Pypirc:
 
             value = line.split("password:")[-1].strip()
             if value:
-                yield "PyPI password", value
+                yield "PyPI_Password", value

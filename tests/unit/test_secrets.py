@@ -68,6 +68,8 @@ def test_detection_by_key(src, keys):
         ("settings.env", 1),
         ("Dockerfile", 3),
         ("beans.xml", 3),
+        ("beans.xml.dist", 3),
+        ("beans.xml.template", 3),
         ("jdbc.xml", 3),
         (".htpasswd", 2),
         (".aws/credentials", 3),

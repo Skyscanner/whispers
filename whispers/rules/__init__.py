@@ -66,47 +66,13 @@ class WhisperRules:
         return False
 
     def check(self, key, value, filepath):
-        def decode_if_base64(mkey, mvalue):
-            if "isBase64" in mkey:
-                if mkey["isBase64"]:
-                    mvalue = b64decode(mvalue)
-            return mvalue
-
-        def is_ascii(data):
-            if not isinstance(data, str):
-                return False
-            for ch in data:
-                if ord(ch) not in range(32, 127):
-                    return False
-            return True
-
-        def check_minlen(rule, mkey, mvalue):
-            return len(mvalue) >= int(rule[mkey]["minlen"])
-
-        def check_regex(rule, mkey, mvalue):
-            return rule[mkey]["regex"].match(mvalue)
-
-        def check_isBase64(rule, mkey, mvalue):
-            return rule[mkey]["isBase64"] == self.match("base64", mvalue)
-
-        def check_isAscii(rule, mkey, mvalue):
-            mvalue = decode_if_base64(mkey, mvalue)
-            return is_ascii(mvalue)
-
-        def check_isUri(rule, mkey, mvalue):
-            mvalue = decode_if_base64(mkey, mvalue)
-            return rule[mkey]["isUri"] == self.match("uri", mvalue)
-
-        def check_similar(rule, key, value):
-            return similar_strings(key, value) < rule["similar"]
-
         matrix = {"key": key, "value": value}
         checks = {
-            "minlen": check_minlen,
-            "regex": check_regex,
-            "isBase64": check_isBase64,
-            "isAscii": check_isAscii,
-            "isUri": check_isUri,
+            "minlen": self.check_minlen,
+            "regex": self.check_regex,
+            "isBase64": self.check_isBase64,
+            "isAscii": self.check_isAscii,
+            "isUri": self.check_isUri,
         }
         for rule_id, rule in self.rules.items():
             rule_matched = True
@@ -136,3 +102,44 @@ class WhisperRules:
                 self.rules[rule_id]["message"],
                 self.rules[rule_id]["severity"],
             )
+
+    def check_isBase64(self, rule, mkey, mvalue):
+        return rule[mkey]["isBase64"] == self.match("base64", mvalue)
+
+    def check_isAscii(self, rule, mkey, mvalue):
+        mvalue = self.decode_if_base64(mkey, mvalue)
+        return self.is_ascii(mvalue)
+
+    def check_isUri(self, rule, mkey, mvalue):
+        mvalue = self.decode_if_base64(mkey, mvalue)
+        return rule[mkey]["isUri"] == self.match("uri", mvalue)
+
+    @staticmethod
+    def decode_if_base64(mkey, mvalue):
+        if "isBase64" in mkey:
+            if mkey["isBase64"]:
+                mvalue = b64decode(mvalue)
+        return mvalue
+
+    @staticmethod
+    def is_ascii(data):
+        if not isinstance(data, str):
+            return False
+        for ch in data:
+            if ord(ch) not in range(32, 127):
+                return False
+        return True
+
+    @staticmethod
+    def check_minlen(rule, mkey, mvalue):
+        if "minlen" not in rule[mkey]:
+            return True
+        return len(mvalue) >= int(rule[mkey]["minlen"])
+
+    @staticmethod
+    def check_regex(rule, mkey, mvalue):
+        return rule[mkey]["regex"].match(mvalue)
+
+    @staticmethod
+    def check_similar(rule, key, value):
+        return similar_strings(key, value) < rule["similar"]

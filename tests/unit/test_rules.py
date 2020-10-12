@@ -66,7 +66,7 @@ def test_load_rule(dups, expectation):
 
 @pytest.mark.parametrize(
     ("rulefile", "expectation"),
-    [("invalid_severity.yml", pytest.raises(ValueError))],
+    [("invalid_severity.yml", pytest.raises(ValueError)), ("multiple.yml", does_not_raise())],
 )
 def test_parse_rule(rulefile, expectation):
     rules = WhisperRules()
@@ -74,11 +74,36 @@ def test_parse_rule(rulefile, expectation):
     rule_id, rule = load_yaml_from_file(rulefile).popitem()
     with expectation:
         parsed_rule = rules.parse_rule(rule_id, rule)
-        assert parsed_rule["message"] == rule["message"]
-        # TODO: add the rest of asserts
+        for key in parsed_rule:
+            assert parsed_rule[key] == rule[key]
 
 
 @pytest.mark.parametrize(("value", "result"), [("test", True), ("Test", False), ("1test", False)])
 def test_match(value, result):
     rules = WhisperRules(rule_path("valid.yml"))
     assert rules.match("valid", value) == result
+
+
+@pytest.mark.parametrize(
+    ("value", "expectation"),
+    [(123, False), (False, False), ("", True), ("whispers", True), ("шёпот", False)],
+)
+def test_is_ascii(value, expectation):
+    rules = WhisperRules()
+    assert rules.is_ascii(value) == expectation
+
+
+@pytest.mark.parametrize(
+    ("value", "minlen", "expectation"),
+    [
+        ("", 1, False),
+        ("1", 2, False),
+        ("12", 2, True),
+        ("Aria", 2, True),
+    ],
+)
+def test_check_minlen(value, minlen, expectation):
+    rules = WhisperRules()
+    rule = {"value": {"minlen": minlen}}
+    result = rules.check_minlen(rule, "value", value)
+    assert result == expectation

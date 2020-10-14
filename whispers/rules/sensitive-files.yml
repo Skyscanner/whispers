@@ -21,14 +21,14 @@ ssh-config-file:
     ignorecase: True
 
 private-key-file:
-  description: File with a common private key file extension
+  description: File with a common private key and certificate file extension
   message: Private key file
   severity: MAJOR
   key:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.pem$
+    regex: .*\.(pem|crt|cer|ca-bundle|p7b|p7c|p7s|key|keystore|jks)$
     ignorecase: True
 
 cryptographic-private-key-file:

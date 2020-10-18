@@ -115,10 +115,44 @@ class WhisperRules:
         return rule[mkey]["isUri"] == self.match("uri", mvalue)
 
     @staticmethod
+    def check_minlen(rule, mkey, mvalue):
+        if mkey not in rule:
+            return True  # Not specified
+        if "minlen" not in rule[mkey]:
+            return True  # Not specified
+        minlen = rule[mkey]["minlen"]
+        if not isinstance(minlen, int):
+            return False  # Not numeric
+        if minlen < 0:
+            return False  # Negative length
+        return len(mvalue) >= minlen
+
+    @staticmethod
+    def check_regex(rule, mkey, mvalue):
+        if mkey not in rule:
+            return True  # Not specified
+        if "regex" not in rule[mkey]:
+            return True  # Not specified
+        if not isinstance(mvalue, str):
+            return False  # Not text
+        if not rule[mkey]["regex"].match(mvalue):
+            return False  # No match
+        return True  # Match
+
+    @staticmethod
+    def check_similar(rule, key, value):
+        if "similar" not in rule:
+            return False  # Not specified
+        similar = rule["similar"]
+        if not isinstance(similar, float):
+            return False  # Not float
+        return similar_strings(key, value) < similar
+
+    @staticmethod
     def decode_if_base64(mkey, mvalue):
         if "isBase64" in mkey:
             if mkey["isBase64"]:
-                mvalue = b64decode(mvalue)
+                mvalue = b64decode(mvalue).decode("utf-8")
         return mvalue
 
     @staticmethod
@@ -129,17 +163,3 @@ class WhisperRules:
             if ord(ch) not in range(32, 127):
                 return False
         return True
-
-    @staticmethod
-    def check_minlen(rule, mkey, mvalue):
-        if "minlen" not in rule[mkey]:
-            return True
-        return len(mvalue) >= int(rule[mkey]["minlen"])
-
-    @staticmethod
-    def check_regex(rule, mkey, mvalue):
-        return rule[mkey]["regex"].match(mvalue)
-
-    @staticmethod
-    def check_similar(rule, key, value):
-        return similar_strings(key, value) < rule["similar"]

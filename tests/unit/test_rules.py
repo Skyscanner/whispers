@@ -1,4 +1,5 @@
 from pathlib import Path
+from re import compile
 
 import pytest
 
@@ -85,25 +86,80 @@ def test_match(value, result):
 
 
 @pytest.mark.parametrize(
-    ("value", "expectation"),
-    [(123, False), (False, False), ("", True), ("whispers", True), ("шёпот", False)],
+    ("rule", "value", "expectation"),
+    [
+        ({"value": {"minlen": 1}}, "", False),
+        ({"value": {"minlen": 1}}, "1", True),
+        ({"key": {"minlen": 100}}, "whispers", True),
+        ({"value": {"minlen": 4}}, "whispers", True),
+        ({"value": {}}, "whispers", True),
+        ({"value": {}}, b"binary", True),
+        ({"value": {"minlen": -11}}, "", False),
+        ({"value": {"minlen": None}}, "", False),
+    ],
 )
-def test_is_ascii(value, expectation):
+def test_check_minlen(rule, value, expectation):
     rules = WhisperRules()
-    assert rules.is_ascii(value) == expectation
+    result = rules.check_minlen(rule, "value", value)
+    assert result == expectation
 
 
 @pytest.mark.parametrize(
-    ("value", "minlen", "expectation"),
+    ("rule", "value", "expectation"),
     [
-        ("", 1, False),
-        ("1", 2, False),
-        ("12", 2, True),
-        ("Aria", 2, True),
+        ({"value": {"regex": compile(r"[a-z]+")}}, "whispers", True),
+        ({"value": {"regex": compile(r"[A-Z]+")}}, "whispers", False),
+        ({"key": {"regex": compile(r"[a-z]+")}}, "whispers", True),
+        ({"value": {"regex": compile(r"[a-z]+")}}, b"binary", False),
+        ({"value": {"regex": compile(r"[a-z]+")}}, 1, False),
+        ({"value": {"regex": compile(r"[a-z]+")}}, None, False),
     ],
 )
-def test_check_minlen(value, minlen, expectation):
+def test_check_regex(rule, value, expectation):
     rules = WhisperRules()
-    rule = {"value": {"minlen": minlen}}
-    result = rules.check_minlen(rule, "value", value)
+    result = rules.check_regex(rule, "value", value)
+    assert result == expectation
+
+
+@pytest.mark.parametrize(
+    ("rule", "key", "value", "expectation"),
+    [
+        # ({"similar": 0.5}, "WHISPERS", "whispers", True),
+        # ({"value": {"regex": compile(r"[A-Z]+")}}, "whispers", False),
+        # ({"key": {"regex": compile(r"[a-z]+")}}, "whispers", True),
+        # ({"value": {"regex": compile(r"[a-z]+")}}, b"binary", False),
+        # ({"value": {"regex": compile(r"[a-z]+")}}, 1, False),
+        # ({"value": {"regex": compile(r"[a-z]+")}}, None, False),
+    ],
+)
+def test_check_similar(rule, key, value, expectation):
+    rules = WhisperRules()
+    result = rules.check_similar(rule, key, value)
+    assert result == expectation
+
+
+@pytest.mark.parametrize(
+    ("test", "value", "expectation"),
+    [
+        (True, "d2hpc3BlcnM=", "whispers"),
+        (False, "d2hpc3BlcnM=", "d2hpc3BlcnM="),
+        (False, "whisper$", "whisper$"),
+        (False, None, None),
+        (False, 1, 1),
+    ],
+)
+def test_decode_if_base64(test, value, expectation):
+    rules = WhisperRules()
+    rule = {"isBase64": test}
+    result = rules.decode_if_base64(rule, value)
+    assert result == expectation
+
+
+@pytest.mark.parametrize(
+    ("value", "expectation"),
+    [("whispers", True), (123, False), (b"binary", False), (None, False), ("шёпот", False)],
+)
+def test_is_ascii(value, expectation):
+    rules = WhisperRules()
+    result = rules.is_ascii(value)
     assert result == expectation

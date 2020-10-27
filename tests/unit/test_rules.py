@@ -124,12 +124,12 @@ def test_check_regex(rule, value, expectation):
 @pytest.mark.parametrize(
     ("rule", "key", "value", "expectation"),
     [
-        # ({"similar": 0.5}, "WHISPERS", "whispers", True),
-        # ({"value": {"regex": compile(r"[A-Z]+")}}, "whispers", False),
-        # ({"key": {"regex": compile(r"[a-z]+")}}, "whispers", True),
-        # ({"value": {"regex": compile(r"[a-z]+")}}, b"binary", False),
-        # ({"value": {"regex": compile(r"[a-z]+")}}, 1, False),
-        # ({"value": {"regex": compile(r"[a-z]+")}}, None, False),
+        ({"similar": 0.3}, "A", "a", True),
+        ({"similar": 0.3}, "B", "a", False),
+        ({"similar": 0.3}, "a", "a" * 5, True),
+        ({"similar": 0.3}, "a", "a" * 6, False),
+        ({"similar": 0.3}, "API_TOKEN", "${API_TOKEN}", True),
+        ({"similar": 0.3}, "API_TOKEN", "API_TOKEN_PLACEHOLDER", True),
     ],
 )
 def test_check_similar(rule, key, value, expectation):

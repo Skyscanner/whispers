@@ -79,7 +79,7 @@ class WhisperRules:
             if rule["severity"] == "INFO":
                 continue
             if "similar" in rule:
-                if similar_strings(key, value) >= rule["similar"]:
+                if self.check_similar(rule, key, value):
                     rule_matched = False
             for check_idx, check_function in checks.items():
                 if not rule_matched:
@@ -141,12 +141,18 @@ class WhisperRules:
 
     @staticmethod
     def check_similar(rule, key, value):
+        """
+        Checks similarity between key and value.
+        Default rule similarity is 0.3
+        Returns True if actual similarity is
+        greater than the rule similarity.
+        """
         if "similar" not in rule:
-            return False  # Not specified
+            return similar_strings(key, value) >= 0.3
         similar = rule["similar"]
         if not isinstance(similar, float):
             return False  # Not float
-        return similar_strings(key, value) < similar
+        return similar_strings(key, value) >= similar
 
     @staticmethod
     def decode_if_base64(mkey, mvalue):

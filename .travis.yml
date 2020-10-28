@@ -10,9 +10,9 @@ script:
 deploy:
   provider: pypi
   user: adeptex
-  on:
-    tags: true
   password:
     secure: "rfMsxcWCVPgO3cVIrh3nonRU5R090dXSOwGNx36/pGM5q4GOXoohsqUY+guLPcK8hNglKk4V16QJiNEH9rJWqMj8nwC5rPlcRqOGYVgiCRrNtWZY/tIjNB8TZ7umcG3xgfNIwjsIZjW6rG8dkgODP4apkuXDc8SLTsEPt70gjRLZJX8VkQaQD8nE6F9fs97m49muULLEjNi7RuAk5y8TQvhLtQwsq3py9Yr4MVzw541y0rqMGbt8Z8jIjnpyVXTTU8HtshjkKh3e92n+A2U+qxZljOLsFXrwFMj9Bj/HmZIvzC+H1O+a108VGnkoJ5YoMU/7jur0OyIxkwq2Z3BfjU8ADVYOvkC5WWnl3T8JokSbi12EYA19c3NRfFr3TFgRbSGH331vMO9xv+vVzeJucixfYlycTyX7x8HfBwJeD41yjZj+2cJkdFt7mB6YL2zPK9ods9kpx0jthlqennFfBe7b2XRxe1t3ujKsZWD14yhwss0uJHtxDuNHRME464F38+5Z8AIs5FmfMPPHqoBgK5dOVzYYfC4WEE3D4bd2dIN/zR4rAzDUTwtihhBre+4C2LPRbm3w9wOcMqtqYEfmt6m15xpR1VDtoVvOkOXJj/e96Cfn/PhLbgtklbUrYR06nY/Nxwy9rNnDh7cMmQm8WSK20DF0Km+8BTpr3/ztcPI="
+  on:
+    branch: master
 env:
   BOTO_CONFIG: /dev/null

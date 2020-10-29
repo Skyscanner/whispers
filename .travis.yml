@@ -1,8 +1,8 @@
 language: python
 python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
+  - '3.6'
+  - '3.7'
+  - '3.8'
 install:
   - make install-dev
 script:
@@ -11,8 +11,8 @@ deploy:
   provider: pypi
   user: adeptex
   password:
-    secure: "rfMsxcWCVPgO3cVIrh3nonRU5R090dXSOwGNx36/pGM5q4GOXoohsqUY+guLPcK8hNglKk4V16QJiNEH9rJWqMj8nwC5rPlcRqOGYVgiCRrNtWZY/tIjNB8TZ7umcG3xgfNIwjsIZjW6rG8dkgODP4apkuXDc8SLTsEPt70gjRLZJX8VkQaQD8nE6F9fs97m49muULLEjNi7RuAk5y8TQvhLtQwsq3py9Yr4MVzw541y0rqMGbt8Z8jIjnpyVXTTU8HtshjkKh3e92n+A2U+qxZljOLsFXrwFMj9Bj/HmZIvzC+H1O+a108VGnkoJ5YoMU/7jur0OyIxkwq2Z3BfjU8ADVYOvkC5WWnl3T8JokSbi12EYA19c3NRfFr3TFgRbSGH331vMO9xv+vVzeJucixfYlycTyX7x8HfBwJeD41yjZj+2cJkdFt7mB6YL2zPK9ods9kpx0jthlqennFfBe7b2XRxe1t3ujKsZWD14yhwss0uJHtxDuNHRME464F38+5Z8AIs5FmfMPPHqoBgK5dOVzYYfC4WEE3D4bd2dIN/zR4rAzDUTwtihhBre+4C2LPRbm3w9wOcMqtqYEfmt6m15xpR1VDtoVvOkOXJj/e96Cfn/PhLbgtklbUrYR06nY/Nxwy9rNnDh7cMmQm8WSK20DF0Km+8BTpr3/ztcPI="
+    secure: qdsQKbW/ZcgaBqBv00mrsy+ri1hGMpxV0Ua2P1arcGWhSFniZjwm/dXznkXVUWfDCbhqh3VR9KxwvfeJQ1PMnLQS39xGSRz7+hJmhKyRa/ChrVB2VpNJMk5H1KDRZS1/N0C+Hx20+aMGki1/9oEwRO9vVymo7XcI+FFQ86+ya9Uj1EMN5bpZ13FpHrgVOZKDpYF978qeYJ6p+vwN0sDv+n5RjZBKLXcwSHNJ36jKx0y3phcwpde3oElqHYe/tM8uPQF6rSsUoJ4gwA9GAulNsGAYeD7ZK5UprDJaT0whjudnLnKqjac4UukBxEA5MtOSyEYogcz1qAL51bYVEUg1O4XfAnJjQaNFRkVB41YI14r7EQWPCMhGJ5giaEGdYh1M5xqqQFKajc6xA5nOSFAapTQRCNmcrGV0qZmnTK+xmH/Q6Fe7sT/58nDxtnrNIariIFaoGGgl6ITHkc5G/V8Re0RKwYKCjeUux3ku9lW1jWxS4qm525OjH1XDUY59hzpHoULGubv5lyMFHQAAjiUe95aL7bhidJjdSFgIqWZz4P0jH6SHUaC+oRU+vnds1Dm8p1svz3LD/8nz8U1NoUM3HGxFynjhKFt0izRizB8ZwwFTeDAz08UElc/DYlvmLJoXSkLe2EhTb40xfYhfkUGQKr0rNPekUD8xCTW4hLZLK4w=
   on:
     branch: master
 env:
-  BOTO_CONFIG: /dev/null
+  BOTO_CONFIG: "/dev/null"

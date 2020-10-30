@@ -1,12 +1,12 @@
 language: python
 python:
-  - '3.6'
-  - '3.7'
-  - '3.8'
+- '3.6'
+- '3.7'
+- '3.8'
 install:
-  - make install-dev
+- make install-dev
 script:
-  - make lint coverage
+- make lint coverage
 deploy:
   provider: pypi
   user: __token__

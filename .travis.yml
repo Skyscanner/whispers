@@ -9,7 +9,7 @@ script:
   - make lint coverage
 deploy:
   provider: pypi
-  user: adeptex
+  user: __token__
   password:
     secure: qdsQKbW/ZcgaBqBv00mrsy+ri1hGMpxV0Ua2P1arcGWhSFniZjwm/dXznkXVUWfDCbhqh3VR9KxwvfeJQ1PMnLQS39xGSRz7+hJmhKyRa/ChrVB2VpNJMk5H1KDRZS1/N0C+Hx20+aMGki1/9oEwRO9vVymo7XcI+FFQ86+ya9Uj1EMN5bpZ13FpHrgVOZKDpYF978qeYJ6p+vwN0sDv+n5RjZBKLXcwSHNJ36jKx0y3phcwpde3oElqHYe/tM8uPQF6rSsUoJ4gwA9GAulNsGAYeD7ZK5UprDJaT0whjudnLnKqjac4UukBxEA5MtOSyEYogcz1qAL51bYVEUg1O4XfAnJjQaNFRkVB41YI14r7EQWPCMhGJ5giaEGdYh1M5xqqQFKajc6xA5nOSFAapTQRCNmcrGV0qZmnTK+xmH/Q6Fe7sT/58nDxtnrNIariIFaoGGgl6ITHkc5G/V8Re0RKwYKCjeUux3ku9lW1jWxS4qm525OjH1XDUY59hzpHoULGubv5lyMFHQAAjiUe95aL7bhidJjdSFgIqWZz4P0jH6SHUaC+oRU+vnds1Dm8p1svz3LD/8nz8U1NoUM3HGxFynjhKFt0izRizB8ZwwFTeDAz08UElc/DYlvmLJoXSkLe2EhTb40xfYhfkUGQKr0rNPekUD8xCTW4hLZLK4w=
   on:

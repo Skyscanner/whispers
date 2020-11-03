@@ -3,7 +3,7 @@ slack-webhook:
   message: Webhook
   severity: MINOR
   value:
-    regex: https://hooks.slack.com/services/[A-Z0-9]{9}/[A-Z0-9]{9}/[a-zA-Z0-9]+
+    regex: https://hooks\.slack\.com/services/[A-Z0-9]{9}/[A-Z0-9]{9}/[a-zA-Z0-9]+
     ignorecase: True
 
 hubspot-webhook:
@@ -11,7 +11,7 @@ hubspot-webhook:
   message: Webhook
   severity: MINOR
   value:
-    regex: https://api.hubapi.com/webhooks/v1/[a-z0-9]+/
+    regex: https://api\.hubapi\.com/webhooks/v1/[a-z0-9]+/
     ignorecase: True
 
 twilio-webhook:
@@ -19,5 +19,5 @@ twilio-webhook:
   message: Webhook
   severity: MINOR
   value:
-    regex: https://chat.twilio.com/v2/Services/[A-Z0-9]{32}
+    regex: https://chat\.twilio\.com/v2/Services/[A-Z0-9]{32}
     ignorecase: True

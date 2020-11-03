@@ -13,3 +13,11 @@ hubspot-webhook:
   value:
     regex: https://api.hubapi.com/webhooks/v1/[a-z0-9]+/
     ignorecase: True
+
+twilio-webhook:
+  description: Twilio Webhook
+  message: Webhook
+  severity: MINOR
+  value:
+    regex: https://chat.twilio.com/v2/Services/[A-Z0-9]{32}
+    ignorecase: True

@@ -1,7 +1,9 @@
 compliant:
     slack-webhook: https://hooks.slack.com/services/
     hubspot-webhook: https://api.hubapi.com/webhooks/v1/{appId}/
+    twilio-webhook: https://chat.twilio.com/v2/Services/{id}/
 
 noncompliant:
     slack-webhook: https://hooks.slack.com/services/HARDC0D3D/HARDC0D3D/hardcodedWebhook01
     hubspot-webhook: https://api.hubapi.com/webhooks/v1/HARDC0D3D/hardcodedWebhook02
+    twilio-webhook: https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXHARDCODED/hardcodedWebhook03

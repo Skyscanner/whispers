@@ -1,7 +1,7 @@
 # Whispers <img src="whispers.png" width="40px" alt="Whispers" style=""> 
 
 [![](https://img.shields.io/pypi/v/whispers.svg)](https://pypi.python.org/pypi/whispers/)
-[![](https://img.shields.io/travis/Skyscanner/whispers)](https://travis-ci.org/Skyscanner/whispers)
+[![](https://github.com/Skyscanner/whispers/workflows/build/badge.svg)](https://github.com/Skyscanner/whispers/actions)
 [![](https://img.shields.io/github/issues/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/issues)
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
 

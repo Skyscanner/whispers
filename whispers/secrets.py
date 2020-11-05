@@ -8,11 +8,11 @@ from whispers.utils import Secret, simple_string, strip_string
 
 
 class WhisperSecrets:
-    def __init__(self, config):
-        self.exclude = config["exclude"]
+    def __init__(self, args):
+        self.exclude = args.config["exclude"]
         self.breadcrumbs = []
-        self.rules = WhisperRules()
-        self.rules.load_rules_from_dict(config["rules"])
+        self.rules = WhisperRules(ruleslist=args.rules)
+        self.rules.load_rules_from_dict(args.config["rules"])
 
     def is_static(self, key: str, value: str) -> bool:
         """

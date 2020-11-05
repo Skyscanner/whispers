@@ -1,4 +1,4 @@
-from argparse import ArgumentParser
+from argparse import ArgumentParser, Namespace
 from pathlib import Path
 
 from whispers.__version__ import __version__
@@ -17,7 +17,7 @@ def whispersArgumentsParser() -> ArgumentParser:
     return args_parser
 
 
-def parse_args(arguments=None):
+def parse_args(arguments=None) -> Namespace:
     return whispersArgumentsParser().parse_args(arguments)
 
 

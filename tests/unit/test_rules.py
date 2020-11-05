@@ -19,7 +19,7 @@ from .conftest import does_not_raise, rule_path
     ],
 )
 def test_load_rules(rulefile, expectation):
-    rules = WhisperRules(rule_path("empty.yml"))
+    rules = WhisperRules(rulespath=rule_path("empty.yml"))
     rulefile = rule_path(rulefile)
     ruleyaml = load_yaml_from_file(Path(rulefile))
     with expectation:
@@ -81,7 +81,7 @@ def test_parse_rule(rulefile, expectation):
 
 @pytest.mark.parametrize(("value", "result"), [("test", True), ("Test", False), ("1test", False)])
 def test_match(value, result):
-    rules = WhisperRules(rule_path("valid.yml"))
+    rules = WhisperRules(rulespath=rule_path("valid.yml"))
     assert rules.match("valid", value) == result
 
 

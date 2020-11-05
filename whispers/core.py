@@ -79,7 +79,7 @@ def run(args):
     files = list(set(files) - set(args.config["exclude"]["files"]))
 
     # Scan files
-    whispers = WhisperSecrets(args.config)
+    whispers = WhisperSecrets(args)
     for filename in files:
         for secret in whispers.scan(filename):
             if secret:

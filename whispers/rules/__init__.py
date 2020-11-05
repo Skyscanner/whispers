@@ -6,8 +6,15 @@ from whispers.utils import Secret, find_line_number, load_yaml_from_file, simila
 
 
 class WhisperRules:
-    def __init__(self, rulespath: str = ""):
+    def __init__(self, ruleslist: str = "all", rulespath: str = ""):
+        """
+        Loads rules
+
+        @ruleslist: comma-separated list of rule IDs
+        @rulespath: file or directory with rules.yml
+        """
         self.rules = {}
+        self.ruleslist = ruleslist.split(",")
         self.load_rules(rulespath)
 
     def load_rules(self, rulespath: str = ""):
@@ -39,6 +46,9 @@ class WhisperRules:
     def load_rule(self, rule_id: str, rule: dict):
         if rule_id in self.rules:
             raise IndexError(f"Duplicated rule {rule_id}, {self.rules[rule_id]}")
+        if self.ruleslist != ["all"]:
+            if rule_id not in self.ruleslist:
+                return  # Only load configured rules
         self.rules[rule_id] = self.parse_rule(rule_id, rule)
 
     @staticmethod

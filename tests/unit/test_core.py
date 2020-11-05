@@ -6,6 +6,7 @@ import pytest
 from yaml.parser import ParserError
 
 from whispers import core
+from whispers.cli import parse_args
 
 from .conftest import FIXTURE_PATH, config_path, fixture_path
 
@@ -16,7 +17,8 @@ from .conftest import FIXTURE_PATH, config_path, fixture_path
 )
 def test_core_exception(filename, exception):
     with pytest.raises(exception):
-        next(core.run(filename))
+        args = parse_args([filename])
+        next(core.run(args))
 
 
 def test_load_config_exception():
@@ -39,15 +41,17 @@ def test_load_config():
 
 
 def test_include_files():
-    config = core.load_config(config_path("include_files.yml"), FIXTURE_PATH)
-    secrets = core.run(FIXTURE_PATH, config=config)
+    args = parse_args([fixture_path()])
+    args.config = core.load_config(config_path("include_files.yml"), FIXTURE_PATH)
+    secrets = core.run(args)
     assert next(secrets).value == "hardcoded"
     with pytest.raises(StopIteration):
         next(secrets)
 
 
 def test_exclude_files():
-    config = core.load_config(config_path("exclude_files.yml"), FIXTURE_PATH)
-    secrets = core.run(FIXTURE_PATH, config=config)
+    args = parse_args([fixture_path()])
+    args.config = core.load_config(config_path("exclude_files.yml"), FIXTURE_PATH)
+    secrets = core.run(args)
     with pytest.raises(StopIteration):
         next(secrets)

@@ -1,6 +1,7 @@
 import pytest
 
 from whispers import core
+from whispers.cli import parse_args
 
 from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 
@@ -8,8 +9,9 @@ from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 @pytest.mark.parametrize("configfile", ["exclude_keys.yml", "exclude_values.yml"])
 @pytest.mark.parametrize("src", ["excluded.yml", "excluded.json", "excluded.xml"])
 def test_exclude_by_keys_and_values(configfile, src):
-    config = core.load_config(config_path(configfile), FIXTURE_PATH)
-    secrets = core.run(fixture_path(src), config=config)
+    args = parse_args([fixture_path(src)])
+    args.config = core.load_config(config_path(configfile), FIXTURE_PATH)
+    secrets = core.run(args)
     assert next(secrets).key == "hardcoded_password"
     with pytest.raises(StopIteration):
         next(secrets)
@@ -30,7 +32,8 @@ def test_exclude_by_keys_and_values(configfile, src):
     ],
 )
 def test_detection_by_key(src, keys):
-    secrets = core.run(fixture_path(src))
+    args = parse_args([fixture_path(src)])
+    secrets = core.run(args)
     for key in keys:
         assert next(secrets).key == key
     with pytest.raises(StopIteration):
@@ -87,8 +90,9 @@ def test_detection_by_key(src, keys):
     ],
 )
 def test_detection_by_value(src, count):
-    config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
-    secrets = core.run(fixture_path(src), config)
+    args = parse_args([fixture_path(src)])
+    args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
+    secrets = core.run(args)
     for _ in range(count):
         value = next(secrets).value.lower()
         if value.isnumeric():
@@ -115,8 +119,9 @@ def test_detection_by_filename():
             "settings.ini",
         ],
     )
-    config = core.load_config(CONFIG_PATH.joinpath("detection_by_filename.yml"))
-    secrets = core.run(fixture_path(""), config)
+    args = parse_args([fixture_path()])
+    args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_filename.yml"))
+    secrets = core.run(args)
     result = [secret.value for secret in secrets]
     for exp in expected:
         assert exp in result

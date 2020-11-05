@@ -51,10 +51,10 @@ def cli(arguments=None):
 
 
 def info():
-    whispersArgumentsParser().print_help()
-    print("\navailable rules:")
     rule_ids = list(WhisperRules().rules.keys())
     rule_ids.sort()
+    whispersArgumentsParser().print_help()
+    print("\navailable rules:")
     for rule_id in rule_ids:
         print(f"  {rule_id}")
 

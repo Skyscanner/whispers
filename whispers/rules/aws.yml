@@ -1,4 +1,4 @@
-aws_id:
+aws-id:
   # https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-unique-ids
   description: Values formatted like AWS Access Key ID
   message: AWS Access Key ID
@@ -7,7 +7,7 @@ aws_id:
     regex: ^(?=.*[A-Z])(?=.*[0-9])A(AG|CC|GP|ID|IP|KI|NP|NV|PK|RO|SC|SI)A[A-Z0-9]{16}$
     ignorecase: False
 
-aws_secret:
+aws-secret:
   description: Values formatted like AWS Secret Access Key
   message: AWS Secret Access Key
   severity: BLOCKER
@@ -18,7 +18,7 @@ aws_secret:
     regex: ^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9\+\/]{40}$
     ignorecase: False
 
-aws_token:
+aws-token:
   description: Values formatted like AWS Session Token
   message: AWS Session Token
   severity: BLOCKER

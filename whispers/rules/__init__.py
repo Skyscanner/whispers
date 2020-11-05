@@ -46,9 +46,6 @@ class WhisperRules:
     def load_rule(self, rule_id: str, rule: dict):
         if rule_id in self.rules:
             raise IndexError(f"Duplicated rule {rule_id}, {self.rules[rule_id]}")
-        if self.ruleslist != ["all"]:
-            if rule_id not in self.ruleslist:
-                return  # Only load configured rules
         self.rules[rule_id] = self.parse_rule(rule_id, rule)
 
     @staticmethod
@@ -86,8 +83,12 @@ class WhisperRules:
         }
         for rule_id, rule in self.rules.items():
             rule_matched = True
-            if rule["severity"] == "INFO":
-                continue
+            if self.ruleslist != ["all"]:
+                if rule_id not in self.ruleslist:
+                    continue  # Only report configured rules
+            else:
+                if rule["severity"] == "INFO":
+                    continue  # Don't report INFO on all rules
             if "similar" in rule:
                 if self.check_similar(rule, key, value):
                     rule_matched = False

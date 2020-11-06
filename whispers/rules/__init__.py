@@ -72,7 +72,7 @@ class WhisperRules:
                     return True
         return False
 
-    def check(self, key, value, filepath):
+    def check(self, key: str, value: str, filepath: Path) -> Secret:
         matrix = {"key": key, "value": value}
         checks = {
             "minlen": self.check_minlen,

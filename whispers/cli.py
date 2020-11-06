@@ -4,8 +4,8 @@ from pathlib import Path
 from whispers.__version__ import __version__
 from whispers.core import load_config, run
 from whispers.log import configure_log
-from whispers.utils import format_stdout
 from whispers.rules import WhisperRules
+from whispers.utils import format_stdout
 
 
 def whispersArgumentsParser() -> ArgumentParser:

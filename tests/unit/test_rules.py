@@ -3,10 +3,11 @@ from re import compile
 
 import pytest
 
+from whispers.plugins import Yml
 from whispers.rules import WhisperRules
 from whispers.utils import load_yaml_from_file
 
-from .conftest import does_not_raise, rule_path
+from .conftest import FIXTURE_PATH, does_not_raise, rule_path
 
 
 @pytest.mark.parametrize(
@@ -79,10 +80,29 @@ def test_parse_rule(rulefile, expectation):
             assert parsed_rule[key] == rule[key]
 
 
-@pytest.mark.parametrize(("value", "result"), [("test", True), ("Test", False), ("1test", False)])
-def test_match(value, result):
+@pytest.mark.parametrize(("value", "expectation"), [("test", True), ("Test", False), ("1test", False)])
+def test_match(value, expectation):
     rules = WhisperRules(rulespath=rule_path("valid.yml"))
-    assert rules.match("valid", value) == result
+    assert rules.match("valid", value) == expectation
+
+
+@pytest.mark.parametrize(
+    ("ruleslist", "expectation"),
+    [
+        ("inexistent-rule-id", 0),
+        ("apikey", 2),
+        ("password", 3),
+        ("apikey,password", 5),
+    ],
+)
+def test_check(ruleslist, expectation):
+    filepath = FIXTURE_PATH.joinpath("ruleslist.yml")
+    rules = WhisperRules(ruleslist=ruleslist)
+    result = 0
+    for key, value, _ in Yml().pairs(filepath):
+        if rules.check(key, value, filepath):
+            result += 1
+    assert result == expectation
 
 
 @pytest.mark.parametrize(

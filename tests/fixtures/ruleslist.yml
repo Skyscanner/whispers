@@ -1,0 +1,9 @@
+compliant:
+  name: name
+
+noncompliant:
+  apikey: YXNkZmZmZmZm_HARDcoded
+  TRAVEL_API_KEY: YXNkZmZmZmZm_HARDcoded
+  passwd: hardcoded2_1
+  password: hardcoded2_2
+  dbpass: hardcoded2_3

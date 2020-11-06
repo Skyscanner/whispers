@@ -1,8 +1,8 @@
 import logging
 import logging.config
 import traceback
-from pathlib import Path
 from os import remove
+from pathlib import Path
 
 
 def configure_log(path: str = ""):

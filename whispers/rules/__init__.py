@@ -6,8 +6,15 @@ from whispers.utils import Secret, find_line_number, load_yaml_from_file, simila
 
 
 class WhisperRules:
-    def __init__(self, rulespath: str = ""):
+    def __init__(self, ruleslist: str = "all", rulespath: str = ""):
+        """
+        Loads rules
+
+        @ruleslist: comma-separated list of rule IDs
+        @rulespath: file or directory with rules.yml
+        """
         self.rules = {}
+        self.ruleslist = ruleslist.split(",")
         self.load_rules(rulespath)
 
     def load_rules(self, rulespath: str = ""):
@@ -65,7 +72,7 @@ class WhisperRules:
                     return True
         return False
 
-    def check(self, key, value, filepath):
+    def check(self, key: str, value: str, filepath: Path) -> Secret:
         matrix = {"key": key, "value": value}
         checks = {
             "minlen": self.check_minlen,
@@ -76,8 +83,12 @@ class WhisperRules:
         }
         for rule_id, rule in self.rules.items():
             rule_matched = True
-            if rule["severity"] == "INFO":
-                continue
+            if self.ruleslist != ["all"]:
+                if rule_id not in self.ruleslist:
+                    continue  # Only report configured rules
+            else:
+                if rule["severity"] == "INFO":
+                    continue  # Don't report INFO on all rules
             if "similar" in rule:
                 if self.check_similar(rule, key, value):
                     rule_matched = False

@@ -1,4 +1,4 @@
-private-ssh-key-file:
+file-private-ssh-key:
   description: File with a private SSH key
   message: Private SSH key file
   severity: CRITICAL
@@ -6,10 +6,10 @@ private-ssh-key-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*_(rsa|dsa|ed25519|ecdsa)$
+    regex: .*-(rsa|dsa|ed25519|ecdsa)$
     ignorecase: True
 
-ssh-config-file:
+file-ssh-config:
   description: File with SSH configuration
   message: SSH configuration file
   severity: MAJOR
@@ -20,7 +20,7 @@ ssh-config-file:
     regex: .*ssh/config$
     ignorecase: True
 
-private-key-file:
+file-private-key:
   description: File with a common private key and certificate file extension
   message: Private key file
   severity: MAJOR
@@ -31,7 +31,7 @@ private-key-file:
     regex: .*\.(pem|crt|cer|ca-bundle|p7b|p7c|p7s|key|keystore|jks)$
     ignorecase: True
 
-cryptographic-private-key-file:
+file-cryptographic-private-key:
   description: File with Potential cryptographic private key
   message: Potential cryptographic private key file
   severity: MAJOR
@@ -42,7 +42,7 @@ cryptographic-private-key-file:
     regex: ^key(pair)?\.
     ignorecase: True
 
-cryptographic-key-bundle-file:
+file-cryptographic-key-bundle:
   description: File with Potential cryptographic key bundle
   message: Potential cryptographic key bundle file
   severity: MAJOR
@@ -53,7 +53,7 @@ cryptographic-key-bundle-file:
     regex: .*\.(pkcs12|pfx|p12|asc)$
     ignorecase: True
 
-pidgin-otr-private-key-file:
+file-pidgin-otr-private-key:
   description: File with Pidgin OTR private key
   message: Pidgin OTR private key file
   severity: MAJOR
@@ -61,10 +61,10 @@ pidgin-otr-private-key-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*otr\.private_key$
+    regex: .*otr\.private-key$
     ignorecase: True
 
-shell-command-history-file:
+file-shell-command-history:
   description: File with Shell command history
   message: Shell command history file
   severity: MAJOR
@@ -72,10 +72,10 @@ shell-command-history-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.(ba|z|da)?sh_history$
+    regex: .*\.(ba|z|da)?sh-history$
     ignorecase: True
 
-mysql-client-command-history-file:
+file-mysql-client-command-history:
   description: File with MySQL client command history
   message: MySQL client command history file
   severity: MAJOR
@@ -83,10 +83,10 @@ mysql-client-command-history-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.mysql_history$
+    regex: .*\.mysql-history$
     ignorecase: True
 
-postgresql-client-command-history-file:
+file-postgresql-client-command-history:
   description: File with PostgreSQL client command history
   message: PostgreSQL client command history file
   severity: MAJOR
@@ -94,10 +94,10 @@ postgresql-client-command-history-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.psql_history$
+    regex: .*\.psql-history$
     ignorecase: True
 
-postgresql-password-file:
+file-postgresql-password:
   description: File with PostgreSQL password
   message: PostgreSQL password file
   severity: MAJOR
@@ -108,7 +108,7 @@ postgresql-password-file:
     regex: .*\.pgpass$
     ignorecase: True
 
-ruby-irb-console-history-file:
+file-ruby-irb-console-history:
   description: File with Ruby IRB console history
   message: Ruby IRB console history file
   severity: MAJOR
@@ -116,10 +116,10 @@ ruby-irb-console-history-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.irb_history$
+    regex: .*\.irb-history$
     ignorecase: True
 
-pidgin-chat-client-account-configuration-file:
+file-pidgin-chat-client-account-config:
   description: File with Pidgin chat client account configuration
   message: Pidgin chat client account configuration file
   severity: MAJOR
@@ -130,7 +130,7 @@ pidgin-chat-client-account-configuration-file:
     regex: .*\.?purple\/accounts\.xml$
     ignorecase: True
 
-hexchat/xchat-irc-client-server-list-configuration-file:
+file-xchat-config:
   description: File with Hexchat/XChat IRC client server list configuration
   message: Hexchat/XChat IRC client server list configuration file
   severity: MAJOR
@@ -138,10 +138,10 @@ hexchat/xchat-irc-client-server-list-configuration-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.?xchat2?\/servlist_?\.conf$
+    regex: .*\.?xchat2?\/servlist-?\.conf$
     ignorecase: True
 
-irssi-irc-client-configuration-file:
+file-irssi-irc-client-config:
   description: File with Irssi IRC client configuration
   message: Irssi IRC client configuration file
   severity: MAJOR
@@ -152,7 +152,7 @@ irssi-irc-client-configuration-file:
     regex: .*\.?irssi\/config$
     ignorecase: True
 
-recon-ng-web-reconnaissance-framework-api-key-database-file:
+file-recon-ng-db:
   description: File with Recon-ng web reconnaissance framework API key database
   message: Recon-ng web reconnaissance framework API key database file
   severity: MAJOR
@@ -163,7 +163,7 @@ recon-ng-web-reconnaissance-framework-api-key-database-file:
     regex: .*\.?recon-ng\/keys\.db$
     ignorecase: True
 
-dbeaver-sql-database-manager-configuration-file:
+file-dbeaver-sql-config:
   description: File with DBeaver SQL database manager configuration
   message: DBeaver SQL database manager configuration file
   severity: MAJOR
@@ -174,7 +174,7 @@ dbeaver-sql-database-manager-configuration-file:
     regex: .*\.dbeaver-data-sources.xml$
     ignorecase: True
 
-mutt-e-mail-client-configuration-file:
+file-mutt-e-mail-client-config:
   description: File with Mutt e-mail client configuration
   message: Mutt e-mail client configuration file
   severity: MAJOR
@@ -185,7 +185,7 @@ mutt-e-mail-client-configuration-file:
     regex: .*\.muttrc$
     ignorecase: True
 
-s3cmd-configuration-file:
+file-s3cmd-config:
   description: File with S3cmd configuration
   message: S3cmd configuration file
   severity: MAJOR
@@ -196,7 +196,7 @@ s3cmd-configuration-file:
     regex: .*\.s3cfg$
     ignorecase: True
 
-aws-cli-credentials-file:
+file-aws-cli-credentials:
   description: File with AWS CLI credentials
   message: AWS CLI credentials file
   severity: MAJOR
@@ -207,7 +207,7 @@ aws-cli-credentials-file:
     regex: .*\.?aws/credentials$
     ignorecase: True
 
-t-command-line-twitter-client-configuration-file:
+file-twitter-client-config:
   description: File with T command-line Twitter client configuration
   message: T command-line Twitter client configuration file
   severity: MAJOR
@@ -218,7 +218,7 @@ t-command-line-twitter-client-configuration-file:
     regex: .*\.trc$
     ignorecase: True
 
-openvpn-client-configuration-file:
+file-openvpn-client-config:
   description: File with OpenVPN client configuration
   message: OpenVPN client configuration file
   severity: MAJOR
@@ -229,9 +229,9 @@ openvpn-client-configuration-file:
     regex: .*\.ovpn$
     ignorecase: True
 
-well,-this-is-awkward...-gitrob-configuration-file:
-  description: File with Well, this is awkward... Gitrob configuration
-  message: Well, this is awkward... Gitrob configuration file
+file-gitrob-config:
+  description: Gitrob configuration
+  message: Gitrob configuration file
   severity: MAJOR
   key:
     regex: ^file$
@@ -240,7 +240,7 @@ well,-this-is-awkward...-gitrob-configuration-file:
     regex: .*\.gitrobrc$
     ignorecase: True
 
-shell-configuration-file:
+file-shell-config:
   description: File with Shell configuration
   message: Shell configuration file
   severity: MAJOR
@@ -251,7 +251,7 @@ shell-configuration-file:
     regex: .*\.(bash|zsh)rc$
     ignorecase: True
 
-shell-pro-configuration-file:
+file-shell-pro-config:
   description: File with Shell pro configuration
   message: Shell pro configuration file
   severity: MAJOR
@@ -259,10 +259,10 @@ shell-pro-configuration-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.(bash_|zsh_)?profile$
+    regex: .*\.(bash-|zsh-)?profile$
     ignorecase: True
 
-shell-command-alias-configuration-file:
+file-shell-command-alias-config:
   description: File with Shell command alias configuration
   message: Shell command alias configuration file
   severity: MAJOR
@@ -270,10 +270,10 @@ shell-command-alias-configuration-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*\.(bash_|zsh_)?aliases$
+    regex: .*\.(bash-|zsh-)?aliases$
     ignorecase: True
 
-ruby-on-rails-secret-token-configuration-file:
+file-ror-secret-token-config:
   description: File with Ruby On Rails secret token configuration
   message: Ruby On Rails secret token configuration file
   severity: MAJOR
@@ -281,10 +281,10 @@ ruby-on-rails-secret-token-configuration-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*secret_token.rb$
+    regex: .*secret-token.rb$
     ignorecase: True
 
-omniauth-configuration-file:
+file-omniauth-config:
   description: File with OmniAuth configuration
   message: OmniAuth configuration file
   severity: MAJOR
@@ -295,7 +295,7 @@ omniauth-configuration-file:
     regex: .*omniauth.rb$
     ignorecase: True
 
-carrierwave-configuration-file:
+file-carrierwave-config:
   description: File with Carrierwave configuration
   message: Carrierwave configuration file
   severity: MAJOR
@@ -306,7 +306,7 @@ carrierwave-configuration-file:
     regex: .*carrierwave.rb$
     ignorecase: True
 
-ruby-on-rails-database-schema-file:
+file-ror-db-schema:
   description: File with Ruby On Rails database schema
   message: Ruby On Rails database schema file
   severity: MAJOR
@@ -317,7 +317,7 @@ ruby-on-rails-database-schema-file:
     regex: .*schema.rb$
     ignorecase: True
 
-ruby-on-rails-database-configuration-file:
+file-ror-db-config:
   description: File with Potential Ruby On Rails database configuration
   message: Potential Ruby On Rails database configuration file
   severity: MAJOR
@@ -328,7 +328,7 @@ ruby-on-rails-database-configuration-file:
     regex: .*database.yml$
     ignorecase: True
 
-django-configuration-file:
+file-django-config:
   description: File with Django configuration
   message: Django configuration file
   severity: MAJOR
@@ -339,7 +339,7 @@ django-configuration-file:
     regex: .*settings.py$
     ignorecase: True
 
-php-configuration-file:
+file-php-config:
   description: File with PHP configuration
   message: PHP configuration file
   severity: MAJOR
@@ -350,7 +350,7 @@ php-configuration-file:
     regex: .*config(\.inc)?\.php$
     ignorecase: True
 
-keepass-password-manager-database-file:
+file-keepass-db:
   description: File with KeePass password manager database
   message: KeePass password manager database file
   severity: MAJOR
@@ -361,7 +361,7 @@ keepass-password-manager-database-file:
     regex: .*\.kdbx?$
     ignorecase: True
 
-1password-password-manager-database:
+file-1password-db:
   description: File with 1Password password manager database
   message: 1Password password manager database file
   severity: MAJOR
@@ -372,7 +372,7 @@ keepass-password-manager-database-file:
     regex: .*agilekeychain$
     ignorecase: True
 
-apple-keychain-database-file:
+file-apple-keychain-db:
   description: File with Apple Keychain database
   message: Apple Keychain database file
   severity: MAJOR
@@ -383,7 +383,7 @@ apple-keychain-database-file:
     regex: .*keychain$
     ignorecase: True
 
-gnome-keyring-database-file:
+file-gnome-keyring-db:
   description: File with GNOME Keyring database
   message: GNOME Keyring database file
   severity: MAJOR
@@ -394,7 +394,7 @@ gnome-keyring-database-file:
     regex: .*key(store|ring)$
     ignorecase: True
 
-log-file:
+file-log:
   description: File with Log
   message: Log file
   severity: MINOR
@@ -405,7 +405,7 @@ log-file:
     regex: .*\.log$
     ignorecase: True
 
-network-traffic-capture-file:
+file-network-traffic-capture:
   description: File with Network traffic capture
   message: Network traffic capture file
   severity: MINOR
@@ -416,7 +416,7 @@ network-traffic-capture-file:
     regex: .*\.pcap$
     ignorecase: True
 
-sql-dump-file:
+file-sql-dump:
   description: File with SQL dump
   message: SQL dump file
   severity: MINOR
@@ -427,7 +427,7 @@ sql-dump-file:
     regex: .*\.sql(dump)?$
     ignorecase: True
 
-gnucash-database-file:
+file-gnucash-db:
   description: File with GnuCash database
   message: GnuCash database file
   severity: MAJOR
@@ -438,7 +438,7 @@ gnucash-database-file:
     regex: .*gnucash$
     ignorecase: True
 
-contains-backup-file:
+file-contains-backup:
   description: File with backup
   message: backup file
   severity: MAJOR
@@ -449,7 +449,7 @@ contains-backup-file:
     regex: .*\.(backup|back|bck|original|~1)$
     ignorecase: True
 
-contains-dump-file:
+file-contains-dump:
   description: File with dump
   message: dump file
   severity: MAJOR
@@ -460,7 +460,7 @@ contains-dump-file:
     regex: .*\.dump$
     ignorecase: True
 
-contains-password-file:
+file-contains-password:
   description: File with password
   message: password file
   severity: MAJOR
@@ -471,7 +471,7 @@ contains-password-file:
     regex: .*password(\.[A-Za-z0-9]+)?$
     ignorecase: True
 
-contains-credential-file:
+file-contains-credential:
   description: File with credential
   message: credential file
   severity: MAJOR
@@ -482,7 +482,7 @@ contains-credential-file:
     regex: .*credential(\.[A-Za-z0-9]+)?$
     ignorecase: True
 
-contains-secret-file:
+file-contains-secret:
   description: File with secret
   message: secret file
   severity: MAJOR
@@ -493,7 +493,7 @@ contains-secret-file:
     regex: .*secret(\.[A-Za-z0-9]+)?$
     ignorecase: True
 
-jenkins-publish-over-ssh-plugin-file:
+file-jenkins-ssh-plugin:
   description: File with Jenkins publish over SSH plugin
   message: Jenkins publish over SSH plugin file
   severity: MAJOR
@@ -501,10 +501,10 @@ jenkins-publish-over-ssh-plugin-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin.xml$
+    regex: .*jenkins.plugins.publish-over-ssh.BapSshPublisherPlugin.xml$
     ignorecase: True
 
-jenkins-credentials-file:
+file-jenkins-credentials:
   description: File with Potential Jenkins credentials
   message: Potential Jenkins credentials file
   severity: MAJOR
@@ -515,7 +515,7 @@ jenkins-credentials-file:
     regex: .*credentials.xml$
     ignorecase: True
 
-apache-htpasswd-file:
+file-apache-htpasswd:
   description: File with Apache htpasswd
   message: Apache htpasswd file
   severity: MAJOR
@@ -526,7 +526,7 @@ apache-htpasswd-file:
     regex: .*\.htpasswd$
     ignorecase: True
 
-configuration--for-auto-login-process-file:
+file-netrc:
   description: File with Configuration  for auto-login process
   message: Configuration  for auto-login process file
   severity: MAJOR
@@ -534,10 +534,10 @@ configuration--for-auto-login-process-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*(\.|_)?netrc$
+    regex: .*(\.|-)?netrc$
     ignorecase: True
 
-kde-wallet-manager-database-file:
+file-kde-wallet-manager-db:
   description: File with KDE Wallet Manager database
   message: KDE Wallet Manager database file
   severity: MAJOR
@@ -548,7 +548,7 @@ kde-wallet-manager-database-file:
     regex: .*kwallet$
     ignorecase: True
 
-mediawiki-configuration-file:
+file-mediawiki-config:
   description: File with Potential MediaWiki configuration
   message: Potential MediaWiki configuration file
   severity: MAJOR
@@ -559,7 +559,7 @@ mediawiki-configuration-file:
     regex: .*LocalSettings.php$
     ignorecase: True
 
-tunnelblick-vpn-configuration-file:
+file-tunnelblick-vpn-config:
   description: File with Tunnelblick VPN configuration
   message: Tunnelblick VPN configuration file
   severity: MAJOR
@@ -570,7 +570,7 @@ tunnelblick-vpn-configuration-file:
     regex: .*\.tblk$
     ignorecase: True
 
-rubygems-credentials-file:
+file-rubygems-credentials:
   description: File with Rubygems credentials
   message: Rubygems credentials file
   severity: MAJOR
@@ -581,7 +581,7 @@ rubygems-credentials-file:
     regex: .*\.?gem/credentials$
     ignorecase: True
 
-msbuild-publish-pro-file:
+file-msbuild-publish-pro:
   description: File with Potential MSBuild publish pro
   message: Potential MSBuild publish pro file
   severity: MAJOR
@@ -592,7 +592,7 @@ msbuild-publish-pro-file:
     regex: .*\.pubxml(\.user)?$
     ignorecase: True
 
-sequel-pro-mysql-database-manager-bookmark-file:
+file-sequel-pro-mysql-bookmark:
   description: File with Sequel Pro MySQL database manager bookmark
   message: Sequel Pro MySQL database manager bookmark file
   severity: MINOR
@@ -603,7 +603,7 @@ sequel-pro-mysql-database-manager-bookmark-file:
     regex: .*Favorites.plist
     ignorecase: True
 
-little-snitch-firewall-configuration-file:
+file-little-snitch-firewall-config:
   description: File with Little Snitch firewall configuration
   message: Little Snitch firewall configuration file
   severity: MAJOR
@@ -614,7 +614,7 @@ little-snitch-firewall-configuration-file:
     regex: .*configuration.user.xpl$
     ignorecase: True
 
-day-one-journal-file:
+file-day-one-journal:
   description: File with Day One journal
   message: Day One journal file
   severity: MAJOR
@@ -625,7 +625,7 @@ day-one-journal-file:
     regex: .*\.dayone$
     ignorecase: True
 
-tugboat-digitalocean-management-tool-configuration-file:
+file-tugboat-config:
   description: File with Tugboat DigitalOcean management tool configuration
   message: Tugboat DigitalOcean management tool configuration file
   severity: MAJOR
@@ -636,7 +636,7 @@ tugboat-digitalocean-management-tool-configuration-file:
     regex: .*\.tugboat$
     ignorecase: True
 
-git-credential-store-helper-credentials-file:
+file-git-credentials:
   description: File with git-credential-store helper credentials
   message: git-credential-store helper credentials file
   severity: MAJOR
@@ -647,7 +647,7 @@ git-credential-store-helper-credentials-file:
     regex: .*\.git-credentials$
     ignorecase: True
 
-git-configuration-file:
+file-git-config:
   description: File with Git configuration
   message: Git configuration file
   severity: MAJOR
@@ -658,7 +658,7 @@ git-configuration-file:
     regex: .*\.gitconfig$
     ignorecase: True
 
-chef-knife-configuration-file:
+file-chef-knife-config:
   description: File with Chef Knife configuration
   message: Chef Knife configuration file
   severity: MAJOR
@@ -669,7 +669,7 @@ chef-knife-configuration-file:
     regex: .*knife.rb$
     ignorecase: True
 
-chef-private-key-file:
+file-chef-private-key:
   description: File with Chef private key
   message: Chef private key file
   severity: MAJOR
@@ -680,7 +680,7 @@ chef-private-key-file:
     regex: .*\.?chef/(.*)\.pem$
     ignorecase: True
 
-cpanel-backup-proftpd-credentials-file:
+file-cpanel-backup-proftpd-credentials:
   description: File with cPanel backup ProFTPd credentials
   message: cPanel backup ProFTPd credentials file
   severity: MAJOR
@@ -691,7 +691,7 @@ cpanel-backup-proftpd-credentials-file:
     regex: .*proftpdpasswd$
     ignorecase: True
 
-robomongo-mongodb-manager-configuration-file:
+file-robomongo-mongodb-manager-config:
   description: File with Robomongo MongoDB manager configuration
   message: Robomongo MongoDB manager configuration file
   severity: MAJOR
@@ -702,7 +702,7 @@ robomongo-mongodb-manager-configuration-file:
     regex: .*robomongo.json$
     ignorecase: True
 
-filezilla-ftp-configuration-file:
+file-filezilla-ftp-config:
   description: File with FileZilla FTP configuration
   message: FileZilla FTP configuration file
   severity: MAJOR
@@ -713,7 +713,7 @@ filezilla-ftp-configuration-file:
     regex: .*filezilla.xml$
     ignorecase: True
 
-filezilla-ftp-recent-servers-file:
+file-filezilla-ftp-recent-servers:
   description: File with FileZilla FTP recent servers
   message: FileZilla FTP recent servers file
   severity: MAJOR
@@ -724,7 +724,7 @@ filezilla-ftp-recent-servers-file:
     regex: .*recentservers.xml$
     ignorecase: True
 
-ventrilo-server-configuration-file:
+file-ventrilo-server-config:
   description: File with Ventrilo server configuration
   message: Ventrilo server configuration file
   severity: MAJOR
@@ -732,10 +732,10 @@ ventrilo-server-configuration-file:
     regex: ^file$
     ignorecase: False
   value:
-    regex: .*ventrilo_srv.ini$
+    regex: .*ventrilo-srv.ini$
     ignorecase: True
 
-docker-configuration-file:
+file-docker-config:
   description: File with Docker configuration
   message: Docker configuration file
   severity: MAJOR
@@ -746,7 +746,7 @@ docker-configuration-file:
     regex: .*\.dockercfg$
     ignorecase: True
 
-npm-configuration-file:
+file-npm-config:
   description: File with NPM configuration
   message: NPM configuration file
   severity: MAJOR
@@ -757,7 +757,7 @@ npm-configuration-file:
     regex: .*\.npmrc$
     ignorecase: True
 
-pypirc-configuration-file:
+file-pypirc-config:
   description: File with PyPI configuration
   message: PyPI configuration file
   severity: MAJOR
@@ -768,7 +768,7 @@ pypirc-configuration-file:
     regex: .*\.pypirc$
     ignorecase: True
 
-pip-configuration-file:
+file-pip-config:
   description: File with PIP configuration
   message: PIP configuration file
   severity: MAJOR
@@ -779,7 +779,7 @@ pip-configuration-file:
     regex: .*pip.conf$
     ignorecase: True
 
-terraform-variable-config-file:
+file-terraform-variable-config:
   description: File with Terraform variable config
   message: Terraform variable config file
   severity: MAJOR
@@ -790,7 +790,7 @@ terraform-variable-config-file:
     regex: .*terraform.tfvars$
     ignorecase: True
 
-environment-configuration-file:
+file-environment-config:
   description: File with Environment configuration
   message: Environment configuration file
   severity: MAJOR
@@ -801,7 +801,7 @@ environment-configuration-file:
     regex: .*\.env$
     ignorecase: True
 
-generic-configuration-file:
+file-generic-config:
   description: File with generic configuration
   message: Generic configration file
   severity: MINOR

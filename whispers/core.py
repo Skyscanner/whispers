@@ -51,8 +51,8 @@ def load_config(configfile, src="."):
     return config
 
 
-def run(src: str, config=None):
-    src = Path(src)
+def run(args):
+    src = Path(args.src)
     if not src.exists():
         debug(f"{src} does not exist")
         raise FileNotFoundError
@@ -66,20 +66,20 @@ def run(src: str, config=None):
         raise TypeError
 
     # Configure execution
-    if not config:
+    if not args.config:
         configpath = Path(__file__).parent
         configfile = configpath.joinpath("config.yml").as_posix()
-        config = load_config(configfile, src=src)
+        args.config = load_config(configfile, src=args.src)
 
     # Include files
-    for incfile in config["include"]["files"]:
+    for incfile in args.config["include"]["files"]:
         files += set(src.glob(incfile))
 
     # Exclude files
-    files = list(set(files) - set(config["exclude"]["files"]))
+    files = list(set(files) - set(args.config["exclude"]["files"]))
 
     # Scan files
-    whispers = WhisperSecrets(config)
+    whispers = WhisperSecrets(args)
     for filename in files:
         for secret in whispers.scan(filename):
             if secret:

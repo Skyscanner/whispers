@@ -63,10 +63,12 @@ make install
 
 ## Usage
 ```
-whispers -h
+whispers --help
+whispers --info
 whispers source/code/fileOrDir
 whispers --config config.yml source/code/fileOrDir
 whispers --output /tmp/secrets.yml source/code/fileOrDir
+whispers --rules aws-id,aws-secret source/code/fileOrDir
 ```
 
 ## Config

@@ -2,6 +2,7 @@ import logging
 import logging.config
 import traceback
 from pathlib import Path
+from os import remove
 
 
 def configure_log(path: str = ""):
@@ -32,6 +33,15 @@ def configure_log(path: str = ""):
             "loggers": {"": {"handlers": ["default"], "level": "DEBUG", "propagate": False}},  # root logger
         }
     )
+
+
+def cleanup_log(path: str = ""):
+    """
+    Delete the log file if it's empty
+    """
+    path = Path(path, "whispers.log")
+    if not path.stat().st_size:
+        remove(path.as_posix())
 
 
 def debug(message: str = "") -> str:

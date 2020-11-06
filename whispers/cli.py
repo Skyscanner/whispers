@@ -3,7 +3,7 @@ from pathlib import Path
 
 from whispers.__version__ import __version__
 from whispers.core import load_config, run
-from whispers.log import configure_log
+from whispers.log import configure_log, cleanup_log
 from whispers.rules import WhisperRules
 from whispers.utils import format_stdout
 
@@ -48,6 +48,9 @@ def cli(arguments=None):
     # Valar margulis
     for secret in run(args):
         format_stdout(secret, args.output)
+
+    # Clean up
+    cleanup_log()
 
 
 def info():

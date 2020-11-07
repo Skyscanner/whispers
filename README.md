@@ -100,6 +100,8 @@ rules:
 
 The fastest way to tweak detection (ie: remove false positives and unwanted results) is to copy the default [config.yml](whispers/config.yml) into a new file, adapt it, and pass it as an argument to Whispers.
 
+`whispers --config config.yml --rules starks src/file/or/dir`
+
 
 ## Custom Rules
 Rules specify the actual things that should be pulled out from key-value pairs. There are several common ones that come built-in, such as AWS keys and passwords, but the tool is made to be easily expandable with new rules.

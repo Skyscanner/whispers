@@ -7,7 +7,7 @@
 astroid==2.4.2            # via whispers (setup.py)
 jproperties==2.1.0        # via whispers (setup.py)
 lazy-object-proxy==1.5.1  # via astroid
-lxml==4.5.0               # via whispers (setup.py)
+lxml==4.6.1               # via whispers (setup.py)
 pyyaml==5.3.1             # via whispers (setup.py)
 six==1.15.0               # via astroid, jproperties
 typed-ast==1.4.1          # via astroid

@@ -9,6 +9,6 @@ jproperties==2.1.0        # via whispers (setup.py)
 lazy-object-proxy==1.4.3  # via astroid
 lxml==4.5.0               # via whispers (setup.py)
 pyyaml==5.3.1             # via whispers (setup.py)
-six==1.14.0               # via astroid, jproperties
+six==1.15.0               # via astroid, jproperties
 typed-ast==1.4.1          # via astroid
 wrapt==1.11.2             # via astroid

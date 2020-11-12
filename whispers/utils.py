@@ -1,11 +1,11 @@
 import json
 import re
 from collections import namedtuple
-from difflib import SequenceMatcher
 from hashlib import md5
 from pathlib import Path
 from typing import Optional
 
+from Levenshtein import ratio
 from yaml import safe_load
 
 Secret = namedtuple("Secret", ["file", "line", "key", "value", "message", "severity"])
@@ -42,7 +42,7 @@ def similar_strings(a: str, b: str) -> float:
     """
     a = simple_string(a).replace("_", "")
     b = simple_string(b).replace("_", "")
-    return SequenceMatcher(None, a, b).ratio()
+    return ratio(a, b)
 
 
 def string_is_quoted(value: str) -> bool:

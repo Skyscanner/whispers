@@ -6,6 +6,7 @@ export DANGER_GITHUB_API_TOKEN=""
 export DANGER_GITHUB_API_TOKEN=<DANGER_GITHUB_API_TOKEN>
 export DANGER_GITHUB_API_TOKEN=$token
 export DANGER_GITHUB_API_TOKEN="${token}"
+export DANGER_GITHUB_API_TOKEN="invalid ending
 # export COMMENTED_API_TOKEN="${token}"
 # there's no spoon @#$%
 docker run -it -e DRONE_TOKEN=<DRONE_TOKEN> -e DRONE_ID=<ID> image

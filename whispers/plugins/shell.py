@@ -1,23 +1,18 @@
 import shlex
 from pathlib import Path
 
+from whispers.log import debug
 from whispers.utils import escaped_chars, strip_string
 
 
 class Shell:
     def pairs(self, filepath: Path):
-        full_command = []
-        for line in filepath.open("r").readlines():
-            line = line.strip()
-            if line.startswith("#"):  # Comments
-                line = line.lstrip("#").strip()
-                line = line.translate(escaped_chars)
-            if line.endswith("\\"):  # Multi-line commands
-                full_command.append(line[:-1])
+        for cmdline in self.read_commands(filepath):
+            try:
+                cmd = shlex.split(cmdline)
+            except Exception:
+                debug(f"Failed parsing {filepath.as_posix()}\n{cmdline}")
                 continue
-            full_command.append(line)
-            cmd = shlex.split(" ".join(full_command))
-            full_command = []
             if not cmd:
                 continue
             elif cmd[0].lower() == "curl":
@@ -26,6 +21,20 @@ class Shell:
                 if "=" in item and len(item.split("=")) == 2:
                     key, value = item.split("=")
                     yield key, value
+
+    def read_commands(self, filepath: Path) -> str:
+        ret = []
+        for line in filepath.open("r").readlines():
+            line = line.strip()
+            if line.startswith("#"):  # Comments
+                line = line.lstrip("#").strip()
+                line = line.translate(escaped_chars)
+            elif line.endswith("\\"):  # Multi-line commands
+                ret.append(line[:-1])
+                continue
+            ret.append(line)
+            yield " ".join(ret)
+            ret = []
 
     def curl(self, cmd):
         indicators_combined = ["-u", "--user", "-U", "--proxy-user", "-E", "--cert"]

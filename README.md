@@ -4,6 +4,7 @@
 [![](https://github.com/Skyscanner/whispers/workflows/build/badge.svg)](https://github.com/Skyscanner/whispers/actions)
 [![](https://img.shields.io/github/issues/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/issues)
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
+[![](https://img.shields.io/pypi/dm/whispers)](https://img.shields.io/pypi/dm/whispers)
 
 > "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Lord Varys_
 

@@ -26,6 +26,7 @@ coverage:
 	coverage run --source=whispers/ --branch -m pytest tests/unit --junitxml=build/test.xml -v
 	coverage xml -i -o build/coverage.xml
 	coverage report
+	coverage-badge -f -o coverage.svg
 
 test: lint unit
 

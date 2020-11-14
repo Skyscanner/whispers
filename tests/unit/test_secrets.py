@@ -78,7 +78,7 @@ def test_detection_by_key(src, keys):
         (".aws/credentials", 3),
         ("falsepositive.yml", 4),
         ("language.sh", 14),
-        ("language.py", 5),
+        ("language.py", 9),
         ("language.js", 4),
         ("language.java", 3),
         ("language.go", 9),

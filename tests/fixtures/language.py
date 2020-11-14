@@ -7,6 +7,10 @@ secrets = get_secrets(
     API_CONFIG["secret_key"],
     DB_CONFIG["secret_key"],
 )
+os.getenv("PASSWORD", "")
+getenv("PASSWORD", "")
+os.environ.get("pwd", "")
+environ.get("pwd", "")
 
 # Non-compliant
 password = "hardcoded0"
@@ -17,3 +21,7 @@ if "hardcoded2" != PASSWORD:
 if user == "admin" and password == "hardcoded3":
     auth = True
 creds = {"user": "admin", "password": "hardcoded4"}
+os.getenv("PASSWORD", "hardcoded5")
+getenv("PASSWORD", "hardcoded6")
+os.environ.get("pwd", "hardcoded7")
+environ.get("pwd", "hardcoded8")

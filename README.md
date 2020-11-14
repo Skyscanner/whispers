@@ -2,6 +2,7 @@
 
 [![](https://img.shields.io/pypi/v/whispers.svg)](https://pypi.python.org/pypi/whispers/)
 [![](https://github.com/Skyscanner/whispers/workflows/build/badge.svg)](https://github.com/Skyscanner/whispers/actions)
+![](coverage.svg)
 [![](https://img.shields.io/github/issues/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/issues)
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
 [![](https://img.shields.io/pypi/dm/whispers)](https://img.shields.io/pypi/dm/whispers)

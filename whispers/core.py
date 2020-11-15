@@ -19,16 +19,20 @@ def load_config(configfile, src="."):
     config = load_yaml_from_file(configfile)
 
     # Ensure minimal expected config structure
-    if "exclude" not in config:
-        config["exclude"] = {"files": [], "keys": [], "values": []}
-    else:
-        for idx in ["files", "keys", "values"]:
-            if idx not in config["exclude"]:
-                config["exclude"][idx] = []
-    if "include" not in config:
-        config["include"] = {"files": ["**/*"]}
-    elif "files" not in config["include"]:
-        config["include"]["files"] = ["**/*"]
+    try:
+        if "exclude" not in config:
+            config["exclude"] = {"files": [], "keys": [], "values": []}
+        else:
+            for idx in ["files", "keys", "values"]:
+                if idx not in config["exclude"]:
+                    config["exclude"][idx] = []
+        if "include" not in config:
+            config["include"] = {"files": ["**/*"]}
+        elif "files" not in config["include"]:
+            config["include"]["files"] = ["**/*"]
+    except Exception:
+        debug(f"{configfile} is not valid")
+        raise NameError
 
     # Glob excluded files
     exfiles = []

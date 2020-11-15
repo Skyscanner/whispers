@@ -28,7 +28,7 @@ coverage:
 	coverage report
 	coverage-badge -f -o coverage.svg
 
-test: lint unit
+test: lint coverage
 
 docker:
 	docker build -t=whispers --rm=true . 

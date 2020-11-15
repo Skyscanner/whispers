@@ -84,8 +84,6 @@ def line_begins_with_value(value: str, line: str) -> bool:
     """
     value_str = simple_string(value)
     line_str = simple_string(line)
-    if not line_str:
-        return False
     return value_str.startswith(line_str)
 
 
@@ -93,14 +91,12 @@ def find_line_number(filepath: Path, key: str, value: str) -> int:
     """
     Returns line number in file with given key and value
     """
-    if not key:
-        key = ""
     if not value:
-        value = ""
+        return 0
     value = value.split("\n")[0]
     value_line_number = 0
     for line_number, line in enumerate(filepath.open().readlines(), 1):
-        if not line:
+        if not strip_string(line):
             continue
         if line_with_key_value(key, value, line):
             return line_number

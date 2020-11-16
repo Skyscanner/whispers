@@ -8,22 +8,36 @@ from yaml.parser import ParserError
 from whispers import core
 from whispers.cli import parse_args
 
-from .conftest import FIXTURE_PATH, config_path, fixture_path
+from .conftest import FIXTURE_PATH, config_path, does_not_raise, fixture_path
 
 
 @pytest.mark.parametrize(
-    ("filename", "exception"),
-    [(f"/tmp/File404-{urandom(30).hex()}", FileNotFoundError), ("/dev/null", TypeError)],
+    ("filename", "expectation"),
+    [
+        (f"/tmp/File404-{urandom(30).hex()}", pytest.raises(FileNotFoundError)),
+        ("/dev/null", pytest.raises(TypeError)),
+        (fixture_path("hardcoded.yml"), does_not_raise()),
+    ],
 )
-def test_core_exception(filename, exception):
-    with pytest.raises(exception):
+def test_run(filename, expectation):
+    with expectation:
         args = parse_args([filename])
         next(core.run(args))
 
 
-def test_load_config_exception():
-    with pytest.raises(ParserError):
-        core.load_config(config_path("invalid.yml"), FIXTURE_PATH)
+@pytest.mark.parametrize(
+    ("filename", "expectation"),
+    [
+        (f"/tmp/File404-{urandom(30).hex()}", pytest.raises(FileNotFoundError)),
+        ("/dev/null", pytest.raises(TypeError)),
+        (config_path("invalid.yml"), pytest.raises(ParserError)),
+        (config_path("empty.yml"), pytest.raises(NameError)),
+        (config_path("example.yml"), does_not_raise()),
+    ],
+)
+def test_load_config_exception(filename, expectation):
+    with expectation:
+        core.load_config(filename, FIXTURE_PATH)
 
 
 def test_load_config():

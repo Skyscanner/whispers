@@ -7,7 +7,7 @@ import pytest
 from whispers.cli import cli, cli_info, cli_parser, parse_args
 from whispers.rules import WhisperRules
 
-from .conftest import does_not_raise, fixture_path
+from .conftest import config_path, does_not_raise, fixture_path
 
 
 def test_cli_parser():
@@ -42,7 +42,9 @@ def test_parse_args(arguments, expectation):
         (["-r", "whis,pers"], pytest.raises(SystemExit)),
         (["-o", "/tmp/whispers"], pytest.raises(SystemExit)),
         (["/dev/null/bin"], pytest.raises(FileNotFoundError)),
-        ([f"{fixture_path('hardcoded.json')}"], does_not_raise()),
+        ([fixture_path("hardcoded.json")], does_not_raise()),
+        ([fixture_path("hardcoded.json"), "-o", "/tmp/whispers"], does_not_raise()),
+        ([fixture_path("hardcoded.json"), "-c", config_path("example.yml")], does_not_raise()),
     ],
 )
 def test_cli(arguments, expectation):

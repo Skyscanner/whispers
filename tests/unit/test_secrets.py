@@ -2,6 +2,7 @@ import pytest
 
 from whispers import core
 from whispers.cli import parse_args
+from whispers.secrets import WhisperSecrets
 
 from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 
@@ -125,3 +126,34 @@ def test_detection_by_filename():
     result = [secret.value for secret in secrets]
     for exp in expected:
         assert exp in result
+
+
+@pytest.mark.parametrize(
+    ("key", "value", "expectation"),
+    [
+        (None, None, False),
+        ("", "", False),
+        ("", "$value", False),
+        ("", "{{value}}", False),
+        ("", "{value}", False),
+        ("", "{whispers~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}", False),
+        ("", "{d2hpc3BlcnN+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+}", True),
+        ("", "${value$}", False),
+        ("", "<value>", False),
+        ("", "{value}", False),
+        ("", "null", False),
+        ("", "!Ref Value", False),
+        ("", "{value}", False),
+        ("", "/path/value", False),
+        ("whispers", "WHISPERS", False),
+        ("label", "WhispersLabel", False),
+        ("SECRET_VALUE_KEY", "whispers", False),
+        ("whispers", "SECRET_VALUE_PLACEHOLDER", False),
+        ("secret", "whispers", True),
+    ],
+)
+def test_is_static(key, value, expectation):
+    args = parse_args([fixture_path()])
+    args.config = core.load_config(CONFIG_PATH.joinpath("example.yml"))
+    secrets = WhisperSecrets(args)
+    assert secrets.is_static(key, value) == expectation

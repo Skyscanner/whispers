@@ -5,9 +5,13 @@ from os import remove
 from pathlib import Path
 
 
-def configure_log(path: str = ""):
-    path = Path(path, "whispers.log")
-    path.write_text("")
+def configure_log(logpath: str = "") -> Path:
+    try:
+        logpath = Path(logpath, "whispers.log")
+        logpath.write_text("")
+    except Exception:
+        debug(f"{logpath} is not valid")
+        raise ValueError
     logging.config.dictConfig(
         {
             "version": 1,
@@ -25,7 +29,7 @@ def configure_log(path: str = ""):
                     "level": "DEBUG",
                     "class": "logging.handlers.WatchedFileHandler",
                     "formatter": "default",
-                    "filename": path.as_posix(),
+                    "filename": logpath.as_posix(),
                     "mode": "w",
                     "encoding": "utf-8",
                 }
@@ -33,15 +37,16 @@ def configure_log(path: str = ""):
             "loggers": {"": {"handlers": ["default"], "level": "DEBUG", "propagate": False}},  # root logger
         }
     )
+    return logpath
 
 
-def cleanup_log(path: str = ""):
+def cleanup_log(logpath: str = ""):
     """
     Delete the log file if it's empty
     """
-    path = Path(path, "whispers.log")
-    if not path.stat().st_size:
-        remove(path.as_posix())
+    logpath = Path(logpath, "whispers.log")
+    if not logpath.stat().st_size:
+        remove(logpath.as_posix())
 
 
 def debug(message: str = "") -> str:

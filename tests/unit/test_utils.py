@@ -7,6 +7,7 @@ from whispers import core
 from whispers.cli import parse_args
 from whispers.utils import (
     Secret,
+    find_line_number,
     format_secret,
     format_stdout,
     line_begins_with_value,
@@ -19,7 +20,7 @@ from whispers.utils import (
     strip_string,
 )
 
-from .conftest import fixture_path, rule_path
+from .conftest import FIXTURE_PATH, fixture_path, rule_path
 
 
 @pytest.mark.parametrize(
@@ -38,8 +39,16 @@ def test_strip_string(rawstr):
     assert strip_string(rawstr) == "whispers"
 
 
-def test_simple_string():
-    assert simple_string("~|wHisP3R5~|") == "__whisp3r5__"
+@pytest.mark.parametrize(
+    ("rawstr", "expectation"),
+    [
+        (None, ""),
+        (1, "1"),
+        ("~|wHisP3R5~|", "__whisp3r5__"),
+    ],
+)
+def test_simple_string(rawstr, expectation):
+    assert simple_string(rawstr) == expectation
 
 
 @pytest.mark.parametrize(
@@ -99,10 +108,25 @@ def test_line_begins_with_value(value, line):
 
 
 @pytest.mark.parametrize(
+    ("src", "key", "value", "expectation"),
+    [
+        ("apikeys.yml", "", "", 0),
+        ("apikeys.yml", "apikey", "", 0),
+        ("apikeys.yml", "", "YXNkZmZmZmZm_HARDcoded", 11),
+        ("apikeys.yml", "apikey", "YXNkZmZmZmZm_HARDcoded", 11),
+        ("apikeys.yml", "GITHUBKEY", "YXNkZmZmZmZm_HARDcoded", 19),
+        ("pip.conf", "username", "hardcoded1", 7),
+    ],
+)
+def test_find_line_number_single(src, key, value, expectation):
+    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value) == expectation
+
+
+@pytest.mark.parametrize(
     ("src", "linenumbers"),
     [("hardcoded.yml", [12, 14, 15, 16, 19]), ("privatekeys.yml", [5, 7, 11, 12, 13, 14])],
 )
-def test_find_line_number(src, linenumbers):
+def test_find_line_number_all(src, linenumbers):
     args = parse_args([fixture_path(src)])
     secrets = core.run(args)
     for number in linenumbers:

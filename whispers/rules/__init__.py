@@ -3,6 +3,8 @@ from base64 import b64decode
 from pathlib import Path
 from typing import List
 
+from luhn import verify as luhn_verify
+
 from whispers.utils import Secret, find_line_number, load_yaml_from_file, similar_strings
 
 
@@ -81,6 +83,7 @@ class WhisperRules:
             "isBase64": self.check_isBase64,
             "isAscii": self.check_isAscii,
             "isUri": self.check_isUri,
+            "isLuhn": self.check_isLuhn,
         }
         for rule_id, rule in self.rules.items():
             rule_matched = True
@@ -165,6 +168,12 @@ class WhisperRules:
         if not isinstance(similar, float):
             return False  # Not float
         return similar_strings(key, value) >= similar
+
+    @staticmethod
+    def check_isLuhn(rule, key, value):
+        if not value.isnumeric():
+            return False
+        return luhn_verify(value)
 
     @staticmethod
     def decode_if_base64(mkey, mvalue):

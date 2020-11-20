@@ -88,6 +88,7 @@ def test_detection_by_key(src, keys):
         ("uri.yml", 2),
         ("java.properties", 3),
         ("webhooks.yml", 3),
+        ("creditcards.yml", 3),
     ],
 )
 def test_detection_by_value(src, count):
@@ -97,7 +98,7 @@ def test_detection_by_value(src, count):
     for _ in range(count):
         value = next(secrets).value.lower()
         if value.isnumeric():
-            value = bytes.fromhex(hex(int(value))[2:]).decode("ascii")
+            continue
         assert "hardcoded" in value
     with pytest.raises(StopIteration):
         next(secrets)

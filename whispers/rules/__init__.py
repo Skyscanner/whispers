@@ -1,6 +1,7 @@
 import re
 from base64 import b64decode
 from pathlib import Path
+from typing import List
 
 from whispers.utils import Secret, find_line_number, load_yaml_from_file, similar_strings
 
@@ -72,7 +73,7 @@ class WhisperRules:
                     return True
         return False
 
-    def check(self, key: str, value: str, filepath: Path) -> Secret:
+    def check(self, key: str, value: str, filepath: Path, foundlines: List[int]) -> Secret:
         matrix = {"key": key, "value": value}
         checks = {
             "minlen": self.check_minlen,
@@ -107,7 +108,7 @@ class WhisperRules:
                 continue
             return Secret(
                 filepath.as_posix(),
-                find_line_number(filepath, key, value),
+                find_line_number(filepath, key, value, foundlines),
                 key,
                 value,
                 self.rules[rule_id]["message"],

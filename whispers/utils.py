@@ -3,7 +3,7 @@ import re
 from collections import namedtuple
 from hashlib import md5
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 from Levenshtein import ratio
 from yaml import safe_load
@@ -87,7 +87,7 @@ def line_begins_with_value(value: str, line: str) -> bool:
     return value_str.startswith(line_str)
 
 
-def find_line_number(filepath: Path, key: str, value: str) -> int:
+def find_line_number(filepath: Path, key: str, value: str, foundlines: List[int]) -> int:
     """
     Returns line number in file with given key and value
     """
@@ -98,12 +98,18 @@ def find_line_number(filepath: Path, key: str, value: str) -> int:
     for line_number, line in enumerate(filepath.open().readlines(), 1):
         if not strip_string(line):
             continue
+        if line_number in foundlines:
+            continue
         if line_with_key_value(key, value, line):
+            foundlines.append(line_number)
             return line_number
         elif line_begins_with_value(value, line):
+            foundlines.append(line_number)
             return line_number
         elif line_with_value(value, line):
             value_line_number = line_number
+    if value_line_number:
+        foundlines.append(value_line_number)
     return value_line_number
 
 

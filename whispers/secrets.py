@@ -10,7 +10,8 @@ from whispers.utils import Secret, simple_string, strip_string
 class WhisperSecrets:
     def __init__(self, args):
         self.exclude = args.config["exclude"]
-        self.breadcrumbs = []
+        self.breadcrumbs = []  # Tracks key path
+        self.foundlines = {}  # Avoids dup line reports
         self.rules = WhisperRules(ruleslist=args.rules)
         self.rules.load_rules_from_dict(args.config["rules"])
 
@@ -79,12 +80,13 @@ class WhisperSecrets:
             return None  # Not static
         if self.is_excluded(breadcrumbs):
             return None  # Excluded via config
-        return self.rules.check(key, value, filepath)
+        return self.rules.check(key, value, filepath, self.foundlines[filepath.as_posix()])
 
     def scan(self, filename: str) -> Optional[Secret]:
         plugin = WhisperPlugins(filename)
         if not plugin:
             return None
+        self.foundlines[plugin.filepath.as_posix()] = []
         yield self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
         for ret in plugin.pairs():
             if len(ret) == 2:  # key, value

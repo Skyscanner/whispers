@@ -119,7 +119,7 @@ def test_line_begins_with_value(value, line):
     ],
 )
 def test_find_line_number_single(src, key, value, expectation):
-    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value) == expectation
+    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value, []) == expectation
 
 
 @pytest.mark.parametrize(

@@ -25,9 +25,33 @@ class Python:
         return type(node) in types
 
     @staticmethod
-    def is_value(node):
-        types = [astroid.node_classes.Const]
+    def is_value(node) -> bool:
+        types = [astroid.node_classes.Const, astroid.node_classes.JoinedStr]
         return type(node) in types
+
+    @staticmethod
+    def node_concat_const(nodes) -> str:
+        ret = ""
+        for value in nodes:
+            if not isinstance(value, astroid.node_classes.Const):
+                return ""
+            ret += value.value
+        return ret
+
+    def node_to_str(self, node) -> str:
+        if isinstance(node, astroid.node_classes.Name):
+            return node.name
+        if isinstance(node, astroid.node_classes.AssignName):
+            return node.name
+        if isinstance(node, astroid.node_classes.Const):
+            return node.value
+        if isinstance(node, astroid.node_classes.Assign):
+            return node.value
+        if isinstance(node, astroid.node_classes.JoinedStr):
+            return self.node_concat_const(node.values)
+        if isinstance(node, astroid.node_classes.Call):
+            return self.node_concat_const(node.args)
+        return ""
 
     def traverse(self, tree):
         for node in tree.get_children():
@@ -36,33 +60,37 @@ class Python:
             if isinstance(node, astroid.node_classes.Assign):
                 if not self.is_value(node.value):
                     continue
-                value = node.value.value
+                value = self.node_to_str(node.value)
                 for key in node.targets:
-                    if self.is_key(key):
-                        yield key.name, value
+                    key = self.node_to_str(key)
+                    if key and value:
+                        yield key, value
             # Comparison
             elif isinstance(node, astroid.node_classes.Compare):
                 left = node.left
                 right = node.ops[0][1]
-                if self.is_key(left) and self.is_value(right):
-                    key = left.name
-                    value = right.value
-                elif self.is_key(right) and self.is_value(left):
-                    key = right.name
-                    value = left.value
+                if self.is_key(left):
+                    key = self.node_to_str(left)
+                    value = self.node_to_str(right)
+                elif self.is_key(right):
+                    key = self.node_to_str(right)
+                    value = self.node_to_str(left)
                 else:
                     continue
-                yield key, value
+                if key and value:
+                    yield key, value
             # Dictionary values
             elif isinstance(node, astroid.node_classes.Dict):
                 for key, value in node.items:
-                    if not self.is_value(key) or not self.is_value(value):
-                        continue
-                    yield key.value, value.value
+                    key = self.node_to_str(key)
+                    value = self.node_to_str(value)
+                    if key and value:
+                        yield key, value
             # Keywords
             elif isinstance(node, astroid.node_classes.Keyword):
-                if self.is_value(node.value):
-                    yield node.arg, node.value.value
+                value = self.node_to_str(node)
+                if value:
+                    yield node.arg, value
             # Function call
             elif isinstance(node, astroid.node_classes.Call):
                 key = "function"

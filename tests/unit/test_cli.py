@@ -4,10 +4,9 @@ from unittest.mock import patch
 
 import pytest
 
+from tests.unit.conftest import config_path, does_not_raise, fixture_path
 from whispers.cli import cli, cli_info, cli_parser, parse_args
 from whispers.rules import WhisperRules
-
-from .conftest import config_path, does_not_raise, fixture_path
 
 
 def test_cli_parser():

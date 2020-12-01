@@ -5,10 +5,9 @@ from pathlib import Path
 import pytest
 from yaml.parser import ParserError
 
+from tests.unit.conftest import FIXTURE_PATH, config_path, does_not_raise, fixture_path
 from whispers import core
 from whispers.cli import parse_args
-
-from .conftest import FIXTURE_PATH, config_path, does_not_raise, fixture_path
 
 
 @pytest.mark.parametrize(

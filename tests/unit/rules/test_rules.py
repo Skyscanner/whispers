@@ -3,11 +3,10 @@ from re import compile
 
 import pytest
 
+from tests.unit.conftest import FIXTURE_PATH, does_not_raise, rule_path
 from whispers.plugins import Yml
 from whispers.rules import WhisperRules
 from whispers.utils import load_yaml_from_file
-
-from .conftest import FIXTURE_PATH, does_not_raise, rule_path
 
 
 @pytest.mark.parametrize(

@@ -2,9 +2,8 @@ from os import remove, urandom
 
 import pytest
 
+from tests.unit.conftest import does_not_raise
 from whispers.log import cleanup_log, configure_log, debug
-
-from .conftest import does_not_raise
 
 
 @pytest.mark.parametrize(

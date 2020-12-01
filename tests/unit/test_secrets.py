@@ -1,10 +1,9 @@
 import pytest
 
+from tests.unit.conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 from whispers import core
 from whispers.cli import parse_args
 from whispers.secrets import WhisperSecrets
-
-from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 
 
 @pytest.mark.parametrize("configfile", ["exclude_keys.yml", "exclude_values.yml"])
@@ -79,7 +78,7 @@ def test_detection_by_key(src, keys):
         (".aws/credentials", 3),
         ("falsepositive.yml", 4),
         ("language.sh", 14),
-        ("language.py", 10),
+        ("language.py", 11),
         ("language.js", 4),
         ("language.java", 3),
         ("language.go", 9),

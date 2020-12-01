@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from tests.unit.conftest import FIXTURE_PATH, fixture_path, rule_path
 from whispers import core
 from whispers.cli import parse_args
 from whispers.utils import (
@@ -19,8 +20,6 @@ from whispers.utils import (
     simple_string,
     strip_string,
 )
-
-from .conftest import FIXTURE_PATH, fixture_path, rule_path
 
 
 @pytest.mark.parametrize(
@@ -119,7 +118,7 @@ def test_line_begins_with_value(value, line):
     ],
 )
 def test_find_line_number_single(src, key, value, expectation):
-    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value) == expectation
+    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value, []) == expectation
 
 
 @pytest.mark.parametrize(

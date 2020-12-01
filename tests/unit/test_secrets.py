@@ -1,10 +1,9 @@
 import pytest
 
+from tests.unit.conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 from whispers import core
 from whispers.cli import parse_args
 from whispers.secrets import WhisperSecrets
-
-from .conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
 
 
 @pytest.mark.parametrize("configfile", ["exclude_keys.yml", "exclude_values.yml"])
@@ -79,7 +78,7 @@ def test_detection_by_key(src, keys):
         (".aws/credentials", 3),
         ("falsepositive.yml", 4),
         ("language.sh", 14),
-        ("language.py", 9),
+        ("language.py", 11),
         ("language.js", 4),
         ("language.java", 3),
         ("language.go", 9),
@@ -88,6 +87,7 @@ def test_detection_by_key(src, keys):
         ("uri.yml", 2),
         ("java.properties", 3),
         ("webhooks.yml", 3),
+        ("creditcards.yml", 3),
     ],
 )
 def test_detection_by_value(src, count):
@@ -97,7 +97,7 @@ def test_detection_by_value(src, count):
     for _ in range(count):
         value = next(secrets).value.lower()
         if value.isnumeric():
-            value = bytes.fromhex(hex(int(value))[2:]).decode("ascii")
+            continue
         assert "hardcoded" in value
     with pytest.raises(StopIteration):
         next(secrets)

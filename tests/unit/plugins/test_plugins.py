@@ -1,5 +1,6 @@
 import pytest
 
+from tests.unit.conftest import fixture_path
 from whispers.plugins import WhisperPlugins
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
@@ -18,8 +19,6 @@ from whispers.plugins.python import Python
 from whispers.plugins.shell import Shell
 from whispers.plugins.xml import Xml
 from whispers.plugins.yml import Yml
-
-from .conftest import fixture_path
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,5 @@
 from argparse import ArgumentParser, Namespace
+from os import environ
 from pathlib import Path
 
 from whispers.__version__ import __version__
@@ -6,6 +7,8 @@ from whispers.core import load_config, run
 from whispers.log import cleanup_log, configure_log
 from whispers.rules import WhisperRules
 from whispers.utils import format_stdout
+
+environ["PYTHONIOENCODING"] = "UTF-8"
 
 
 def cli_parser() -> ArgumentParser:

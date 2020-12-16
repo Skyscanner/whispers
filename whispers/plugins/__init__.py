@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Optional
 
+from whispers.log import debug
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.go import Go
@@ -80,4 +81,7 @@ class WhisperPlugins:
 
     def pairs(self):
         if self.plugin:
-            yield from self.plugin.pairs(self.filepath)
+            try:
+                yield from self.plugin.pairs(self.filepath)
+            except Exception:
+                debug(f"Failed parsing {self.filepath.as_posix()}")

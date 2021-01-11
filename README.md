@@ -64,6 +64,7 @@ make install
 ```
 
 ## Usage
+### CLI
 ```
 whispers --help
 whispers --info
@@ -72,7 +73,7 @@ whispers --config config.yml source/code/fileOrDir
 whispers --output /tmp/secrets.yml source/code/fileOrDir
 whispers --rules aws-id,aws-secret source/code/fileOrDir
 ```
-
+### Python
 ```python
 from whispers.cli import parse_args
 from whispers.core import load_config, run

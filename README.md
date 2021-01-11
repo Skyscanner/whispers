@@ -74,10 +74,14 @@ whispers --rules aws-id,aws-secret source/code/fileOrDir
 ```
 
 ```python
-import whispers
 from whispers.cli import parse_args
-args = parse_args(["source/code/fileOrDir"])
-secrets = whispers.core.run(args)
+from whispers.core import load_config, run
+
+src = "src/fileOrDir"
+configfile = "config.yml"
+args = parse_args([src])
+args.config = load_config(configfile, src)
+secrets = run(args)
 ```
 
 ## Config

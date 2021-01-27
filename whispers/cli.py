@@ -1,6 +1,7 @@
 from argparse import ArgumentParser, Namespace
 from os import environ
 from pathlib import Path
+from typing import List, Optional
 
 from whispers.__version__ import __version__
 from whispers.core import load_config, run
@@ -22,7 +23,7 @@ def cli_parser() -> ArgumentParser:
     return args_parser
 
 
-def parse_args(arguments: list = []) -> Namespace:
+def parse_args(arguments: Optional[List] = None) -> Namespace:
     configure_log()
     args, _ = cli_parser().parse_known_args(arguments)
 
@@ -46,9 +47,9 @@ def parse_args(arguments: list = []) -> Namespace:
     return args
 
 
-def cli(arguments: list = []):
+def cli():
     # Parse CLI arguments
-    args = parse_args(arguments)
+    args = parse_args()
 
     # Valar margulis
     for secret in run(args):

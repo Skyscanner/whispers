@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from tests.unit.conftest import config_path, does_not_raise, fixture_path
+from tests.unit.conftest import config_path, does_not_raise
 from whispers.cli import cli, cli_info, cli_parser, parse_args
 from whispers.rules import WhisperRules
 
@@ -44,23 +44,14 @@ def test_parse_args(arguments, expectation, result):
 
 
 @pytest.mark.parametrize(
-    ("arguments", "expectation"),
+    ("expectation"),
     [
-        ([], pytest.raises(SystemExit)),
-        (["-v"], pytest.raises(SystemExit)),
-        (["-i"], pytest.raises(SystemExit)),
-        (["-c", "whispers.yml"], pytest.raises(SystemExit)),
-        (["-r", "whis,pers"], pytest.raises(SystemExit)),
-        (["-o", "/tmp/whispers"], pytest.raises(SystemExit)),
-        (["/dev/null/bin"], pytest.raises(FileNotFoundError)),
-        ([fixture_path("hardcoded.json")], does_not_raise()),
-        ([fixture_path("hardcoded.json"), "-o", "/tmp/whispers"], does_not_raise()),
-        ([fixture_path("hardcoded.json"), "-c", config_path("example.yml")], does_not_raise()),
+        (pytest.raises(SystemExit)),
     ],
 )
-def test_cli(arguments, expectation):
+def test_cli(expectation):
     with expectation:
-        assert cli(arguments) is None
+        assert cli() is None
 
 
 def test_cli_info():

@@ -1,10 +1,12 @@
+import re
 from argparse import ArgumentParser
 from io import StringIO
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
 
-from tests.unit.conftest import config_path, does_not_raise, fixture_path
+from tests.unit.conftest import config_path, does_not_raise
 from whispers.cli import cli, cli_info, cli_parser, parse_args
 from whispers.rules import WhisperRules
 
@@ -14,41 +16,42 @@ def test_cli_parser():
 
 
 @pytest.mark.parametrize(
-    ("arguments", "expectation"),
+    ("arguments", "expectation", "result"),
     [
-        ([], {"config": None, "output": None, "rules": "all", "src": None}),
-        (["whispers.json"], {"config": None, "output": None, "rules": "all", "src": "whispers.json"}),
-        (["-c", "whispers.yml"], {"config": "whispers.yml", "output": None, "rules": "all", "src": None}),
-        (["-r", "whis,pers"], {"config": None, "output": None, "rules": "whis,pers", "src": None}),
-        (["-o", "/tmp/whispers"], {"config": None, "output": "/tmp/whispers", "rules": "all", "src": None}),
+        ([], pytest.raises(SystemExit), None),
+        (["src"], does_not_raise(), {"config": None, "output": None, "rules": "all", "src": "src"}),
+        (
+            ["-c", config_path("detection_by_value.yml"), "src"],
+            does_not_raise(),
+            {
+                "config": {
+                    "exclude": {"keys": [re.compile("^file$", re.IGNORECASE)], "files": [], "values": []},
+                    "include": {"files": ["**/*"]},
+                    "rules": {},
+                },
+                "src": "src",
+            },
+        ),
+        (["-r", "rule-1,rule-2", "src"], does_not_raise(), {"rules": "rule-1,rule-2"}),
+        (["-o", "/tmp/output", "src"], does_not_raise(), {"output": Path("/tmp/output")}),
     ],
 )
-def test_parse_args(arguments, expectation):
-    args = parse_args(arguments)
-    assert args.config == expectation["config"]
-    assert args.output == expectation["output"]
-    assert args.rules == expectation["rules"]
-    assert args.src == expectation["src"]
+def test_parse_args(arguments, expectation, result):
+    with expectation:
+        args = parse_args(arguments)
+        for key, value in result.items():
+            assert args.__dict__[key] == value
 
 
 @pytest.mark.parametrize(
-    ("arguments", "expectation"),
+    ("expectation"),
     [
-        ([], pytest.raises(SystemExit)),
-        (["-v"], pytest.raises(SystemExit)),
-        (["-i"], pytest.raises(SystemExit)),
-        (["-c", "whispers.yml"], pytest.raises(SystemExit)),
-        (["-r", "whis,pers"], pytest.raises(SystemExit)),
-        (["-o", "/tmp/whispers"], pytest.raises(SystemExit)),
-        (["/dev/null/bin"], pytest.raises(FileNotFoundError)),
-        ([fixture_path("hardcoded.json")], does_not_raise()),
-        ([fixture_path("hardcoded.json"), "-o", "/tmp/whispers"], does_not_raise()),
-        ([fixture_path("hardcoded.json"), "-c", config_path("example.yml")], does_not_raise()),
+        (pytest.raises(SystemExit)),
     ],
 )
-def test_cli(arguments, expectation):
+def test_cli(expectation):
     with expectation:
-        assert cli(arguments) is None
+        assert cli() is None
 
 
 def test_cli_info():

@@ -1,6 +1,7 @@
 from argparse import ArgumentParser, Namespace
 from os import environ
 from pathlib import Path
+from typing import List, Optional
 
 from whispers.__version__ import __version__
 from whispers.core import load_config, run
@@ -22,14 +23,9 @@ def cli_parser() -> ArgumentParser:
     return args_parser
 
 
-def parse_args(arguments=None) -> Namespace:
+def parse_args(arguments: Optional[List] = None) -> Namespace:
+    configure_log()
     args, _ = cli_parser().parse_known_args(arguments)
-    return args
-
-
-def cli(arguments=None):
-    # Parse CLI arguments
-    args = parse_args(arguments)
 
     # Show information
     if args.info:
@@ -39,15 +35,21 @@ def cli(arguments=None):
     if not args.src:
         exit(cli_parser().print_help())
 
+    # Configure execution
+    if args.config:
+        args.config = load_config(args.config, src=args.src)
+
     # Clear output file
     if args.output:
         args.output = Path(args.output)
         args.output.write_text("")
 
-    # Configure execution
-    configure_log()
-    if args.config:
-        args.config = load_config(args.config, src=args.src)
+    return args
+
+
+def cli():
+    # Parse CLI arguments
+    args = parse_args()
 
     # Valar margulis
     for secret in run(args):

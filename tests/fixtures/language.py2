@@ -1,0 +1,2 @@
+# Not supported
+print "This will fail to parse because Python 2 is not supported"

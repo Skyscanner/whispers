@@ -79,6 +79,7 @@ def test_detection_by_key(src, keys):
         ("falsepositive.yml", 4),
         ("language.sh", 14),
         ("language.py", 11),
+        ("language.py2", 0),
         ("language.js", 4),
         ("language.java", 3),
         ("language.go", 9),

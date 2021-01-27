@@ -1,5 +1,7 @@
+import re
 from argparse import ArgumentParser
 from io import StringIO
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -14,21 +16,31 @@ def test_cli_parser():
 
 
 @pytest.mark.parametrize(
-    ("arguments", "expectation"),
+    ("arguments", "expectation", "result"),
     [
-        ([], {"config": None, "output": None, "rules": "all", "src": None}),
-        (["whispers.json"], {"config": None, "output": None, "rules": "all", "src": "whispers.json"}),
-        (["-c", "whispers.yml"], {"config": "whispers.yml", "output": None, "rules": "all", "src": None}),
-        (["-r", "whis,pers"], {"config": None, "output": None, "rules": "whis,pers", "src": None}),
-        (["-o", "/tmp/whispers"], {"config": None, "output": "/tmp/whispers", "rules": "all", "src": None}),
+        ([], pytest.raises(SystemExit), None),
+        (["src"], does_not_raise(), {"config": None, "output": None, "rules": "all", "src": "src"}),
+        (
+            ["-c", config_path("detection_by_value.yml"), "src"],
+            does_not_raise(),
+            {
+                "config": {
+                    "exclude": {"keys": [re.compile("^file$", re.IGNORECASE)], "files": [], "values": []},
+                    "include": {"files": ["**/*"]},
+                    "rules": {},
+                },
+                "src": "src",
+            },
+        ),
+        (["-r", "rule-1,rule-2", "src"], does_not_raise(), {"rules": "rule-1,rule-2"}),
+        (["-o", "/tmp/output", "src"], does_not_raise(), {"output": Path("/tmp/output")}),
     ],
 )
-def test_parse_args(arguments, expectation):
-    args = parse_args(arguments)
-    assert args.config == expectation["config"]
-    assert args.output == expectation["output"]
-    assert args.rules == expectation["rules"]
-    assert args.src == expectation["src"]
+def test_parse_args(arguments, expectation, result):
+    with expectation:
+        args = parse_args(arguments)
+        for key, value in result.items():
+            assert args.__dict__[key] == value
 
 
 @pytest.mark.parametrize(

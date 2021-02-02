@@ -9,7 +9,7 @@ jproperties==2.1.0        # via whispers (setup.py)
 lazy-object-proxy==1.5.2  # via astroid
 luhn==0.2.0               # via whispers (setup.py)
 lxml==4.6.2               # via whispers (setup.py)
-python-levenshtein==0.12.1  # via whispers (setup.py)
+python-levenshtein==0.12.2  # via whispers (setup.py)
 pyyaml==5.4.1             # via whispers (setup.py)
 six==1.15.0               # via astroid, jproperties
 wrapt==1.12.1             # via astroid

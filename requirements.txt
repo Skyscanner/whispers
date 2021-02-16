@@ -4,7 +4,7 @@
 #
 #    make freeze
 #
-astroid==2.4.2            # via whispers (setup.py)
+astroid==2.5            # via whispers (setup.py)
 jproperties==2.1.0        # via whispers (setup.py)
 lazy-object-proxy==1.5.2  # via astroid
 luhn==0.2.0               # via whispers (setup.py)

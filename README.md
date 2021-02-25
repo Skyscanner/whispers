@@ -23,6 +23,9 @@ Whispers is a static code analysis tool designed for parsing various common data
 * Sensitive files
 
 ## Supported Formats
+Whispers is intended to be a **structured text** parser, not a code parser.
+
+The following commonly used formats are currently supported:
 * YAML
 * JSON
 * XML
@@ -34,9 +37,12 @@ Whispers is a static code analysis tool designed for parsing various common data
 * conf / ini
 * Dockerfile
 * Shell scripts
-* Python
+* Python3
+
+Python3 files are parsed as ASTs because of native language support.
 
 ## Declaration & Assignment Formats
+The following language files are parsed as text and checked for common variable declaration and assignment patterns:
 * JavaScript
 * Java
 * Go

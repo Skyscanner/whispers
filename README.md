@@ -42,7 +42,7 @@ The following commonly used formats are currently supported:
 Python3 files are parsed as ASTs because of native language support.
 
 ## Declaration & Assignment Formats
-The following language files are parsed as text and checked for common variable declaration and assignment patterns:
+The following language files are parsed as text, and checked for common variable declaration and assignment patterns:
 * JavaScript
 * Java
 * Go

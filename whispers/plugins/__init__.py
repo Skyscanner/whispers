@@ -5,6 +5,7 @@ from whispers.log import debug
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.go import Go
+from whispers.plugins.html import Html
 from whispers.plugins.htpasswd import Htpasswd
 from whispers.plugins.java import Java
 from whispers.plugins.javascript import Javascript
@@ -67,6 +68,8 @@ class WhisperPlugins:
             return Htpasswd()
         elif self.filetype == "txt":
             return Plaintext()
+        elif self.filetype.startswith("htm"):
+            return Html()
         elif self.filetype == "py":
             return Python()
         elif self.filetype == "js":

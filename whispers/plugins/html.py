@@ -2,7 +2,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup, Comment
 
-from whispers.utils import strip_string
+from whispers.utils import truncate_all_space
 
 
 class Html:
@@ -10,6 +10,6 @@ class Html:
         soup = BeautifulSoup(filepath.read_text(), "lxml")
         comments = soup.find_all(text=lambda t: isinstance(t, Comment))
         for comment in comments:
-            comment = strip_string(comment)
+            comment = truncate_all_space(comment)
             if len(comment):
                 yield "comment", comment

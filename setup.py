@@ -9,7 +9,7 @@ def get_version():
     return import_module("whispers.__version__").__version__
 
 
-install_requires = ["luhn==0.2.0", "lxml==4.6.2", "pyyaml==5.3.1", "astroid==2.4.2", "jproperties==2.1.0", "python-levenshtein==0.12.0"]
+install_requires = ["luhn>=0.2.0", "lxml>=4.6.2", "pyyaml>=5.3.1", "astroid>=2.4.2", "jproperties>=2.1.0", "python-levenshtein>=0.12.0", "beautifulsoup4>=4.9.3"]
 
 dev_requires = [
     "black>=19.10b0",

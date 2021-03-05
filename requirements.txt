@@ -5,14 +5,13 @@
 #    make freeze
 #
 astroid==2.5.1            # via whispers (setup.py)
+beautifulsoup4==4.9.3     # via whispers (setup.py)
 jproperties==2.1.0        # via whispers (setup.py)
-lazy-object-proxy==1.5.2  # via astroid
 luhn==0.2.0               # via whispers (setup.py)
 lxml==4.6.2               # via whispers (setup.py)
 python-levenshtein==0.12.2  # via whispers (setup.py)
 pyyaml==5.4.1             # via whispers (setup.py)
 six==1.15.0               # via astroid, jproperties
-wrapt==1.12.1             # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

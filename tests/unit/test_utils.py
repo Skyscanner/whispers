@@ -19,7 +19,22 @@ from whispers.utils import (
     similar_strings,
     simple_string,
     strip_string,
+    truncate_all_space,
 )
+
+
+@pytest.mark.parametrize(
+    ("rawstr", "expected"),
+    [
+        ("", ""),
+        ("whis\npers", "whis pers"),
+        ("whis\tpers", "whis pers"),
+        ("whis\n\n\n\npers", "whis pers"),
+        ("whis\n       pers", "whis pers"),
+    ],
+)
+def test_truncate_all_space(rawstr, expected):
+    assert truncate_all_space(rawstr) == expected
 
 
 @pytest.mark.parametrize(

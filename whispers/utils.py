@@ -14,6 +14,12 @@ Secret = namedtuple("Secret", ["file", "line", "key", "value", "message", "sever
 escaped_chars = str.maketrans({"'": r"\'", '"': r"\""})
 
 
+def truncate_all_space(value: str) -> str:
+    if not value:
+        return ""
+    return re.sub(r"\s+", " ", value)
+
+
 def strip_string(value: str) -> str:
     """
     Strips leading and trailing quotes and spaces

@@ -84,7 +84,6 @@ def test_detection_by_key(src, keys):
         ("language.java", 3),
         ("language.go", 9),
         ("language.php", 4),
-        ("language.html", 3),
         ("plaintext.txt", 2),
         ("uri.yml", 2),
         ("java.properties", 3),
@@ -128,6 +127,25 @@ def test_detection_by_filename():
     result = [secret.value for secret in secrets]
     for exp in expected:
         assert exp in result
+
+
+@pytest.mark.parametrize(
+    ("src", "count", "rule_id"),
+    [
+        ("language.html", 3, "comments"),
+    ],
+)
+def test_detection_by_rule(src, count, rule_id):
+    args = parse_args(["-r", rule_id, fixture_path(src)])
+    args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
+    secrets = core.run(args)
+    for _ in range(count):
+        value = next(secrets).value.lower()
+        if value.isnumeric():
+            continue
+        assert "hardcoded" in value
+    with pytest.raises(StopIteration):
+        next(secrets)
 
 
 @pytest.mark.parametrize(

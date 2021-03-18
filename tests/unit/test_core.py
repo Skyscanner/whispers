@@ -16,6 +16,7 @@ from whispers.cli import parse_args
         (f"/tmp/File404-{urandom(30).hex()}", pytest.raises(FileNotFoundError)),
         ("/dev/null", pytest.raises(TypeError)),
         (fixture_path("hardcoded.yml"), does_not_raise()),
+        (fixture_path("folder"), pytest.raises(StopIteration)),
     ],
 )
 def test_run(filename, expectation):

@@ -85,6 +85,8 @@ class WhisperRules:
             "isUri": self.check_isUri,
             "isLuhn": self.check_isLuhn,
         }
+        if not filepath.is_file():
+            return  # Only check files
         for rule_id, rule in self.rules.items():
             rule_matched = True
             if self.ruleslist != ["all"]:

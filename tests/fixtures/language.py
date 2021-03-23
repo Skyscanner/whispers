@@ -18,6 +18,7 @@ format_password = "prefix_{}".format(dynamic_value1)
 format_password = "prefix_{0}".format(dynamic_value2)
 format_password = f"prefix_{dynamic_value3}"
 login(password="")
+data = {"login": login, "password": new_password, "previousPassword": password}
 
 # Non-compliant
 password = "hardcoded0"

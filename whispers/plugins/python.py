@@ -98,6 +98,8 @@ class Python:
             # Dictionary values
             elif isinstance(node, astroid.node_classes.Dict):
                 for key, value in node.items:
+                    if not self.is_value(value):
+                        continue
                     key = self.node_to_str(key)
                     value = self.node_to_str(value)
                     if key and value:

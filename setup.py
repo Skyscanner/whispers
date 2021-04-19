@@ -31,7 +31,7 @@ setup(
     author="Artëm Tsvetkov",
     author_email="artem.tsvetkov@skyscanner.net",
     description="Identify secrets and dangerous behaviours",
-    packages=find_packages(),
+    packages=find_packages(exclude=("tests", "tests.*")),
     include_package_data=True,
     platforms="any",
     install_requires=install_requires,

@@ -89,7 +89,9 @@ class WhisperSecrets:
         self.foundlines[plugin.filepath.as_posix()] = []
         yield self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
         for ret in plugin.pairs():
-            if len(ret) == 2:  # key, value
-                yield self.detect_secrets(ret[0], ret[1], plugin.filepath)
-            elif len(ret) == 3:  # key, value, breadcrumbs
-                yield self.detect_secrets(ret[0], ret[1], plugin.filepath, breadcrumbs=ret[2])
+            if len(ret) == 2:
+                key, value = ret
+                yield self.detect_secrets(key, value, plugin.filepath)
+            elif len(ret) == 3:
+                key, value, breadcrumbs = ret
+                yield self.detect_secrets(key, value, plugin.filepath, breadcrumbs=breadcrumbs)

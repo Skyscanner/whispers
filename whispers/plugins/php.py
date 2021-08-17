@@ -22,7 +22,8 @@ class Php:
             yield key, value
 
     def parse_define(self, line: str):
-        line = line.replace("define(", "").replace(")", ",").split(",")
+        line = line.strip()[6:-2]  # strip define( and );
+        line = line.split(",")
         key = strip_string(line[0])
         value = line[1].strip()
         if not string_is_function(value):

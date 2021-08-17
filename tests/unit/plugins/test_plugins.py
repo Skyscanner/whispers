@@ -31,6 +31,7 @@ from whispers.plugins.yml import Yml
         (".npmrc", Npmrc),
         (".pypirc", Pypirc),
         ("apikeys.json", Json),
+        ("invalid.json", Json),
         ("apikeys.xml", Xml),
         ("apikeys.yml", Yml),
         ("connection.config", Xml),

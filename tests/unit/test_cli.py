@@ -44,16 +44,11 @@ def test_parse_args(arguments, expected, result):
             assert args.__dict__[key] == value
 
 
-@pytest.mark.parametrize(
-    ("expected"),
-    [
-        (pytest.raises(SystemExit)),
-    ],
-)
-def test_cli(expected):
-    with expected:
+def test_cli():
+    sysexit = pytest.raises(SystemExit)
+    with sysexit:
         assert cli() == 0
-        assert expected.code == 0
+        assert sysexit.code == 0
 
 
 def test_cli_info():

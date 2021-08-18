@@ -16,7 +16,7 @@ def test_cli_parser():
 
 
 @pytest.mark.parametrize(
-    ("arguments", "expectation", "result"),
+    ("arguments", "expected", "result"),
     [
         ([], pytest.raises(SystemExit), None),
         (["src"], does_not_raise(), {"config": None, "output": None, "rules": "all", "src": "src"}),
@@ -34,24 +34,26 @@ def test_cli_parser():
         ),
         (["-r", "rule-1,rule-2", "src"], does_not_raise(), {"rules": "rule-1,rule-2"}),
         (["-o", "/tmp/output", "src"], does_not_raise(), {"output": Path("/tmp/output")}),
+        (["-e", "123", "src"], does_not_raise(), {"exitcode": 123}),
     ],
 )
-def test_parse_args(arguments, expectation, result):
-    with expectation:
+def test_parse_args(arguments, expected, result):
+    with expected:
         args = parse_args(arguments)
         for key, value in result.items():
             assert args.__dict__[key] == value
 
 
 @pytest.mark.parametrize(
-    ("expectation"),
+    ("expected"),
     [
         (pytest.raises(SystemExit)),
     ],
 )
-def test_cli(expectation):
-    with expectation:
-        assert cli() is None
+def test_cli(expected):
+    with expected:
+        assert cli() == 0
+        assert expected.code == 0
 
 
 def test_cli_info():

@@ -1,6 +1,7 @@
 from argparse import ArgumentParser, Namespace
 from os import environ
 from pathlib import Path
+from sys import exit
 from typing import List, Optional
 
 from whispers.__version__ import __version__
@@ -19,6 +20,7 @@ def cli_parser() -> ArgumentParser:
     args_parser.add_argument("-c", "--config", default=None, help="config file (.yml)")
     args_parser.add_argument("-r", "--rules", default="all", help="comma-separated rule ID list")
     args_parser.add_argument("-o", "--output", help="output file (.yml)")
+    args_parser.add_argument("-e", "--exitcode", default=0, type=int, help="exit code on success")
     args_parser.add_argument("src", nargs="?", help="target file or directory")
     return args_parser
 
@@ -29,11 +31,13 @@ def parse_args(arguments: Optional[List] = None) -> Namespace:
 
     # Show information
     if args.info:
-        exit(cli_info())
+        cli_info()
+        exit()
 
     # Default response
     if not args.src:
-        exit(cli_parser().print_help())
+        cli_parser().print_help()
+        exit()
 
     # Configure execution
     if args.config:
@@ -48,15 +52,11 @@ def parse_args(arguments: Optional[List] = None) -> Namespace:
 
 
 def cli():
-    # Parse CLI arguments
     args = parse_args()
-
-    # Valar margulis
     for secret in run(args):
         format_stdout(secret, args.output)
-
-    # Clean up
     cleanup_log()
+    return args.exitcode
 
 
 def cli_info():
@@ -69,4 +69,4 @@ def cli_info():
 
 
 if __name__ == "__main__":
-    cli()
+    exit(cli())

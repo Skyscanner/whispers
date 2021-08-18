@@ -72,7 +72,7 @@ class WhisperPlugins:
             return Plaintext(self.rules)
         elif self.filetype.startswith("htm"):
             return Html()
-        elif self.filetype == "py":
+        elif self.filetype in ["py", "py3", "py35", "py36", "py37", "py38"]:
             return Python()
         elif self.filetype == "js":
             return Javascript()

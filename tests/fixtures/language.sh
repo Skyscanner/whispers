@@ -11,7 +11,9 @@ export DANGER_GITHUB_API_TOKEN="invalid ending
 # there's no spoon @#$%
 docker run -it -e DRONE_TOKEN=<DRONE_TOKEN> -e DRONE_ID=<ID> image
 curl -u admin: https://localhost
+curl --user admin https://localhost
 curl --user admin:      https://localhost
+curl --tlspassword
 curl --tlspassword https://localhost
 wget --user=admin --ask-password https://localhost
 wget --user=admin --password= https://localhost

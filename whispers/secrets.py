@@ -83,7 +83,7 @@ class WhisperSecrets:
         return self.rules.check(key, value, filepath, self.foundlines[filepath.as_posix()])
 
     def scan(self, filename: str) -> Optional[Secret]:
-        plugin = WhisperPlugins(filename)
+        plugin = WhisperPlugins(filename, self.rules)
         if not plugin:
             return None
         self.foundlines[plugin.filepath.as_posix()] = []

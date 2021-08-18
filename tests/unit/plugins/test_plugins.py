@@ -20,6 +20,7 @@ from whispers.plugins.python import Python
 from whispers.plugins.shell import Shell
 from whispers.plugins.xml import Xml
 from whispers.plugins.yml import Yml
+from whispers.rules import WhisperRules
 
 
 @pytest.mark.parametrize(
@@ -27,26 +28,27 @@ from whispers.plugins.yml import Yml
     [
         ("File.404", type(None)),
         ("", type(None)),
-        (".aws/credentials", Config),
         (".htpasswd", Htpasswd),
         (".npmrc", Npmrc),
         (".pypirc", Pypirc),
         ("apikeys.json", Json),
         ("invalid.json", Json),
-        ("apikeys.xml", Xml),
         ("apikeys.yml", Yml),
+        ("cloudformation.yml", Yml),
+        ("apikeys.xml", Xml),
         ("connection.config", Xml),
-        ("cors.py", Python),
-        ("Dockerfile", Dockerfile),
         ("integration.conf", Xml),
+        ("Dockerfile", Dockerfile),
         ("java.properties", Jproperties),
         ("pip.conf", Pip),
         ("plaintext.txt", Plaintext),
+        (".aws/credentials", Config),
         ("settings.cfg", Config),
         ("settings.env", Config),
         ("settings.ini", Config),
         ("language.sh", Shell),
         ("language.py", Python),
+        ("cors.py", Python),
         ("language.js", Javascript),
         ("language.java", Java),
         ("language.go", Go),
@@ -56,5 +58,5 @@ from whispers.plugins.yml import Yml
 )
 def test_init(filename, expected_plugin):
     filename = fixture_path(filename)
-    plugin = WhisperPlugins(filename).plugin
+    plugin = WhisperPlugins(filename, WhisperRules()).plugin
     assert isinstance(plugin, expected_plugin)

@@ -20,14 +20,16 @@ from whispers.plugins.python import Python
 from whispers.plugins.shell import Shell
 from whispers.plugins.xml import Xml
 from whispers.plugins.yml import Yml
+from whispers.rules import WhisperRules
 
 
 class WhisperPlugins:
-    def __init__(self, filename: str):
+    def __init__(self, filename: str, rules: WhisperRules):
         """Inits the rules objects. Call pairs() to get results"""
         self.filename = filename
         self.filepath = Path(filename)
         self.filetype = self.filepath.name.split(".")[-1]
+        self.rules = rules
         self.plugin = self.load_plugin()
 
     def load_plugin(self) -> Optional[object]:
@@ -42,11 +44,11 @@ class WhisperPlugins:
             self.filename = self.filepath.stem
             self.filetype = self.filename.split(".")[-1]
         if self.filetype in ["yaml", "yml"]:
-            return Yml()
+            return Yml(self.rules)
         elif self.filetype == "json":
-            return Json()
+            return Json(self.rules)
         elif self.filetype == "xml":
-            return Xml()
+            return Xml(self.rules)
         elif self.filetype.startswith("npmrc"):
             return Npmrc()
         elif self.filetype.startswith("pypirc"):
@@ -55,7 +57,7 @@ class WhisperPlugins:
             return Pip()
         elif self.filetype in ["conf", "cfg", "config", "ini", "env", "credentials"]:
             if self.filepath.open("r").readline().startswith("<?xml "):
-                return Xml()
+                return Xml(self.rules)
             else:
                 return Config()
         elif self.filetype == "properties":
@@ -67,7 +69,7 @@ class WhisperPlugins:
         elif self.filetype.startswith("htpasswd"):
             return Htpasswd()
         elif self.filetype == "txt":
-            return Plaintext()
+            return Plaintext(self.rules)
         elif self.filetype.startswith("htm"):
             return Html()
         elif self.filetype == "py":

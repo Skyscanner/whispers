@@ -3,9 +3,9 @@ from whispers.rules import WhisperRules
 
 
 class StructuredDocument:
-    def __init__(self):
+    def __init__(self, rules: WhisperRules):
         self.breadcrumbs = []
-        self.rules = WhisperRules()
+        self.rules = rules
 
     def traverse(self, code, key=None):
         """Recursively traverse YAML/JSON document"""

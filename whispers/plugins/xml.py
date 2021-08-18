@@ -8,9 +8,9 @@ from whispers.rules import WhisperRules
 
 
 class Xml:
-    def __init__(self):
+    def __init__(self, rules: WhisperRules):
         self.breadcrumbs = []
-        self.rules = WhisperRules()
+        self.rules = rules
 
     def pairs(self, filepath: Path):
         def _traverse(tree):

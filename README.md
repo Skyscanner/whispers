@@ -54,6 +54,7 @@ The following language files are parsed as text, and checked for common variable
 * Jenkins config files
 * SpringFramework Beans config files
 * Java Properties files
+* Dockercfg private registry auth files
 
 ## Installation
 

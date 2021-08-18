@@ -5,6 +5,7 @@ from whispers.plugins import WhisperPlugins
 from whispers.plugins.config import Config
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.go import Go
+from whispers.plugins.html import Html
 from whispers.plugins.htpasswd import Htpasswd
 from whispers.plugins.java import Java
 from whispers.plugins.javascript import Javascript
@@ -50,6 +51,7 @@ from whispers.plugins.yml import Yml
         ("language.java", Java),
         ("language.go", Go),
         ("language.php", Php),
+        ("language.html", Html),
     ],
 )
 def test_init(filename, expected_plugin):

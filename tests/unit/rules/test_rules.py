@@ -99,8 +99,7 @@ def test_check(ruleslist, expectation):
     rules = WhisperRules(ruleslist=ruleslist)
     result = 0
     for key, value, _ in Yml(rules).pairs(filepath):
-        if rules.check(key, value, filepath, []):
-            result += 1
+        result += len(list(rules.check(key, value, filepath, [])))
     assert result == expectation
 
 

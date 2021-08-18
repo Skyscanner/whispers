@@ -69,7 +69,9 @@ def test_cli_info():
 
 @pytest.mark.parametrize(("arg", "expected"), [("", 0), ("-e 123", 123)])
 def test_cli_exitcode(arg, expected):
-    proc = subprocess.Popen(shlex.split(f"whispers {arg} tests/fixtures/apikeys.yml"), stdout=subprocess.DEVNULL)
+    proc = subprocess.Popen(
+        shlex.split(f"whispers {arg} -r apikey tests/fixtures/apikeys.yml"), stdout=subprocess.DEVNULL
+    )
     proc.communicate()
     assert proc.returncode == expected
 
@@ -85,7 +87,10 @@ def test_cli_exitcode(arg, expected):
 def test_cli_severity(arg, expected):
     fd, tmp = mkstemp(suffix=".yml", text=True)
     proc = subprocess.Popen(
-        shlex.split(f"whispers -o {tmp} {arg} tests/fixtures/severity.yml"), stdout=subprocess.DEVNULL
+        shlex.split(
+            f"whispers -o {tmp} {arg} -r aws-id,privatekey,apikey,slack-webhook,base64 tests/fixtures/severity.yml"
+        ),
+        stdout=subprocess.DEVNULL,
     )
     proc.communicate()
     result = load_yaml_from_file(Path(tmp))

@@ -82,18 +82,18 @@ class WhisperSecrets:
             return None  # Not static
         if self.is_excluded(breadcrumbs):
             return None  # Excluded via config
-        return self.rules.check(key, value, filepath, self.foundlines[filepath.as_posix()])
+        yield from self.rules.check(key, value, filepath, self.foundlines[filepath.as_posix()])
 
     def scan(self, filename: str) -> Optional[Secret]:
         plugin = WhisperPlugins(filename, self.rules)
         if not plugin:
             return None
         self.foundlines[plugin.filepath.as_posix()] = []
-        yield self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
+        yield from self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
         for ret in plugin.pairs():
             if len(ret) == 2:
                 key, value = ret
-                yield self.detect_secrets(key, value, plugin.filepath)
+                yield from self.detect_secrets(key, value, plugin.filepath)
             elif len(ret) == 3:
                 key, value, breadcrumbs = ret
-                yield self.detect_secrets(key, value, plugin.filepath, breadcrumbs=breadcrumbs)
+                yield from self.detect_secrets(key, value, plugin.filepath, breadcrumbs=breadcrumbs)

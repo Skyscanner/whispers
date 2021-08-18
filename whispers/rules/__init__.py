@@ -112,7 +112,7 @@ class WhisperRules:
                         break
             if not rule_matched:
                 continue
-            return Secret(
+            yield Secret(
                 filepath.as_posix(),
                 find_line_number(filepath, key, value, foundlines),
                 key,

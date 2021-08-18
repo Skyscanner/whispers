@@ -23,7 +23,6 @@ aws-token:
   message: AWS Session Token
   severity: BLOCKER
   value:
-    regex: ^(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9\+\/]{270,450}$
+    regex: ^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9\+\/]{270,450}$
     ignorecase: False
     isBase64: True  # base64-encoded
-    isAscii: False  # binary content

@@ -20,7 +20,7 @@ def test_exclude_by_keys_and_values(configfile, src):
 
 
 @pytest.mark.parametrize(
-    ("src", "keys"),
+    ("src", "expected"),
     [
         ("privatekeys.yml", ["access", "key", "rsa", "dsa", "ec", "openssh"]),
         ("privatekeys.json", ["access", "key", "rsa", "dsa", "ec", "openssh"]),
@@ -33,13 +33,11 @@ def test_exclude_by_keys_and_values(configfile, src):
         ("cloudformation.json", ["NoncompliantDBPassword"]),
     ],
 )
-def test_detection_by_key(src, keys):
+def test_detection_by_key(src, expected):
     args = parse_args([fixture_path(src)])
     secrets = core.run(args)
-    for key in keys:
-        assert next(secrets).key == key
-    with pytest.raises(StopIteration):
-        next(secrets)
+    result = list(map(lambda x: x.key, secrets))
+    assert set(result) == set(expected)
 
 
 @pytest.mark.parametrize(
@@ -100,14 +98,11 @@ def test_detection_by_value(src, count):
     args = parse_args([fixture_path(src)])
     args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
     secrets = core.run(args)
-    for _ in range(count):
-        value = next(secrets).value
+    result = list(map(lambda x: x.value, secrets))
+    for value in result:
         if value.isnumeric():
             continue
-        result = "hardcoded" in value.lower() or b"hardcoded" in b64decode(value)
-        assert result is True
-    with pytest.raises(StopIteration):
-        next(secrets)
+        assert "hardcoded" in value.lower() or b"hardcoded" in b64decode(value)
 
 
 def test_detection_by_filename():
@@ -145,13 +140,11 @@ def test_detection_by_rule(src, count, rule_id):
     args = parse_args(["-r", rule_id, fixture_path(src)])
     args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
     secrets = core.run(args)
-    for _ in range(count):
-        value = next(secrets).value.lower()
+    result = list(map(lambda x: x.value.lower(), secrets))
+    for value in result:
         if value.isnumeric():
             continue
         assert "hardcoded" in value
-    with pytest.raises(StopIteration):
-        next(secrets)
 
 
 @pytest.mark.parametrize(

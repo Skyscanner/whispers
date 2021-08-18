@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from tempfile import mkstemp
 
@@ -180,5 +181,8 @@ def test_format_stdout():
 def test_format_stdout_to_file():
     secret = Secret("file", 123, "key", "value", "message", "severity")
     secret_str = json.dumps(secret._asdict())
-    tmp = Path(mkstemp()[1])
-    assert format_stdout(secret, tmp) == secret_str
+    fd, tmp = mkstemp()
+    result = format_stdout(secret, Path(tmp))
+    os.close(fd)
+    os.remove(tmp)
+    assert result == secret_str

@@ -78,6 +78,8 @@ whispers source/code/fileOrDir
 whispers --config config.yml source/code/fileOrDir
 whispers --output /tmp/secrets.yml source/code/fileOrDir
 whispers --rules aws-id,aws-secret source/code/fileOrDir
+whispers --severity BLOCKER,CRITICAL source/code/fileOrDir
+whispers --exitcode 7 source/code/fileOrDir
 ```
 ### Python
 ```python

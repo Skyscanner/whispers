@@ -1,0 +1,14 @@
+blocker:
+  aws_id: AKIAHI38FAKE1IWUQEEN
+
+critical:
+  rsa: "-----BEGIN RSA PRIVATE KEY-----\nQyNTUxOQAAACCtrF27B/zd9DEpd38IbVBy93wSeYXKU0AGXMyO8ePu2QAAAKBSzpYEUs6W\n-----END RSA PRIVATE KEY-----"
+ 
+major:
+  apikey: YXNkZmZmZmZm_HARDcoded
+
+minor:
+  slack-webhook: https://hooks.slack.com/services/HARDC0D3D/HARDC0D3D/hardcodedWebhook01
+
+info:
+  base64_string: d2hpc3BlcnMK

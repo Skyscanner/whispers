@@ -3,6 +3,7 @@ from typing import Optional
 
 from whispers.log import debug
 from whispers.plugins.config import Config
+from whispers.plugins.dockercfg import Dockercfg
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.go import Go
 from whispers.plugins.html import Html
@@ -66,6 +67,8 @@ class WhisperPlugins:
             return Shell()
         elif self.filepath.name.startswith("Dockerfile"):
             return Dockerfile()
+        elif self.filetype == "dockercfg":
+            return Dockercfg()
         elif self.filetype.startswith("htpasswd"):
             return Htpasswd()
         elif self.filetype == "txt":

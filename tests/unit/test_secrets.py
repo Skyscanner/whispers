@@ -1,3 +1,5 @@
+from base64 import b64decode
+
 import pytest
 
 from tests.unit.conftest import CONFIG_PATH, FIXTURE_PATH, config_path, fixture_path
@@ -70,6 +72,8 @@ def test_detection_by_key(src, keys):
         ("settings.ini", 1),
         ("settings.env", 1),
         ("Dockerfile", 3),
+        (".dockercfg", 1),
+        ("empty.dockercfg", 0),
         ("beans.xml", 3),
         ("beans.xml.dist", 3),
         ("beans.xml.template", 3),
@@ -97,10 +101,11 @@ def test_detection_by_value(src, count):
     args.config = core.load_config(CONFIG_PATH.joinpath("detection_by_value.yml"))
     secrets = core.run(args)
     for _ in range(count):
-        value = next(secrets).value.lower()
+        value = next(secrets).value
         if value.isnumeric():
             continue
-        assert "hardcoded" in value
+        result = "hardcoded" in value.lower() or b"hardcoded" in b64decode(value)
+        assert result is True
     with pytest.raises(StopIteration):
         next(secrets)
 

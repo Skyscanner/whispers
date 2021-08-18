@@ -3,6 +3,7 @@ import pytest
 from tests.unit.conftest import fixture_path
 from whispers.plugins import WhisperPlugins
 from whispers.plugins.config import Config
+from whispers.plugins.dockercfg import Dockercfg
 from whispers.plugins.dockerfile import Dockerfile
 from whispers.plugins.go import Go
 from whispers.plugins.html import Html
@@ -39,6 +40,7 @@ from whispers.rules import WhisperRules
         ("connection.config", Xml),
         ("integration.conf", Xml),
         ("Dockerfile", Dockerfile),
+        (".dockercfg", Dockercfg),
         ("java.properties", Jproperties),
         ("pip.conf", Pip),
         ("plaintext.txt", Plaintext),

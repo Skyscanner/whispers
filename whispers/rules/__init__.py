@@ -1,4 +1,5 @@
 import re
+import string
 from base64 import b64decode
 from pathlib import Path
 from typing import List
@@ -124,11 +125,11 @@ class WhisperRules:
         return rule[mkey]["isBase64"] == self.match("base64", mvalue)
 
     def check_isAscii(self, rule, mkey, mvalue):
-        mvalue = self.decode_if_base64(mkey, mvalue)
+        mvalue = self.decode_if_base64(rule, mkey, mvalue)
         return self.is_ascii(mvalue)
 
     def check_isUri(self, rule, mkey, mvalue):
-        mvalue = self.decode_if_base64(mkey, mvalue)
+        mvalue = self.decode_if_base64(rule, mkey, mvalue)
         return rule[mkey]["isUri"] == self.match("uri", mvalue)
 
     @staticmethod
@@ -178,17 +179,26 @@ class WhisperRules:
         return luhn_verify(value)
 
     @staticmethod
-    def decode_if_base64(mkey, mvalue):
-        if "isBase64" in mkey:
-            if mkey["isBase64"]:
-                mvalue = b64decode(mvalue).decode("utf-8")
+    def decode_if_base64(rule, mkey, mvalue):
+        if "isBase64" in rule[mkey]:
+            if rule[mkey]["isBase64"]:
+                decoded = b64decode(mvalue)
+                try:
+                    return decoded.decode("utf-8")
+                except UnicodeDecodeError:
+                    return decoded
         return mvalue
 
     @staticmethod
     def is_ascii(data):
+        if isinstance(data, bytes):
+            try:
+                data = data.decode("utf-8")
+            except Exception:
+                return False
         if not isinstance(data, str):
             return False
         for ch in data:
-            if ord(ch) not in range(32, 127):
+            if ch not in string.printable:
                 return False
         return True

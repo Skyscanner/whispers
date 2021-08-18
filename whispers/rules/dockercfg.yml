@@ -1,0 +1,11 @@
+dockercfg: 
+  description: Hardcoded .dockercfg auth
+  message: Dockercfg
+  severity: CRITICAL
+  key:
+    regex: ^Dockercfg$
+    ignorecase: False
+  value:
+    isBase64: True
+    isAscii: True
+    minlen: 1

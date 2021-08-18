@@ -86,5 +86,5 @@ def run(args):
     whispers = WhisperSecrets(args)
     for filename in files:
         for secret in whispers.scan(filename):
-            if secret:
+            if secret and secret.severity in args.severity:
                 yield secret

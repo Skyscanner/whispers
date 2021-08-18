@@ -158,7 +158,7 @@ def test_check_similar(rule, key, value, expectation):
 
 
 @pytest.mark.parametrize(
-    ("test", "value", "expectation"),
+    ("encoded", "value", "expectation"),
     [
         (True, "d2hpc3BlcnM=", "whispers"),
         (False, "d2hpc3BlcnM=", "d2hpc3BlcnM="),
@@ -167,16 +167,16 @@ def test_check_similar(rule, key, value, expectation):
         (False, 1, 1),
     ],
 )
-def test_decode_if_base64(test, value, expectation):
+def test_decode_if_base64(encoded, value, expectation):
     rules = WhisperRules()
-    rule = {"isBase64": test}
-    result = rules.decode_if_base64(rule, value)
+    rule = {"value": {"isBase64": encoded}}
+    result = rules.decode_if_base64(rule, "value", value)
     assert result == expectation
 
 
 @pytest.mark.parametrize(
     ("value", "expectation"),
-    [("whispers", True), (123, False), (b"binary", False), (None, False), ("шёпот", False)],
+    [("whispers", True), (123, False), (b"binary", True), (b"\xca\xfe", False), (None, False), ("шёпот", False)],
 )
 def test_is_ascii(value, expectation):
     rules = WhisperRules()

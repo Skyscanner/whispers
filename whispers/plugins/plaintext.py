@@ -6,8 +6,8 @@ from whispers.utils import strip_string
 
 
 class Plaintext:
-    def __init__(self):
-        self.rules = WhisperRules()
+    def __init__(self, rules: WhisperRules):
+        self.rules = rules
 
     def pairs(self, filepath: Path):
         lines = filepath.open("r").readlines()

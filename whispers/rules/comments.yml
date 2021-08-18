@@ -1,7 +1,7 @@
 comments:
   description: Potential information leak through comments
   message: Comment
-  severity: INFO
+  severity: MINOR
   key:
     regex: "^comment$"
     ignorecase: False

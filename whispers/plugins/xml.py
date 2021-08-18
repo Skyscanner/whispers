@@ -8,19 +8,19 @@ from whispers.rules import WhisperRules
 
 
 class Xml:
-    def __init__(self):
+    def __init__(self, rules: WhisperRules):
         self.breadcrumbs = []
-        self.rules = WhisperRules()
+        self.rules = rules
 
     def pairs(self, filepath: Path):
         def _traverse(tree):
             """Traverse XML document"""
             for event, element in tree:
-                if event == "start":
-                    self.breadcrumbs.append(element.tag)
-                elif event == "end":
+                if event == "end":
                     self.breadcrumbs.pop()
                     continue
+
+                self.breadcrumbs.append(element.tag)
 
                 # Format: <elem key="value">
                 for key, value in element.attrib.items():

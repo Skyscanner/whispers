@@ -98,7 +98,7 @@ def test_check(ruleslist, expectation):
     filepath = FIXTURE_PATH.joinpath("ruleslist.yml")
     rules = WhisperRules(ruleslist=ruleslist)
     result = 0
-    for key, value, _ in Yml().pairs(filepath):
+    for key, value, _ in Yml(rules).pairs(filepath):
         if rules.check(key, value, filepath, []):
             result += 1
     assert result == expectation

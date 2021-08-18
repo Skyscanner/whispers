@@ -26,6 +26,8 @@ class WhisperSecrets:
             return False  # Empty
         if value.startswith("$") and "$" not in value[2:]:
             return False  # Variable
+        if value.startswith("%") and value.endswith("%"):
+            return False  # Variable
         if "{{" in value and "}}" in value:
             return False  # Variable
         if value.startswith("{") and value.endswith("}"):
@@ -83,13 +85,15 @@ class WhisperSecrets:
         return self.rules.check(key, value, filepath, self.foundlines[filepath.as_posix()])
 
     def scan(self, filename: str) -> Optional[Secret]:
-        plugin = WhisperPlugins(filename)
+        plugin = WhisperPlugins(filename, self.rules)
         if not plugin:
             return None
         self.foundlines[plugin.filepath.as_posix()] = []
         yield self.detect_secrets("file", plugin.filepath.as_posix(), plugin.filepath)
         for ret in plugin.pairs():
-            if len(ret) == 2:  # key, value
-                yield self.detect_secrets(ret[0], ret[1], plugin.filepath)
-            elif len(ret) == 3:  # key, value, breadcrumbs
-                yield self.detect_secrets(ret[0], ret[1], plugin.filepath, breadcrumbs=ret[2])
+            if len(ret) == 2:
+                key, value = ret
+                yield self.detect_secrets(key, value, plugin.filepath)
+            elif len(ret) == 3:
+                key, value, breadcrumbs = ret
+                yield self.detect_secrets(key, value, plugin.filepath, breadcrumbs=breadcrumbs)

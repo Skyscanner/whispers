@@ -11,6 +11,7 @@ $variable_password8 = aFunctionCall();
 $config['db_password'] = '';
 define("unset_password", "", true);
 define("variable_password", "{placeholder}");
+define("dynamic_password", load_password());
 
 # Noncompliant
 $static_password01 = "hardcoded0";

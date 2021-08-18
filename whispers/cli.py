@@ -19,6 +19,9 @@ def cli_parser() -> ArgumentParser:
     args_parser.add_argument("-i", "--info", action="store_true", default=False, help="show extended help and exit")
     args_parser.add_argument("-c", "--config", default=None, help="config file (.yml)")
     args_parser.add_argument("-r", "--rules", default="all", help="comma-separated rule ID list")
+    args_parser.add_argument(
+        "-s", "--severity", default="BLOCKER,CRITICAL,MAJOR,MINOR", help="severity levels to report"
+    )
     args_parser.add_argument("-o", "--output", help="output file (.yml)")
     args_parser.add_argument("-e", "--exitcode", default=0, type=int, help="exit code on success")
     args_parser.add_argument("src", nargs="?", help="target file or directory")
@@ -47,6 +50,9 @@ def parse_args(arguments: Optional[List] = None) -> Namespace:
     if args.output:
         args.output = Path(args.output)
         args.output.write_text("")
+
+    # Load severity levels
+    args.severity = args.severity.split(",")
 
     return args
 

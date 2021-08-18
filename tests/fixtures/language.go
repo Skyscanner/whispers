@@ -11,6 +11,7 @@ func main() {
 	var variable_password8 = aFunctionCall()
 	msg := "Here is a long, compliant string of text"
 	var1, var2 := justOneFunction()
+	var1, var2 := "mismatched key-value lengths"
 
 	// Noncompliant
 	const static_password01, static_password02 string = "hardcoded0", "hardcoded1"

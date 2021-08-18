@@ -8,7 +8,7 @@ Parameters:
   CompliantDBPassword:
     Description: Database password
     Type: String
-    NoEcho: true
+    Default: !Ref AdminPassword
   NoncompliantDBPassword:
     Description: Database password
     Type: String

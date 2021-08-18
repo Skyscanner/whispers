@@ -45,7 +45,7 @@ class Python:
         for value in nodes:
             if not isinstance(value, astroid.node_classes.Const):
                 return ""
-            ret += value.value
+            ret += f"{value.value}"
         return ret
 
     def node_to_str(self, node) -> str:

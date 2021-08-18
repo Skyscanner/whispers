@@ -55,7 +55,7 @@ class WhisperPlugins:
             return Pypirc()
         elif self.filepath.name == "pip.conf":
             return Pip()
-        elif self.filetype in ["conf", "cfg", "config", "ini", "env", "credentials"]:
+        elif self.filetype in ["conf", "cfg", "config", "ini", "env", "credentials", "s3cfg"]:
             if self.filepath.open("r").readline().startswith("<?xml "):
                 return Xml(self.rules)
             else:

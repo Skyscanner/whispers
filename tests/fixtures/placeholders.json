@@ -5,7 +5,9 @@
         "DB_PASSWORD=DB_PASSWORD"
       ],
       "MasterUserPassword": "<% PASSWORD_HERE %>",
-      "TRAVEL_API_KEY": "TRAVEL_API_KEY"
+      "TRAVEL_API_KEY": "TRAVEL_API_KEY",
+      "Symfony_DB_Key": "'%env(DB_SECRET_VALUE)%'",
+      "Generic_Key": "%DB_SECRET_VALUE%"
     },
     "noncompliant": {
     }

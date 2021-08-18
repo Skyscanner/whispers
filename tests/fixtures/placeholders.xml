@@ -5,6 +5,8 @@
     <environment>DB_PASSWORD=DB_PASSWORD</environment>
     <MasterUserPassword><PASSWORD_HERE></MasterUserPassword>
     <TRAVEL_API_KEY>TRAVEL_API_KEY</TRAVEL_API_KEY>
+    <Symfony_DB_Key>%env(DB_SECRET_VALUE)%</Symfony_DB_Key>
+    <Generic_Key>%DB_SECRET_VALUE%</Generic_Key>
   </compliant>
   <noncompliant>
   </noncompliant>

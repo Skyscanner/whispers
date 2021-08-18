@@ -26,6 +26,8 @@ class WhisperSecrets:
             return False  # Empty
         if value.startswith("$") and "$" not in value[2:]:
             return False  # Variable
+        if value.startswith("%") and value.endswith("%"):
+            return False  # Variable
         if "{{" in value and "}}" in value:
             return False  # Variable
         if value.startswith("{") and value.endswith("}"):

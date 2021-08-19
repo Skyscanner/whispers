@@ -150,7 +150,8 @@ rule-id:  # unique rule name
     isAscii: False     # value is binary data when decoded
     isUri: False       # value is not formatted like a URI
 
-  similar: 0.35        # maximum similarity between key and value
+  similar: 0.35        # maximum allowed similarity between key and value 
+                       # (1.0 being exactly the same)
 ```
 
 

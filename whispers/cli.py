@@ -69,7 +69,7 @@ def cli_info():
     rule_ids = list(WhisperRules().rules.keys())
     rule_ids.sort()
     cli_parser().print_help()
-    print("\navailable rules:")
+    print("\navailable rule IDs:")
     for rule_id in rule_ids:
         print(f"  {rule_id}")
 

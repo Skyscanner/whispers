@@ -1,5 +1,11 @@
+# https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/about-authentication-to-github#githubs-token-formats
+
 compliant:
   name: GHP_THISISASTRINGTHATHASTHESAMELENASTOKE
 
 noncompliant:
-  name: ghp_fK8UXjzPM1Lzf356hwgGym4JAfnHARDcoded
+  personal: ghp_fK8UXjzPM1Lzf356hwgGym4JAfnHARDcoded
+  oauth: gho_fK8UXjzPM1Lzf356hwgGym4JAfnHARDcoded
+  user: ghu_fK8UXjzPM1Lzf356hwgGym4JAfnHARDcoded
+  server: ghs_fK8UXjzPM1Lzf356hwgGym4JAfnHARDcoded
+  refresh: ghr_1B4a2e77838347a7E420ce178F2E7c6912E169246c34E1ccbF66C46812d16D5B1A9HARDcoded

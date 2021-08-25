@@ -92,6 +92,7 @@ def test_detection_by_key(src, expected):
         ("java.properties", 3),
         ("webhooks.yml", 3),
         ("creditcards.yml", 3),
+        ("gitkeys.yml", 1),
     ],
 )
 def test_detection_by_value(src, count):

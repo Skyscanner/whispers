@@ -55,6 +55,7 @@ The following language files are parsed as text, and checked for common variable
 * SpringFramework Beans config files
 * Java Properties files
 * Dockercfg private registry auth files
+* Github tokens
 
 ## Installation
 

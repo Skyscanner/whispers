@@ -62,7 +62,7 @@ def test_cli_info():
     with patch("sys.stdout", mock_print):
         cli_info()
         result = mock_print.getvalue()
-        assert "available rules" in result
+        assert "available rule IDs" in result
         for rule_id in WhisperRules().rules.keys():
             assert rule_id in result
 

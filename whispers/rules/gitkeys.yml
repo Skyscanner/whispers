@@ -1,0 +1,7 @@
+github:
+  description: Github personal access token
+  message: Github token
+  severity: CRITICAL
+  value:
+    regex: ^ghp_[a-zA-Z0-9]{36}$
+    ignorecase: False

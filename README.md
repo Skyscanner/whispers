@@ -36,6 +36,7 @@ The following commonly used formats are currently supported:
 * pip.conf
 * conf / ini
 * Dockerfile
+* Dockercfg
 * Shell scripts
 * Python3
 

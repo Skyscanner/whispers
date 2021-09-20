@@ -1,4 +1,4 @@
-invalid: 
+- id: invalid
   description: Invalid severity level
   message: Invalid
   severity: INVALID

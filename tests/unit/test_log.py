@@ -2,48 +2,39 @@ from os import remove, urandom
 
 import pytest
 
-from tests.unit.conftest import does_not_raise
-from whispers.log import cleanup_log, configure_log, debug
+from tests.unit.conftest import fixture_path
+from whispers.core.args import parse_args
+from whispers.core.log import cleanup_log, configure_log, global_exception_handler
+
+
+def test_configure_log():
+    args = parse_args([fixture_path()])
+    expected_file = configure_log(args)
+    assert expected_file.exists()
+    remove(expected_file.as_posix())
 
 
 @pytest.mark.parametrize(
-    ("logpath", "expectation"),
-    [
-        (None, pytest.raises(ValueError)),
-        ("", does_not_raise()),
-        ("/tmp", does_not_raise()),
-    ],
+    ("data", "expected"), [("", False), ("a", True),],
 )
-def test_configure_log(logpath, expectation):
-    with expectation:
-        expected_file = configure_log(logpath)
-        assert expected_file.exists()
-        remove(expected_file.as_posix())
-
-
-@pytest.mark.parametrize(
-    ("data", "expectation"),
-    [
-        ("", False),
-        ("a", True),
-    ],
-)
-def test_cleanup_log(data, expectation):
-    logfile = configure_log()
+def test_cleanup_log(data, expected):
+    args = parse_args([fixture_path()])
+    logfile = configure_log(args)
     logfile.write_text(data)
     cleanup_log()
-    assert logfile.exists() == expectation
+    assert logfile.exists() == expected
     if logfile.exists():
         remove(logfile.as_posix())
 
 
-def test_debug():
-    logfile = configure_log()
+def test_global_exception_handler():
+    args = parse_args([fixture_path()])
+    logfile = configure_log(args)
     message = urandom(30).hex()
     try:
         1 / 0
     except Exception:
-        debug(message)
+        global_exception_handler(logfile.as_posix(), message)
     logtext = logfile.read_text()
     assert "ZeroDivisionError: division by zero" in logtext
     assert message in logtext

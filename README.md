@@ -36,18 +36,10 @@ The following commonly used formats are currently supported:
 * pip.conf
 * conf / ini
 * Dockerfile
-* Dockercfg
 * Shell scripts
 * Python3
 
 Python3 files are parsed as ASTs because of native language support.
-
-## Declaration & Assignment Formats
-The following language files are parsed as text, and checked for common variable declaration and assignment patterns:
-* JavaScript
-* Java
-* Go
-* PHP
 
 ## Special Formats
 * AWS credentials files
@@ -56,7 +48,6 @@ The following language files are parsed as text, and checked for common variable
 * SpringFramework Beans config files
 * Java Properties files
 * Dockercfg private registry auth files
-* Github tokens
 
 ## Installation
 
@@ -76,24 +67,30 @@ make install
 ### CLI
 ```
 whispers --help
+whispers --version
 whispers --info
-whispers source/code/fileOrDir
-whispers --config config.yml source/code/fileOrDir
-whispers --output /tmp/secrets.yml source/code/fileOrDir
-whispers --rules aws-id,aws-secret source/code/fileOrDir
-whispers --severity BLOCKER,CRITICAL source/code/fileOrDir
-whispers --exitcode 7 source/code/fileOrDir
+whispers --config config.yml target/file/or/dir
+whispers --output /tmp/secrets.out target/file/or/dir
+whispers --rules aws-id,aws-secret target/file/or/dir
+whispers --severity BLOCKER,CRITICAL target/file/or/dir
+whispers --exitcode 7 target/file/or/dir
+whispers target/file/or/dir
 ```
+
 ### Python
 ```python
-from whispers.cli import parse_args
-from whispers.core import run
+from whispers.core.args import parse_args
+from whispers.main import run
 
-src = "tests/fixtures"
-configfile = "whispers/config.yml"
-args = parse_args(["-c", configfile, src])
+args = parse_args([
+  "-c", "whispers/config.yml",
+  "-r", "apikey,aws-secret,password",
+  "-s", "BLOCKER,CRITICAL,MAJOR",
+  "tests/fixtures"
+])
+
 for secret in run(args):
-  print(secret)
+  print(f"[{secret.file}:{secret.line}] {secret.key} = {secret.value}")
 ```
 
 ## Config
@@ -115,7 +112,9 @@ exclude:
     - bar$
 
 rules:
-  starks:
+  - password
+  - privatekey
+  - id: starks
     message: Whispers from the North
     severity: CRITICAL
     value:
@@ -125,7 +124,7 @@ rules:
 
 The fastest way to tweak detection (ie: remove false positives and unwanted results) is to copy the default [config.yml](whispers/config.yml) into a new file, adapt it, and pass it as an argument to Whispers.
 
-`whispers --config config.yml --rules starks src/file/or/dir`
+For example: `whispers -c config.yml -r starks target`
 
 
 ## Custom Rules
@@ -135,33 +134,40 @@ Rules specify the actual things that should be pulled out from key-value pairs. 
 - Custom rules can be added to [whispers/rules](whispers/rules/)
 
 ```yaml
-rule-id:  # unique rule name
+- id: rule-id                 # unique rule name
   description: Values formatted like AWS Session Token
   message: AWS Session Token  # report will show this message
   severity: BLOCKER           # one of BLOCKER, CRITICAL, MAJOR, MINOR, INFO
 
-  key:        # specify key format
+  key:                        # specify key format
     regex: (aws.?session.?token)?
-    ignorecase: True   # case-insensitive matching
+    ignorecase: True          # case-insensitive matching
 
-  value:      # specify value format
+  value:                      # specify value format
     regex: ^(?=.*[a-z])(?=.*[A-Z])[A-Za-z0-9\+\/]{270,450}$
-    ignorecase: False  # case-sensitive matching
-    minlen: 270        # value is at least this long
-    isBase64: True     # value is base64-encoded
-    isAscii: False     # value is binary data when decoded
-    isUri: False       # value is not formatted like a URI
+    ignorecase: False         # case-sensitive matching
+    minlen: 270               # value is at least this long
+    isBase64: True            # value is base64-encoded
+    isAscii: False            # value is binary data when decoded
+    isUri: False              # value is not formatted like a URI
 
-  similar: 0.35        # maximum allowed similarity between key and value 
-                       # (1.0 being exactly the same)
+  similar: 0.35               # maximum allowed similarity between key and value 
+                              # (1.0 being exactly the same)
 ```
 
 
 ## Plugins
-All parsing functionality is implemented via plugins. Each plugin implements a class with the `pairs()` method that runs through files and returns the key-value pairs to be checked with rules. 
+All parsing functionality is implemented via plugins. Each plugin implements a class with the `pairs()` method that runs through files and returns a KeyValuePair object to be checked with rules. 
 
 ```py
+from whispers.core.utils import KeyValuePair
+
 class PluginName:
-    def pairs(self, file):
-        yield "key", "value"
+  def pairs(self, filepath: Path):
+    yield KeyValuePair(
+      "key",
+      "value",
+      keypath=["node", "path", "to", "key"],
+      file=filepath.as_posix()
+    )
 ```

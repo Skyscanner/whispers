@@ -1,0 +1,12 @@
+- id: webhook
+  description: Various known webhook formats
+  message: Webhook
+  severity: MINOR
+  value:
+    regex: "https?://(\
+      hooks\\.slack\\.com/services/[A-Z0-9]{9}/[A-Z0-9]{9}/[a-zA-Z0-9]+|\
+      api\\.hubapi\\.com/webhooks/v1/[A-Z0-9]+/|\
+      chat\\.twilio\\.com/v2/Services/[A-Z0-9]{32}\
+      )"
+    ignorecase: True
+    isUri: True

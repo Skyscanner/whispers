@@ -1,4 +1,4 @@
-github:
+- id: github
   description: Github token
   message: Github token
   severity: CRITICAL

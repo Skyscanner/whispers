@@ -1,4 +1,4 @@
-dangerous-functions: 
+- id: dangerous-functions
   description: Dangerous function calls that could lead to RCE
   message: Dangerous Function
   severity: MAJOR

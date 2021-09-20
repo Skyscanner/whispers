@@ -1,9 +1,9 @@
-dockercfg: 
+- id: dockercfg
   description: Hardcoded .dockercfg auth
-  message: Dockercfg
+  message: Dockercfg auth
   severity: CRITICAL
   key:
-    regex: ^Dockercfg$
+    regex: ^dockercfg auth$
     ignorecase: False
   value:
     isBase64: True

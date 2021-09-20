@@ -1,4 +1,4 @@
-npmrc: 
+- id: npmrc
   description: Hardcoded .npmrc authToken
   message: .npmrc authToken
   severity: CRITICAL

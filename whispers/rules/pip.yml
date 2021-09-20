@@ -1,4 +1,4 @@
-pip: 
+- id: pip
   description: Hardcoded pip.conf password
   message: pip.conf Password
   severity: CRITICAL

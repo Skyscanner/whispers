@@ -75,6 +75,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 dev
+pip.conf
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

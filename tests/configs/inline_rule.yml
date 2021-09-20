@@ -1,0 +1,20 @@
+exclude:
+  files:
+    - \.npmrc
+    - .*coded.*
+    - \.git/.*
+  keys:
+    - SECRET_VALUE_KEY
+  values:
+    - SECRET_VALUE_PLACEHOLDER
+
+rules:
+  - dockercfg
+  - htpasswd
+  - id: inline-rule
+    description: This rule is defined directly in the config file
+    message: Inline Rule
+    severity: INFO
+    key:
+      regex: inline
+      ignorecase: False

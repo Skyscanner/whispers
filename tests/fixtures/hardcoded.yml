@@ -9,8 +9,8 @@
 08_variable_password: "{ password }"
 
 # Noncompliant
-01_hardcoded_password: hardcoded0
-02_hardcoded_passwords:
+01_static_password: hardcoded0
+02_static_passwords:
   - "Hardcoded1"
   - "hardCoded2"
   - "haRdcOded3"

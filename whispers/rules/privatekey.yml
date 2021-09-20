@@ -1,4 +1,4 @@
-privatekey: 
+- id: privatekey
   description: Text resembling a private key format
   message: Private key
   severity: CRITICAL

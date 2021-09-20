@@ -6,5 +6,5 @@ compliant:
   - "https://localhost:8000/admin"
 
 noncompliant:
-  - "jdbc:mysql://localhost/authority?user=admin&userpass=hardcoded"
-  - "https://admin:hardcoded@localhost:8000/admin"
+  - "jdbc:mysql://localhost/authority?user=admin&userpass=hardcoded0"
+  - "https://admin:hardcoded1@localhost:8000/admin"

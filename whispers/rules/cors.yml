@@ -1,4 +1,4 @@
-cors:
+- id: cors
   description: Insecure Cross-Origin Resource Sharing (CORS) configuration
   message: Insecure CORS
   severity: MAJOR

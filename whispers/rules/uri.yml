@@ -1,7 +1,9 @@
-uri:
-  description: Text containing URIs
-  message: URI
-  severity: INFO
+- id: uri
+  description: Hardcoded credentials in a Uniform Resource Identifier (URI)
+  message: URI Credentials
+  severity: CRITICAL
+  key:
+    regex: ^uri creds$
+    ignorecase: False
   value:
-    regex: (http|ftp|smtp|scp|ssh|jdbc[:\w\d]*|s3)s?://?.+
-    ignorecase: True
+    minlen: 1

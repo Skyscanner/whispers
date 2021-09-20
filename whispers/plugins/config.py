@@ -1,11 +1,12 @@
 from pathlib import Path
+from typing import Iterator
 
-from whispers.utils import strip_string
+from whispers.core.utils import KeyValuePair, strip_string
 
 
 class Config:
-    def pairs(self, filepath: Path):
-        for line in filepath.open("r").readlines():
+    def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
+        for lineno, line in enumerate(filepath.open(), 1):
             line = line.strip()
             if "=" not in line:
                 continue
@@ -15,4 +16,4 @@ class Config:
             value = strip_string(value)
 
             if value:
-                yield key, value
+                yield KeyValuePair(key, value, keypath=[key], line=lineno)

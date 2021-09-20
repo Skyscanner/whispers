@@ -1,9 +1,9 @@
-pypirc: 
+- id: pypirc
   description: Hardcoded .pypirc Password
   message: .pypirc Password
   severity: CRITICAL
   key:
-    regex: ^PyPI password$
+    regex: ^pypi password$
     ignorecase: False
   value:
     minlen: 1

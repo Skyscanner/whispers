@@ -1,21 +1,21 @@
 from pathlib import Path
+from typing import Iterator
 
+from whispers.core.utils import KeyValuePair, is_uri, strip_string
 from whispers.plugins.uri import Uri
-from whispers.rules import WhisperRules
-from whispers.utils import strip_string
 
 
 class Plaintext:
-    def __init__(self, rules: WhisperRules):
-        self.rules = rules
+    def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
+        lineno = 0
 
-    def pairs(self, filepath: Path):
-        lines = filepath.open("r").readlines()
-        for idx in range(len(lines)):
-            line = lines[idx]
+        for line in filepath.open("r").readlines():
+            lineno += 1
             if not strip_string(line):
                 continue
 
             for value in line.split():
-                if self.rules.match("uri", value):
-                    yield from Uri().pairs(value)
+                if is_uri(value):
+                    for pair in Uri().pairs(value):
+                        pair.line = lineno
+                        yield pair

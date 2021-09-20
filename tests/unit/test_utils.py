@@ -1,28 +1,38 @@
-import json
-import os
-from pathlib import Path
-from tempfile import mkstemp
-
 import pytest
+from yaml import safe_load
+from yaml.parser import ParserError
 
-from tests.unit.conftest import FIXTURE_PATH, fixture_path, rule_path
-from whispers import core
-from whispers.cli import parse_args
-from whispers.utils import (
-    Secret,
+from tests.unit.conftest import CONFIG_PATH, does_not_raise, fixture_path
+from whispers.core.args import parse_args
+from whispers.core.utils import (
+    KeyValuePair,
     find_line_number,
-    format_secret,
-    format_stdout,
-    line_begins_with_value,
-    line_with_key_value,
-    line_with_value,
+    is_ascii,
+    is_base64,
+    is_base64_bytes,
+    is_iac,
+    is_luhn,
+    is_path,
+    is_uri,
     load_yaml_from_file,
-    secret_checksum,
     similar_strings,
     simple_string,
     strip_string,
     truncate_all_space,
 )
+from whispers.main import run
+
+
+def test_KeyValuePair():
+    pair = KeyValuePair("key", "value", ["key", "path"], "file", 123, {"rule_id": "test"})
+    assert pair.__dict__ == {
+        "key": "key",
+        "value": "value",
+        "keypath": ["key", "path"],
+        "file": "file",
+        "line": 123,
+        "rule": {"rule_id": "test"},
+    }
 
 
 @pytest.mark.parametrize(
@@ -56,15 +66,10 @@ def test_strip_string(rawstr):
 
 
 @pytest.mark.parametrize(
-    ("rawstr", "expectation"),
-    [
-        (None, ""),
-        (1, "1"),
-        ("~|wHisP3R5~|", "__whisp3r5__"),
-    ],
+    ("rawstr", "expected"), [(None, ""), (1, "1"), ("~|wHisP3R5~|", "__whisp3r5__"),],
 )
-def test_simple_string(rawstr, expectation):
-    assert simple_string(rawstr) == expectation
+def test_simple_string(rawstr, expected):
+    assert simple_string(rawstr) == expected
 
 
 @pytest.mark.parametrize(
@@ -80,109 +85,166 @@ def test_similar_strings(str1, str2):
 
 
 @pytest.mark.parametrize(
-    ("key", "value", "line"),
+    ("src", "key", "value", "expected"),
     [
-        ("key", "value", "key=value"),
-        ("key", "value", "{'key': 'value'}"),
-        ("key", "value", "key -> value"),
-        pytest.param("key", "value", "key=", marks=pytest.mark.xfail),
-        pytest.param("key", "value", "{'key':", marks=pytest.mark.xfail),
-        pytest.param("key", "value", "key ->", marks=pytest.mark.xfail),
-    ],
-)
-def test_line_with_key_value(key, value, line):
-    assert line_with_key_value(key, value, line)
-
-
-@pytest.mark.parametrize(
-    ("value", "line"),
-    [
-        ("value", "key=value"),
-        ("value", "{'key': 'value'}"),
-        ("value", "key -> value"),
-        pytest.param("value", "key", marks=pytest.mark.xfail),
-        pytest.param("value", "vaLUe", marks=pytest.mark.xfail),
-    ],
-)
-def test_line_with_value(value, line):
-    assert line_with_value(value, line)
-
-
-@pytest.mark.parametrize(
-    ("value", "line"),
-    [
-        ("value", "Value"),
-        ("value", "'value'"),
-        ("value", "\t\tvalue"),
-        pytest.param("value", "---Value", marks=pytest.mark.xfail),
-        pytest.param("value", "key=value", marks=pytest.mark.xfail),
-        pytest.param("value", "\r\nvalue-2", marks=pytest.mark.xfail),
-    ],
-)
-def test_line_begins_with_value(value, line):
-    assert line_begins_with_value(value, line)
-
-
-@pytest.mark.parametrize(
-    ("src", "key", "value", "expectation"),
-    [
-        ("apikeys.yml", "", "", 0),
-        ("apikeys.yml", "apikey", "", 0),
-        ("apikeys.yml", "", "YXNkZmZmZmZm_HARDcoded", 11),
         ("apikeys.yml", "apikey", "YXNkZmZmZmZm_HARDcoded", 11),
         ("apikeys.yml", "GITHUBKEY", "YXNkZmZmZmZm_HARDcoded", 19),
         ("pip.conf", "username", "hardcoded1", 7),
     ],
 )
-def test_find_line_number_single(src, key, value, expectation):
-    assert find_line_number(FIXTURE_PATH.joinpath(src), key, value, []) == expectation
+def test_find_line_number_single(src, key, value, expected):
+    pair = KeyValuePair(key, value, keypath=[key, value], file=fixture_path(src))
+    assert find_line_number(pair) == expected
 
 
 @pytest.mark.parametrize(
-    ("src", "linenumbers"),
-    [("hardcoded.yml", [12, 14, 15, 16, 19]), ("privatekeys.yml", [5, 7, 11, 12, 13, 14])],
+    ("src", "linenumbers"), [("hardcoded.yml", [12, 14, 15, 16, 19]), ("privatekeys.yml", [5, 7, 11, 12, 13, 14])],
 )
 def test_find_line_number_all(src, linenumbers):
     args = parse_args([fixture_path(src)])
-    secrets = core.run(args)
+    secrets = run(args)
     for number in linenumbers:
         assert next(secrets).line == number
 
 
 @pytest.mark.parametrize(
-    ("rulefile", "expected_count"),
-    [("empty.yml", 0), ("valid.yml", 1), ("multiple.yml", 4), ("invalid.yml", 0)],
+    ("configfile", "expected", "raised"),
+    [
+        ("example.yml", safe_load(CONFIG_PATH.joinpath("example.yml").read_text()), does_not_raise()),
+        ("invalid.yml", {}, pytest.raises(ParserError)),
+    ],
 )
-def test_load_yaml_from_file(rulefile, expected_count):
-    rulefile = Path(rule_path(rulefile))
-    assert len(load_yaml_from_file(rulefile)) == expected_count
+def test_load_yaml_from_file(configfile, expected, raised):
+    with raised:
+        result = load_yaml_from_file(CONFIG_PATH.joinpath(configfile))
+        assert result == expected
 
 
-def test_secret_checksum():
-    secret = Secret("file", 123, "key", "value", "message", "severity")
-    assert secret_checksum(secret) == "6370fb4455c053420588d92bd292d371"
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", True),
+        (b"whispers", True),
+        (1234, True),
+        (type(None), False),
+        (".,:R*!#&_", True),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", True),
+        ("\u5341", False),
+    ],
+)
+def test_is_ascii(data, expected):
+    assert is_ascii(data) == expected
 
 
-def test_format_secret():
-    secret = Secret("file", 123, "key", "value", "message", "severity")
-    assert format_secret(secret) == (
-        "6370fb4455c053420588d92bd292d371:\n  "
-        + 'file: "file"\n  line: "123"\n  key: "key"\n  '
-        + 'value: "value"\n  message: "message"\n  severity: "severity"\n\n'
-    )
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", False),
+        ("d2hpc3BlcnMK", True),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_base64(data, expected):
+    assert is_base64(data) == expected
 
 
-def test_format_stdout():
-    secret = Secret("file", 123, "key", "value", "message", "severity")
-    secret_str = json.dumps(secret._asdict())
-    assert format_stdout(secret) == secret_str
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", True),
+        ("d2hpc3BlcnMK", True),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_base64_bytes(data, expected):
+    assert is_base64_bytes(data) == expected
 
 
-def test_format_stdout_to_file():
-    secret = Secret("file", 123, "key", "value", "message", "severity")
-    secret_str = json.dumps(secret._asdict())
-    fd, tmp = mkstemp()
-    result = format_stdout(secret, Path(tmp))
-    os.close(fd)
-    os.remove(tmp)
-    assert result == secret_str
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", False),
+        ("http://", False),
+        ("http://user:pass@localhost.localdomain", True),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_uri(data, expected):
+    assert is_uri(data) == expected
+
+
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", False),
+        ("C:\\Windows", True),
+        ("file:///home/user", True),
+        ("root:///var/log/nginx", True),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_path(data, expected):
+    assert is_path(data) == expected
+
+
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", False),
+        ("!Ref Whispers", True),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_iac(data, expected):
+    assert is_iac(data) == expected
+
+
+@pytest.mark.parametrize(
+    ("data", "expected"),
+    [
+        ("whispers", False),
+        (4111111111111111, True),
+        (4111111111111112, False),
+        (1234, False),
+        (type(None), False),
+        (".,:R*!#&_", False),
+        (b"\xcc", False),
+        ("\xcc", False),
+        ("\u0041", False),
+        ("\u5341", False),
+    ],
+)
+def test_is_luhn(data, expected):
+    assert is_luhn(data) == expected

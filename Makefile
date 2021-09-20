@@ -8,7 +8,7 @@ flake8-lint:
 	flake8 whispers/ tests/
 
 isort-lint:
-	isort --check-only --recursive whispers/ tests/
+	isort --check-only whispers/ tests/
 
 black-lint:
 	black --check whispers/ tests/
@@ -16,7 +16,9 @@ black-lint:
 lint: isort-lint black-lint flake8-lint
 
 format:
-	isort --recursive whispers/ tests/
+	autoflake --in-place --recursive --remove-all-unused-imports whispers/ tests/
+	autopep8 --in-place --recursive --aggressive --aggressive whispers/ tests/
+	isort whispers/ tests/
 	black whispers/ tests/
 
 unit:
@@ -35,17 +37,13 @@ docker:
 	docker rmi -f $$(docker images --filter "dangling=true" -q --no-trunc)
 
 freeze:
-	CUSTOM_COMPILE_COMMAND="make freeze" pip-compile --no-index --output-file requirements.txt setup.py
+	CUSTOM_COMPILE_COMMAND="make freeze" pip-compile --no-emit-index-url --output-file=- > requirements.txt
 
-freeze-upgrade:
-	CUSTOM_COMPILE_COMMAND="make freeze-upgrade" pip-compile --no-index --upgrade --output-file requirements.txt setup.py
-
-dist:
-	rm -rf dist
-	python3 setup.py sdist
-	python3 -m twine upload dist/*
+publish:
+	python3 setup.py sdist bdist_wheel
+	twine upload --skip-existing dist/*
 
 test-pip:
 	python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps whispers
 
-.PHONY: install install-dev isort-lint black-lint flake8-lint format lint unit coverage test dist
+.PHONY: install install-dev isort-lint black-lint flake8-lint format lint unit coverage test publish

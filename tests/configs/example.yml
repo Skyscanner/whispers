@@ -1,8 +1,8 @@
 exclude:
   files:
-    - "*.npmrc"
-    - "*coded*"
-    - ".git/*/**"
+    - \.npmrc
+    - .*coded.*
+    - \.git/.*
   keys:
     - SECRET_VALUE_KEY
   values:

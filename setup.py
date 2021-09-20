@@ -1,7 +1,4 @@
-import os
 from importlib import import_module
-from pathlib import Path
-
 from setuptools import find_packages, setup
 
 
@@ -9,19 +6,21 @@ def get_version():
     return import_module("whispers.__version__").__version__
 
 
-install_requires = ["luhn>=0.2.0", "lxml>=4.6.2", "pyyaml>=5.3.1", "astroid>=2.4.2", "jproperties>=2.1.0", "python-levenshtein>=0.12.0", "beautifulsoup4>=4.9.3"]
+install_requires = ["luhn", "lxml", "pyyaml", "astroid", "jproperties", "python-levenshtein", "beautifulsoup4"]
 
 dev_requires = [
-    "black>=19.10b0",
-    "coverage~=4.4",
-    "coverage-badge>=1.0.1",
-    "flake8>=3.8.1",
-    "isort>=4.3.21",
-    "pytest>=2.9.1",
-    "pytest-mock>=1.0",
-    "pip-tools>=4.4.1",
-    "wheel>=0.34.2",
-    "twine>=3.1.1",
+    "autoflake~=1.4",
+    "autopep8~=1.5",
+    "black~=19.10b0",
+    "coverage~=4.5",
+    "coverage-badge~=1.0",
+    "flake8~=3.9",
+    "isort~=5.9",
+    "pytest~=6.2",
+    "pytest-mock~=3.6",
+    "pip-tools~=6.2",
+    "wheel~=0.37",
+    "twine~=3.4",
 ]
 
 setup(
@@ -38,5 +37,5 @@ setup(
     setup_requires=["pytest-runner"],
     tests_require=dev_requires,
     extras_require={"dev": dev_requires},
-    entry_points={"console_scripts": ["whispers=whispers.cli:cli"]},
+    entry_points={"console_scripts": ["whispers=whispers.main:cli"]},
 )

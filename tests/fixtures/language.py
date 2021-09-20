@@ -4,11 +4,7 @@ password = secrets["password"]
 password = asdf
 if 1 == 1:
     auth = True
-secrets = get_secrets(
-    CONFIG["secret_key"],
-    API_CONFIG["secret_key"],
-    DB_CONFIG["secret_key"],
-)
+secrets = get_secrets(CONFIG["secret_key"], API_CONFIG["secret_key"], DB_CONFIG["secret_key"],)
 os.getenv("PASSWORD")
 os.getenv("PASSWORD", "")
 getenv("PASSWORD", "")

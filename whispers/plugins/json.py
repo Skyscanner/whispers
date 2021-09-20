@@ -1,13 +1,15 @@
 import json
 import re
 from pathlib import Path
+from typing import Iterator
 
-from whispers.log import debug
+from whispers.core.log import global_exception_handler
+from whispers.core.utils import KeyValuePair
 from whispers.plugins.traverse import StructuredDocument
 
 
 class Json(StructuredDocument):
-    def pairs(self, filepath: Path):
+    def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
         """
         Convert custom JSON to parsable JSON
         - Remove lines that start with // comments
@@ -24,5 +26,5 @@ class Json(StructuredDocument):
         try:
             document = json.loads(document)
             yield from self.traverse(document)
-        except Exception as e:
-            debug(f"{type(e)} in {filepath}")
+        except Exception:
+            global_exception_handler(filepath.as_posix(), document)

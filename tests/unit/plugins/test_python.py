@@ -10,11 +10,7 @@ from whispers.plugins.python import Python
 
 
 @pytest.mark.parametrize(
-    ("code", "exception"),
-    [
-        ("a=1", does_not_raise()),
-        ("invalid:", pytest.raises(StopIteration)),
-    ],
+    ("code", "exception"), [("a=1", does_not_raise()), ("invalid:", pytest.raises(StopIteration)),],
 )
 def test_pairs(code, exception):
     stamp = datetime.now().timestamp()
@@ -31,7 +27,7 @@ def test_pairs(code, exception):
 
 
 @pytest.mark.parametrize(
-    ("key", "expectation"),
+    ("key", "expected"),
     [
         (None, False),
         (True, False),
@@ -43,13 +39,13 @@ def test_pairs(code, exception):
         (JoinedStr("a"), False),
     ],
 )
-def test_is_key(key, expectation):
+def test_is_key(key, expected):
     plugin = Python()
-    assert plugin.is_key(key) == expectation
+    assert plugin.is_key(key) == expected
 
 
 @pytest.mark.parametrize(
-    ("value", "expectation"),
+    ("value", "expected"),
     [
         (None, False),
         (True, False),
@@ -61,9 +57,9 @@ def test_is_key(key, expectation):
         (JoinedStr("a"), True),
     ],
 )
-def test_is_value(value, expectation):
+def test_is_value(value, expected):
     plugin = Python()
-    assert plugin.is_value(value) == expectation
+    assert plugin.is_value(value) == expected
 
 
 @pytest.mark.parametrize(
@@ -87,7 +83,9 @@ def test_traverse_parse(code, key, value, exception):
     ast = astroid.parse(code)
     pairs = plugin.traverse(ast)
     with exception:
-        assert next(pairs) == (key, value)
+        pair = next(pairs)
+        assert pair.key == key
+        assert pair.value == value
 
 
 @pytest.mark.parametrize(
@@ -104,4 +102,6 @@ def test_traverse_extract(code, key, value, exception):
     ast = astroid.extract_node(code)
     pairs = plugin.traverse(ast)
     with exception:
-        assert next(pairs) == (key, value)
+        pair = next(pairs)
+        assert pair.key == key
+        assert pair.value == value

@@ -1,55 +1,68 @@
 import shlex
 from pathlib import Path
+from typing import Iterator
 
-from whispers.log import debug
-from whispers.utils import escaped_chars, strip_string
+from whispers.core.log import global_exception_handler
+from whispers.core.utils import ESCAPED_CHARS, KeyValuePair, strip_string
 
 
 class Shell:
-    def pairs(self, filepath: Path):
-        for cmdline in self.read_commands(filepath):
+    def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
+        for cmdline, lineno in self.read_commands(filepath):
             try:
                 cmd = shlex.split(cmdline)
             except Exception:
-                debug(f"Failed parsing {filepath.as_posix()}\n{cmdline}")
+                global_exception_handler(filepath.as_posix(), cmdline)
                 continue
+
             if not cmd:
                 continue
+
             elif cmd[0].lower() == "curl":
                 yield from self.curl(cmd)
+
             for item in cmd:
                 if "=" in item and len(item.split("=")) == 2:
                     key, value = item.split("=")
-                    yield key, value
+                    yield KeyValuePair(key, value, keypath=[key], line=lineno)
 
     def read_commands(self, filepath: Path) -> str:
+        lineno = 0
         ret = []
         for line in filepath.open("r").readlines():
+            lineno += 1
             line = line.strip()
             if line.startswith("#"):  # Comments
                 line = line.lstrip("#").strip()
-                line = line.translate(escaped_chars)
+                line = line.translate(ESCAPED_CHARS)
+
             elif line.endswith("\\"):  # Multi-line commands
                 ret.append(line[:-1])
                 continue
+
             ret.append(line)
-            yield " ".join(ret)
+            yield " ".join(ret), lineno
             ret = []
 
     def curl(self, cmd):
+        key = "password"
         indicators_combined = ["-u", "--user", "-U", "--proxy-user", "-E", "--cert"]
         indicators_single = ["--tlspassword", "--proxy-tlspassword"]
         indicators = indicators_combined + indicators_single
         for indicator in indicators:
             if indicator not in cmd:
                 continue
+
             idx = cmd.index(indicator)
             if len(cmd) == idx + 1:
                 continue  # End of command
+
             credentials = strip_string(cmd[idx + 1])
             if indicator in indicators_single:
-                yield "cURL_Password", credentials
+                yield KeyValuePair(key, credentials, [key])
+
             else:
                 if ":" not in credentials:
                     continue  # Password not specified
-                yield "cURL_Password", credentials.split(":")[1]
+
+                yield KeyValuePair(key, credentials.split(":")[1], [key])

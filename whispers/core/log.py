@@ -1,17 +1,15 @@
 import logging
 import logging.config
-import traceback
+from argparse import Namespace
 from os import remove
 from pathlib import Path
 
 
-def configure_log(logpath: str = "") -> Path:
-    try:
-        logpath = Path(logpath, "whispers.log")
-        logpath.write_text("")
-    except Exception:
-        debug(f"{logpath} is not valid")
-        raise ValueError
+def configure_log(args: Namespace) -> Path:
+    """Configure logging"""
+    logpath = Path("whispers.log")
+    logpath.write_text("")
+
     logging.config.dictConfig(
         {
             "version": 1,
@@ -21,12 +19,12 @@ def configure_log(logpath: str = "") -> Path:
                     "class": "logging.Formatter",
                     "style": "{",
                     "datefmt": "%Y-%m-%d %H:%M",
-                    "format": "[{asctime:s}] {message:s}\n",
+                    "format": "[{asctime:s}] {message:s}",
                 }
             },
             "handlers": {
                 "default": {
-                    "level": "DEBUG",
+                    "level": args.debug,
                     "class": "logging.handlers.WatchedFileHandler",
                     "formatter": "default",
                     "filename": logpath.as_posix(),
@@ -34,27 +32,20 @@ def configure_log(logpath: str = "") -> Path:
                     "encoding": "utf-8",
                 }
             },
-            "loggers": {"": {"handlers": ["default"], "level": "DEBUG", "propagate": False}},  # root logger
+            # root logger
+            "loggers": {"": {"handlers": ["default"], "level": args.debug, "propagate": False}},
         }
     )
+
     return logpath
 
 
-def cleanup_log(logpath: str = ""):
-    """
-    Delete the log file if it's empty
-    """
-    logpath = Path(logpath, "whispers.log")
+def cleanup_log():
+    """Delete the log file if it's empty"""
+    logpath = Path("whispers.log")
     if not logpath.stat().st_size:
         remove(logpath.as_posix())
 
 
-def debug(message: str = "") -> str:
-    trace = traceback.format_exc().strip()
-    if trace == "NoneType: None":
-        ret = message
-    else:
-        ret = f"{trace}\n{message}"
-    log = logging.getLogger()
-    log.warning(ret)
-    return ret
+def global_exception_handler(file: str, data: str):
+    logging.exception(f"{file}\n{data}")

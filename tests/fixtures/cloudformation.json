@@ -15,7 +15,7 @@
         "NoncompliantDBPassword": {
             "Description": "Database password",
             "Type": "String",
-            "Default": "admin"
+            "Default": "hardcoded-password"
         }
     }
 }

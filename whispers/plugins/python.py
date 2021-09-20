@@ -1,8 +1,9 @@
 from pathlib import Path
+from typing import Iterator, Tuple
 
 import astroid
 
-from whispers.log import debug
+from whispers.core.utils import KeyValuePair
 
 
 class Python:
@@ -12,19 +13,22 @@ class Python:
     Returns key-value pairs
     """
 
-    def pairs(self, filepath: Path):
+    def __init__(self):
+        self.keypath = []
+
+    def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
         try:
             tree = astroid.parse(filepath.read_text())
             yield from self.traverse(tree)
         except Exception as e:
-            debug(f"{type(e)} in {filepath}")
+            print(f"{type(e)} in {filepath}")
 
     @staticmethod
     def is_key(node) -> bool:
         """
         Check if node is a variable
         """
-        types = [astroid.node_classes.Name, astroid.node_classes.AssignName]
+        types = [astroid.nodes.Name, astroid.nodes.AssignName]
         return type(node) in types
 
     @staticmethod
@@ -32,7 +36,7 @@ class Python:
         """
         Check if node is a value
         """
-        types = [astroid.node_classes.Const, astroid.node_classes.JoinedStr, astroid.node_classes.Call]
+        types = [astroid.nodes.Const, astroid.nodes.JoinedStr, astroid.nodes.Call]
         return type(node) in types
 
     @staticmethod
@@ -43,7 +47,7 @@ class Python:
         """
         ret = ""
         for value in nodes:
-            if not isinstance(value, astroid.node_classes.Const):
+            if not isinstance(value, astroid.nodes.Const):
                 return ""
             ret += f"{value.value}"
         return ret
@@ -53,71 +57,80 @@ class Python:
         Converts node valid objects to string
         Returns empty string otherwise
         """
-        if isinstance(node, astroid.node_classes.Name):
+        if isinstance(node, astroid.nodes.Name):
             return node.name
-        if isinstance(node, astroid.node_classes.AssignName):
+        if isinstance(node, astroid.nodes.AssignName):
             return node.name
-        if isinstance(node, astroid.node_classes.Const):
+        if isinstance(node, astroid.nodes.Const):
             return node.value
-        if isinstance(node, astroid.node_classes.JoinedStr):
+        if isinstance(node, astroid.nodes.JoinedStr):
             return self.node_concat_const(node.values)
-        if isinstance(node, astroid.node_classes.Keyword):
+        if isinstance(node, astroid.nodes.Keyword):
             return node.arg
-        if isinstance(node, astroid.node_classes.Call):
+        if isinstance(node, astroid.nodes.Call):
             return self.node_concat_const(node.args)
         return ""
 
-    def traverse(self, tree):
+    def traverse(self, tree) -> Iterator[Tuple]:
         """
         Recursively traverse nodes yielding key-value pairs
         """
         for node in tree.get_children():
             yield from self.traverse(node)
+
             # Assignment
-            if isinstance(node, astroid.node_classes.Assign):
+            if isinstance(node, astroid.nodes.Assign):
                 if not self.is_value(node.value):
                     continue
+
                 value = self.node_to_str(node.value)
                 for key in node.targets:
                     key = self.node_to_str(key)
-                    if key and value:
-                        yield key, value
+                    if key and value and isinstance(value, (str, int)):
+                        yield KeyValuePair(key, value, keypath=[key], line=node.lineno)
+
             # Comparison
-            elif isinstance(node, astroid.node_classes.Compare):
+            elif isinstance(node, astroid.nodes.Compare):
                 left = node.left
                 right = node.ops[0][1]
                 key, value = "", ""
                 if self.is_key(left) and self.is_value(right):
                     key = self.node_to_str(left)
                     value = self.node_to_str(right)
+
                 elif self.is_key(right) and self.is_value(left):
                     key = self.node_to_str(right)
                     value = self.node_to_str(left)
-                if key and value:
-                    yield key, value
+
+                if key and value and isinstance(value, (str, int)):
+                    yield KeyValuePair(key, value, keypath=[key], line=node.lineno)
+
             # Dictionary values
-            elif isinstance(node, astroid.node_classes.Dict):
+            elif isinstance(node, astroid.nodes.Dict):
                 for key, value in node.items:
                     if not self.is_value(value):
                         continue
+
                     key = self.node_to_str(key)
                     value = self.node_to_str(value)
-                    if key and value:
-                        yield key, value
+                    if key and value and isinstance(value, (str, int)):
+                        yield KeyValuePair(key, value, keypath=[key], line=node.lineno)
+
             # Keywords
-            elif isinstance(node, astroid.node_classes.Keyword):
+            elif isinstance(node, astroid.nodes.Keyword):
                 key = self.node_to_str(node)
                 value = self.node_to_str(node.value)
-                if key and value:
-                    yield key, value
+                if key and value and isinstance(value, (str, int)):
+                    yield KeyValuePair(key, value, keypath=[key], line=node.lineno)
+
             # Function call
-            elif isinstance(node, astroid.node_classes.Call):
+            elif isinstance(node, astroid.nodes.Call):
                 key = "function"
                 value = node.as_string()  # Entire function call
-                yield key, value
+                yield KeyValuePair(key, value, keypath=[key], line=node.lineno)
                 yield from self.parse_env_functions(node)
 
-    def parse_env_functions(self, node: astroid.node_classes.Call):
+    def parse_env_functions(self, node: astroid.nodes.Call):
         """
         Decompose environment calls into key-value pairs
         """
@@ -132,4 +145,4 @@ class Python:
                 key = self.node_to_str(key)
                 value = self.node_to_str(value)
                 if key and value:
-                    yield key, value
+                    yield KeyValuePair(key, value, keypath=[key], line=node.lineno)

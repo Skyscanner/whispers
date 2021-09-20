@@ -6,7 +6,7 @@ def get_version():
     return import_module("whispers.__version__").__version__
 
 
-install_requires = ["luhn", "lxml", "pyyaml", "astroid", "jproperties", "python-levenshtein", "beautifulsoup4"]
+install_requires = ["dataclasses", "luhn", "lxml", "pyyaml", "astroid", "jproperties", "python-levenshtein", "beautifulsoup4"]
 
 dev_requires = [
     "autoflake~=1.4",

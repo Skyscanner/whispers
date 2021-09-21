@@ -156,7 +156,7 @@ def load_plugin(file: Path) -> Optional[object]:
     elif file.name == "pip.conf":
         return Pip
 
-    elif filetype in ["conf", "cfg", "config", "ini", "env", "credentials", "s3cfg"]:
+    elif filetype in ["conf", "cfg", "cnf", "config", "ini", "env", "credentials", "s3cfg"]:
         with file.open("r") as fh:
             if fh.readline().startswith("<?xml "):
                 return Xml

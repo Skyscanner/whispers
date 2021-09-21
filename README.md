@@ -100,16 +100,15 @@ There are several configuration options available in Whispers. It’s possible t
 ```yaml
 include:
   files:
-    - "**/*.yml"
+    - "**/*.yml"  # glob
 
 exclude:
   files:
-    - "**/test/**/*"
-    - "**/tests/**/*"
+    - .*/tests?/  # regex
   keys:
-    - ^foo
+    - ^foo        # regex
   values:
-    - bar$
+    - bar$        # regex
 
 rules:
   - password
@@ -120,6 +119,11 @@ rules:
     value:
       regex: (Aria|Ned) Stark
       ignorecase: True
+
+severity:
+  - CRITICAL
+  - BLOCKER
+  - MAJOR
 ```
 
 The fastest way to tweak detection (ie: remove false positives and unwanted results) is to copy the default [config.yml](whispers/config.yml) into a new file, adapt it, and pass it as an argument to Whispers.

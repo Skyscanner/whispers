@@ -1,6 +1,6 @@
 import shlex
 from pathlib import Path
-from typing import Iterator
+from typing import Iterator, Tuple
 
 from whispers.core.log import global_exception_handler
 from whispers.core.utils import ESCAPED_CHARS, KeyValuePair, strip_string
@@ -26,11 +26,9 @@ class Shell:
                     key, value = item.split("=")
                     yield KeyValuePair(key, value, keypath=[key], line=lineno)
 
-    def read_commands(self, filepath: Path) -> str:
-        lineno = 0
+    def read_commands(self, filepath: Path) -> Tuple[str, int]:
         ret = []
-        for line in filepath.open("r").readlines():
-            lineno += 1
+        for lineno, line in enumerate(filepath.open(), 1):
             line = line.strip()
             if line.startswith("#"):  # Comments
                 line = line.lstrip("#").strip()
@@ -44,7 +42,7 @@ class Shell:
             yield " ".join(ret), lineno
             ret = []
 
-    def curl(self, cmd):
+    def curl(self, cmd) -> Iterator[KeyValuePair]:
         key = "password"
         indicators_combined = ["-u", "--user", "-U", "--proxy-user", "-E", "--cert"]
         indicators_single = ["--tlspassword", "--proxy-tlspassword"]

@@ -6,9 +6,7 @@ from whispers.core.utils import KeyValuePair
 
 class Dockerfile:
     def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
-        lineno = 0
-        for line in filepath.open("r").readlines():
-            lineno += 1
+        for lineno, line in enumerate(filepath.open(), 1):
             # ENV key=value
             if line.startswith("ENV "):
                 item = line.replace("ENV ", "", 1)

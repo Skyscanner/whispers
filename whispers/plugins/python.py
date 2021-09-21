@@ -4,7 +4,7 @@ from typing import Iterator, Tuple
 import astroid
 
 from whispers.core.utils import KeyValuePair
-
+from whispers.core.log import global_exception_handler
 
 class Python:
     """
@@ -21,7 +21,7 @@ class Python:
             tree = astroid.parse(filepath.read_text())
             yield from self.traverse(tree)
         except Exception as e:
-            print(f"{type(e)} in {filepath}")
+            global_exception_handler(filepath.as_posix(), tree.as_string())
 
     @staticmethod
     def is_key(node) -> bool:

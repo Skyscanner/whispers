@@ -7,10 +7,7 @@ from whispers.plugins.uri import Uri
 
 class Plaintext:
     def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
-        lineno = 0
-
-        for line in filepath.open("r").readlines():
-            lineno += 1
+        for lineno, line in enumerate(filepath.open(), 1):
             if not strip_string(line):
                 continue
 

@@ -7,14 +7,11 @@ from whispers.core.utils import KeyValuePair
 
 class Pip:
     def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
-        lineno = 0
-        key = "pip password"
-
-        for line in filepath.open("r").readlines():
-            lineno += 1
+        for lineno, line in enumerate(filepath.open(), 1):
             if "http" not in line:
                 continue
 
             value = urlparse(line.split("=")[-1].strip()).password
             if value:
+                key = "pip password"
                 yield KeyValuePair(key, value, keypath=[key], line=lineno)

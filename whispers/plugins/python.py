@@ -3,8 +3,9 @@ from typing import Iterator, Tuple
 
 import astroid
 
-from whispers.core.utils import KeyValuePair
 from whispers.core.log import global_exception_handler
+from whispers.core.utils import KeyValuePair
+
 
 class Python:
     """
@@ -18,10 +19,11 @@ class Python:
 
     def pairs(self, filepath: Path) -> Iterator[KeyValuePair]:
         try:
-            tree = astroid.parse(filepath.read_text())
+            code = filepath.read_text()
+            tree = astroid.parse(code)
             yield from self.traverse(tree)
-        except Exception as e:
-            global_exception_handler(filepath.as_posix(), tree.as_string())
+        except Exception:
+            global_exception_handler(filepath.as_posix(), code[:100])
 
     @staticmethod
     def is_key(node) -> bool:

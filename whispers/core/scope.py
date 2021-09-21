@@ -11,11 +11,11 @@ def load_scope(args: Namespace, config: dict) -> Iterator[Path]:
 
     if src.is_file():
         yield src
-        return
 
-    for include in included:
-        for path in src.rglob(include):
-            if excluded and excluded.match(path.as_posix()):
-                continue
+    else:
+        for include in included:
+            for path in src.rglob(include):
+                if excluded and excluded.match(path.as_posix()):
+                    continue
 
-            yield path
+                yield path

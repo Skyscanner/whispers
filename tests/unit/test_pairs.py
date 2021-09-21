@@ -39,7 +39,6 @@ def test_make_pairs(filename, expected):
     args = parse_args([filename])
     config = load_config(args)
     pairs = list(make_pairs(config, Path(filename)))
-    print(pairs)
     assert len(pairs) == expected
 
 

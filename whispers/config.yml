@@ -4,24 +4,10 @@ include:
 
 exclude:
   files:
-    - .*\.git/
-    - .*\.vscode/
-    - build/
-    - dev/
-    - .*/__pycache__/
-    - .*/\.eggs/
-    - .*/locales/
-    - .*/spec/
-    - .*/specs/
-    - .*/test/
-    - .*/tests/
-    - .*/mock/
-    - .*/mocks/
-    - .*/integration/
-    - .*/package-lock\.json
-    - .*/package\.json
-    - .*/npm-shrinkwrap\.json
-    - .*/node_modules/
+    - .*/(__pycache__|\.eggs|build|dev|\.vscode|\.git)/
+    - .*/(locale|spec|test|mock)s?/
+    - .*/(integration|node_modules)/
+    - .*/(package(-lock)?|npm-shrinkwrap)\.json
 
   keys:
     - .*(public|project).*

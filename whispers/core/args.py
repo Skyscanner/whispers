@@ -17,7 +17,7 @@ def argument_parser() -> ArgumentParser:
     args_parser.add_argument("-o", "--output", help="output file")
     args_parser.add_argument("-e", "--exitcode", default=0, type=int, help="exit code on success")
     args_parser.add_argument("-r", "--rules", help="comma-separated list of rule IDs (see --info)")
-    args_parser.add_argument("-s", "--severity", help="comma-separated list of levels to report (see --info)")
+    args_parser.add_argument("-s", "--severity", help="comma-separated list of severity levels to report (see --info)")
     args_parser.add_argument(
         "-d",
         "--debug",

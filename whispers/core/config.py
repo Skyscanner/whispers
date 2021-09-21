@@ -37,6 +37,7 @@ def default_config_structure(config: dict):
             if not config["exclude"][idx]:
                 continue
 
+            # Create a single regex statement and compile it for efficient matching
             unified = "|".join(config["exclude"][idx])
             config["exclude"][idx] = re.compile(unified)
 

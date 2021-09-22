@@ -8,7 +8,7 @@ from yaml import safe_load_all
 from whispers.core.utils import DEFAULT_PATH
 
 
-def load_rules(args: Namespace, config: dict):
+def load_rules(args: Namespace, config: dict) -> List[dict]:
     """Loads applicable rules based on args and config"""
     rule_ids = args.rules or config["rules"]
     severities = args.severity or config["severity"]

@@ -37,7 +37,25 @@ docker:
 	docker rmi -f $$(docker images --filter "dangling=true" -q --no-trunc)
 
 freeze:
-	CUSTOM_COMPILE_COMMAND="make freeze" pip-compile --no-emit-index-url --output-file=- > requirements.txt
+	CUSTOM_COMPILE_COMMAND="make freeze" \
+	pip-compile \
+		--index-url https://pypi.python.org/simple/ \
+		--output-file requirements.txt \
+		--no-annotate \
+		--strip-extras \
+		--no-allow-unsafe \
+		setup.py
+
+freeze-upgrade:
+	CUSTOM_COMPILE_COMMAND="make freeze-upgrade" \
+	pip-compile \
+		--index-url https://pypi.python.org/simple/ \
+		--output-file requirements.txt \
+		--no-annotate \
+		--strip-extras \
+		--no-allow-unsafe \
+		--upgrade \
+		setup.py
 
 publish:
 	python3 setup.py sdist bdist_wheel

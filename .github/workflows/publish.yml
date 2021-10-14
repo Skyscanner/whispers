@@ -24,8 +24,8 @@ jobs:
       - name: install
         run: make install-dev
 
-      - name: test
-        run: make test
+      - name: lint
+        run: make lint
 
       - name: coverage
         run: make coverage

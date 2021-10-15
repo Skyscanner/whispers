@@ -1,9 +1,11 @@
 name: publish
 
 on:
-  push:
+  release:
     branches:
       - master
+    types:
+      - released
 
 jobs:
   deploy:

@@ -2,6 +2,11 @@ name: publish
 
 on:
   release:
+<<<<<<< HEAD
+=======
+    branches:
+      - master
+>>>>>>> d0cf00e0d49caed4ec80a31889b33a1654fe4b56
     types:
       - released
 

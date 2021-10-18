@@ -7,9 +7,9 @@
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
 [![](https://img.shields.io/pypi/dm/whispers)](https://img.shields.io/pypi/dm/whispers)
 
-> "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Lord Varys_
+> "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Varys_
 
-Whispers is a static code analysis tool designed for parsing various common data formats in search of hardcoded credentials and dangerous functions. Whispers can run in the CLI or you can integrate it in your CI/CD pipeline.
+Whispers is a static text analysis tool designed for parsing various common software config formats in search of hardcoded secrets. Whispers can run in the CLI or be integrated it a CI/CD pipeline.
 
 
 ## Detects

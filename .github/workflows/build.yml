@@ -1,4 +1,4 @@
-name: main
+name: build
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - master
 
 jobs:
-  main:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:

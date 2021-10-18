@@ -6,7 +6,7 @@
 #
 --index-url https://pypi.python.org/simple/
 
-astroid==2.8.2
+astroid==2.8.3
 beautifulsoup4==4.10.0
 dataclasses==0.6
 jproperties==2.1.1

@@ -9,23 +9,11 @@
 
 > "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Varys_
 
-Whispers is a static text analysis tool designed for parsing various common software config formats in search of hardcoded secrets. Whispers can run in the CLI or be integrated it a CI/CD pipeline.
+Whispers is a static text analysis tool designed for parsing various common software config formats in search of hardcoded secrets. Whispers can run in the CLI or be integrated in a CI/CD pipeline.
 
-
-## Detects
-* Passwords
-* API tokens
-* AWS keys
-* Private keys
-* Hashed credentials
-* Authentication tokens
-* Dangerous functions
-* Sensitive files
+Whispers is a **static structured text** parser, not dynamic code parser.
 
 ## Supported Formats
-Whispers is intended to be a **structured text** parser, not a code parser.
-
-The following commonly used formats are currently supported:
 * YAML
 * JSON
 * XML
@@ -37,17 +25,23 @@ The following commonly used formats are currently supported:
 * conf / ini
 * Dockerfile
 * Shell scripts
-* Python3
-
-Python3 files are parsed as ASTs because of native language support.
-
-## Special Formats
+* Python3 (parsed as AST due to native language support)
 * AWS credentials files
 * JDBC connection strings
 * Jenkins config files
 * SpringFramework Beans config files
 * Java Properties files
 * Dockercfg private registry auth files
+
+## Detects
+* Passwords
+* API tokens
+* AWS keys
+* Private keys
+* Hashed credentials
+* Authentication tokens
+* Dangerous functions
+* Sensitive files
 
 ## Installation
 
@@ -161,7 +155,7 @@ Rules specify the actual things that should be pulled out from key-value pairs. 
 
 
 ## Plugins
-All parsing functionality is implemented via plugins. Each plugin implements a class with the `pairs()` method that runs through files and returns a KeyValuePair object to be checked with rules. 
+All parsing functionality is implemented via plugins. Each plugin implements a class with the `pairs()` method that runs through files and returns a `KeyValuePair` object to be checked with rules.
 
 ```py
 from whispers.core.utils import KeyValuePair

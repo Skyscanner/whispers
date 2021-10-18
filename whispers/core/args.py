@@ -10,7 +10,7 @@ from whispers.core.utils import DEFAULT_SEVERITY
 
 def argument_parser() -> ArgumentParser:
     """CLI argument parser"""
-    args_parser = ArgumentParser("whispers", description=("Identify secrets and dangerous behaviours"))
+    args_parser = ArgumentParser("whispers", description=("Identify secrets in static structured text."))
     args_parser.add_argument("-v", "--version", action="version", version=__version__)
     args_parser.add_argument("-i", "--info", action="store_true", help="show extended help and exit")
     args_parser.add_argument("-c", "--config", help="config file")

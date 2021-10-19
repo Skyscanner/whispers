@@ -64,6 +64,7 @@ def default_rule_structure(rule: dict):
 
 
 def _ensure_exists(key: str, rule: dict):
+    """Ensure both rule key and its value are defined"""
     if key not in rule or not rule[key]:
         raise IndexError(f"Rule '{rule}' is missing '{key}' specification")
 

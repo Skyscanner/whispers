@@ -4,8 +4,6 @@
 #
 #    make freeze
 #
---index-url https://pypi.python.org/simple/
-
 astroid==2.8.3
 beautifulsoup4==4.10.0
 dataclasses==0.6

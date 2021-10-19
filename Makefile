@@ -39,7 +39,7 @@ docker:
 freeze:
 	CUSTOM_COMPILE_COMMAND="make freeze" \
 	pip-compile \
-		--no-emit-index-url \
+		--index-url https://pypi.python.org/simple/ \
 		--output-file requirements.txt \
 		--no-annotate \
 		--strip-extras \
@@ -49,7 +49,7 @@ freeze:
 freeze-upgrade:
 	CUSTOM_COMPILE_COMMAND="make freeze-upgrade" \
 	pip-compile \
-		--no-emit-index-url \
+		--index-url https://pypi.python.org/simple/ \
 		--output-file requirements.txt \
 		--no-annotate \
 		--strip-extras \

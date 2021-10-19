@@ -20,7 +20,7 @@ from whispers.plugins.xml import Xml
 from whispers.plugins.yml import Yml
 
 
-def make_pairs(config: dict, file: Path) -> Iterator[KeyValuePair]:
+def make_pairs(config: dict, file: Path) -> Optional[Iterator[KeyValuePair]]:
     """Generates KeyValuePair objects by parsing given file"""
     if not file.exists():
         return

@@ -13,6 +13,10 @@ DEFAULT_SEVERITY = ["BLOCKER", "CRITICAL", "MAJOR", "MINOR", "INFO"]
 
 ESCAPED_CHARS = str.maketrans({"'": r"\'", '"': r"\""})
 
+REGEX_URI = re.compile(r"(?!\s)[:\w\d]+://.+", flags=re.IGNORECASE)
+REGEX_PATH = re.compile(r"^((([A-Z]|file|root):)?(\.+)?[/\\]+).*$", flags=re.IGNORECASE)
+REGEX_IAC = re.compile(r"\![A-Za-z]+ .+", flags=re.IGNORECASE)
+
 
 @dataclass
 class KeyValuePair:
@@ -127,12 +131,10 @@ def is_uri(data: str) -> bool:
     if isinstance(data, int):
         return False
 
-    regex = r"(?!\s)[:\w\d]+://.+"
-
     if any(map(lambda ch: ch in data, string.whitespace)):
         return False
 
-    if not re.match(regex, data, flags=re.IGNORECASE):
+    if not REGEX_URI.match(data):
         return False
 
     return True
@@ -146,9 +148,7 @@ def is_path(data: str) -> bool:
     if isinstance(data, int):
         return False
 
-    regex = r"^((([A-Z]|file|root):)?(\.+)?[/\\]+).*$"
-
-    if not re.match(regex, data, flags=re.IGNORECASE):
+    if not REGEX_PATH.match(data):
         return False
 
     return True
@@ -162,9 +162,7 @@ def is_iac(data: str) -> bool:
     if isinstance(data, int):
         return False
 
-    regex = r"\![A-Za-z]+ .+"
-
-    if not re.match(regex, data, flags=re.IGNORECASE):
+    if not REGEX_IAC.match(data):
         return False
 
     return True

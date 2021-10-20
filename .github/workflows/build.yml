@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['pypy-3.6', 'pypy-3.7', 'pypy-3.8', 'pypy-3.9']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
 
     steps:
       - name: checkout
@@ -22,6 +22,7 @@ jobs:
 
       - name: setup python${{ matrix.python-version }}
         uses: actions/setup-python@v2
+        run: python -m ensurepip --upgrade
         with:
           python-version: ${{ matrix.python-version }}
 

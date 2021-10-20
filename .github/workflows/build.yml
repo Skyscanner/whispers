@@ -22,12 +22,13 @@ jobs:
 
       - name: setup python${{ matrix.python-version }}
         uses: actions/setup-python@v2
-        run: python -m ensurepip --upgrade
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: install
-        run: make install-dev
+        run: |
+          python -m ensurepip --upgrade
+          make install-dev
 
       - name: lint
         run: make lint

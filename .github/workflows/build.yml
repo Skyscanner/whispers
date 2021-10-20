@@ -27,10 +27,8 @@ jobs:
 
       - name: install
         run: |
-          python3 -V
           python3 -m pip -V
           pip3 -V
-          sudo apt install -y python3-pip
           make install-dev
 
       - name: lint

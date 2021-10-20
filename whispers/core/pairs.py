@@ -185,7 +185,7 @@ def load_plugin(file: Path) -> Optional[object]:
     elif filetype.startswith("htm"):
         return Html
 
-    elif filetype in ["py", "py3", "py35", "py36", "py37", "py38"]:
+    elif filetype in ["py", "py3", "py35", "py36", "py37", "py38", "py39"]:
         return Python
 
     return None

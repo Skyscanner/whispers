@@ -20,14 +20,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: setup python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+      # - name: setup python ${{ matrix.python-version }}
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: ${{ matrix.python-version }}
 
       - name: install
         run: |
-          apt install -y python3-pip
+          python3 -V
+          python3 -m pip -V
+          pip3 -V
+          sudo apt install -y python3-pip
           make install-dev
 
       - name: lint

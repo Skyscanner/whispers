@@ -24,7 +24,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: install
-        run: make install-dev
+        run: sudo make install-dev
 
       - name: lint
         run: make lint

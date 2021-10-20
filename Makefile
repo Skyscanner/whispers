@@ -1,8 +1,8 @@
 install:
-	pip3 install -e .
+	python3 -m pip install -e .
 
 install-dev:
-	pip3 install -e ".[dev]"
+	python3 -m pip install -e ".[dev]"
 
 flake8-lint:
 	flake8 whispers/ tests/

@@ -30,9 +30,9 @@ from whispers.plugins.yml import Yml
     [
         ("File.404", 0),
         ("/tmp", 0),
-        (fixture_path("language.py2"), 0),
-        (fixture_path(".npmrc"), 3),
-        (fixture_path("placeholders.xml"), 0),
+        (fixture_path("language.py2"), 1),
+        (fixture_path(".npmrc"), 4),
+        (fixture_path("placeholders.xml"), 1),
     ],
 )
 def test_make_pairs(filename, expected):

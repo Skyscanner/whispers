@@ -23,14 +23,20 @@ from whispers.plugins.yml import Yml
 def make_pairs(config: dict, file: Path) -> Optional[Iterator[KeyValuePair]]:
     """Generates KeyValuePair objects by parsing given file"""
     if not file.exists():
-        return
+        return None
 
     if not file.is_file():
-        return
+        return None
 
+    # First, return file name to check if it is a sensitive file
+    pair = KeyValuePair("file", file.as_posix(), keypath=["file"])
+    if filter_included(config, pair):
+        yield tag_file(file, pair)
+
+    # Second, attempt to parse the file with a plugin
     plugin = load_plugin(file)
     if not plugin:
-        return
+        return None
 
     logging.debug(f"Loaded plugin '{plugin}' for file '{file}'")
 

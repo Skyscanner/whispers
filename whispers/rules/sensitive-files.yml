@@ -16,10 +16,9 @@
       (config(\\.inc)?|LocalSettings)\\.php|\
       (secret-token|omniauth|carrierwave|schema|knife)\\.rb|\
       (accounts|dbeaver-data-sources|BapSshPublisherPlugin|credentials|filezilla|recentservers)\\.xml|\
-      (ba|z|da)?sh-history|(bash|zsh)rc|(bash-|zsh-)?(profile|aliases)|\
+      (bash|zsh|dash|mysql|psql|irb)-?(history|rc|profile|aliases)?|\
       kdbx?|(private-|agile)?key(store|ring|chain|pair)|\
-      (mysql|psql|irb)-history|pgpass|\
-      log|pcap|sql(dump)?|gnucash|dump|\
+      pgpass|log|pcap|sql(dump)?|gnucash|dump|\
       backup|back|bck|~1|\
       kwallet|tblk|pubxml(\\.user)?|\
       Favorites\\.plist|configuration\\.user\\.xpl|\

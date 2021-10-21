@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 
 from tests.unit.conftest import FIXTURE_PATH, config_path, fixture_path
@@ -193,7 +191,7 @@ def test_detect_secrets_by_key(src, expected):
     ],
 )
 def test_detect_secrets_by_value(src, expected):
-    args = parse_args([fixture_path(src)])
+    args = parse_args(["-c", config_path("detection_by_value.yml"), fixture_path(src)])
     config = load_config(args)
     rules = load_rules(args, config)
     pairs = make_pairs(config, FIXTURE_PATH.joinpath(src))
@@ -229,7 +227,7 @@ def test_detect_secrets_by_filename(expected):
     pairs = make_pairs(config, FIXTURE_PATH.joinpath(expected))
     result = map(lambda x: x.file, detect_secrets(rules, pairs))
     for item in result:
-        assert Path(item).stem == expected
+        assert item.endswith(expected)
 
 
 @pytest.mark.parametrize(

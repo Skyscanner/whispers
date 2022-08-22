@@ -1,0 +1,9 @@
+
+compliant:
+
+
+noncompliant:
+  grafana_api_key: eyJrIjoiR0ZXZmt1UFc0OEpIOGN5RWdUalBJTllUTk83VlhtVGwiLCJuIjoiYXBpa2V5Y3VybCIsIhardcoded==
+  grafana_service_account_token: glsa_Q0tTx59W5f7LXgxiM4MjJs7hardcoded_e5c6b96d
+  grafana_cloud_api_key: eyJrIjoiZjJlZThiNDMwZGQ0ZDhjNjJhYmQwZWY3NDgxYzhjNjRiNzZkNjYyMiIsIm4iOiJ0ZXN0LWtleSIsImlkIjhardcoded=
+  grafana_cloud_api_token: glc_eyJrIjoiZjI0YzZkNGEwZDBmZmZjMmUzNTU2ODcxMmY0ZWZlNTQ1NTljMDFjOCIsIm4iOiJteXRva2VuIiwhardcoded

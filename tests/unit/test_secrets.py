@@ -93,6 +93,7 @@ def test_detection_by_key(src, expected):
         ("webhooks.yml", 3),
         ("creditcards.yml", 3),
         ("gitkeys.yml", 5),
+        ("grafanatokens.yml", 4),
     ],
 )
 def test_detection_by_value(src, count):

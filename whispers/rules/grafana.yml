@@ -1,0 +1,23 @@
+grafana-cloud-api:
+  description: Values formatted like Grafana Cloud API Token
+  message: Grafana Cloud API Token
+  severity: BLOCKER
+  value:
+    regex: ^glc_[A-Za-z0-9+/]{32,}$
+    ignorecase: False
+
+grafana-api:
+  description: Values formatted like Grafana API Key
+  message: Grafana API Key
+  severity: BLOCKER
+  value:
+    regex: ^eyJrIjoi[A-Za-z0-9]{70,}={0,2}$
+    ignorecase: False
+
+grafana-cloud-api:
+  description: Values formatted like Grafana Service Account Token
+  message: Grafana Service Account Token
+  severity: BLOCKER
+  value:
+    regex: ^glsa_[A-Za-z0-9]{32}_[A-Fa-f0-9]{8}$
+    ignorecase: False

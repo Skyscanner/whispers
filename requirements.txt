@@ -4,7 +4,7 @@
 #
 #    make freeze
 #
-astroid==2.8.3            # via whispers (setup.py)
+astroid==2.15.2            # via whispers (setup.py)
 beautifulsoup4==4.10.0     # via whispers (setup.py)
 jproperties==2.1.1        # via whispers (setup.py)
 luhn==0.2.0               # via whispers (setup.py)

@@ -7,7 +7,7 @@
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
 [![](https://img.shields.io/pypi/dm/whispers)](https://img.shields.io/pypi/dm/whispers)
 
-# Archive Notice - October 11 2023
+# Archive Notice - October 11 2023
 This project has been unmaintained by Skyscanner but the project is still being maintained by the original creator in [https://github.com/adeptex/whispers](https://github.com/adeptex/whispers). This project will remain archived for referencing purposes.
 
 Please head over to [https://github.com/adeptex/whispers](https://github.com/adeptex/whispers) for the latest version of `whispers`.

@@ -12,6 +12,8 @@ This project has been unmaintained by Skyscanner but the project is still being 
 
 Please head over to [https://github.com/adeptex/whispers](https://github.com/adeptex/whispers) for the latest version of `whispers`.
 
+---
+
  > "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Lord Varys_
 
 Whispers is a static code analysis tool designed for parsing various common data formats in search of hardcoded credentials and dangerous functions. Whispers can run in the CLI or you can integrate it in your CI/CD pipeline.

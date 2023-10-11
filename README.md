@@ -7,6 +7,14 @@
 [![](https://img.shields.io/github/issues-pr/Skyscanner/whispers)](https://github.com/Skyscanner/whispers/pulls)
 [![](https://img.shields.io/pypi/dm/whispers)](https://img.shields.io/pypi/dm/whispers)
 
+# Archive Notice - October 11 2023
+This project has been unmaintained since the creator is no longer part of Skyscanner. The project is still maintained by the
+original creator in [https://github.com/adeptex/whispers](https://github.com/adeptex/whispers). This project will remain archived
+for referencing purposes.
+
+Please head over to [https://github.com/adeptex/whispers](https://github.com/adeptex/whispers) for the latest version of
+`whispers`.
+
 > "My little birds are everywhere, even in the North, they whisper to me the strangest stories." - _Lord Varys_
 
 Whispers is a static code analysis tool designed for parsing various common data formats in search of hardcoded credentials and dangerous functions. Whispers can run in the CLI or you can integrate it in your CI/CD pipeline.
